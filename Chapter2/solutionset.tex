@@ -1,0 +1,127 @@
+\begin{center} 
+\emph{``After every storm the sun will smile; for every problem there is a solution, and the soul's indefeasible duty is to be of good cheer.'' --  William R. Alger}
+\end{center}
+
+\section{Solution Sets of Linear Systems}\label{sec:solutionset}
+Recall that a linear system is said to be \emph{homogeneous} if it can be written in the form $A\bb x = \bb 0$, where $A$ is a $m\times n$ matrix, $\bb x \in F^n$, and $\bb 0$ is the zero vector in $F^m$. A homogeneous system $A\bb x = \bb 0$ always has a solution, namely $\bb x = \bb 0$. This can be thought of as the \textbf{trivial solution}. Any other solution to a homogeneous system is a \textbf{nontrivial solution}.\\
+
+\begin{Thm} The homogeneous system $A\bb x = \bb 0$ has a nontrivial solution if and only if the equation has at least one free variable.
+\end{Thm}\vs
+
+\begin{Exam}\label{exam:nullsolutionset} Determine if the following homogeneous system has a nontrivial solution. \\
+$\begin{linear}
+ 3x_1\ &+\ &5x_2\ &+\ &3x_3\ &\equiv\ &0\\
+4x_1\ &+\ &5x_2\ &+\ &4x_3\ &\equiv\ &0\\
+6x_1\ &+\ &x_2\ &+\ &6x_3\ &\equiv\ &0
+\end{linear}\pmod 7.$\\
+
+Let $A$ be the coefficient matrix. Then we must row reduce the augmented matrix $[A\mid \bb 0]$, as seen below.
+\[[A\mid \bb 0] \equiv \mtx{rrr|r}{3 & 5 & 3 & 0\\ 4 & 5 & 4 & 0\\ 6 & 1 & 6 & 0} \sim  \mtx{rrr|r}{3 & 5 & 3 & 0\\ 0 & 3 & 0 & 0\\ 0 & 5 & 0 & 0} \sim \mtx{rrr|r}{3 & 5 & 3 & 0\\ 0 & 3 & 0 & 0\\ 0 & 0 & 0 & 0}.\] Thus, $x_3$ is a free variable. This implies that $A\bb x= \bb0$ has a nontrivial solution! To determine such a solution, we continue to the RREF;
+\[\mtx{rrr|r}{3 & 5 & 3 & 0\\ 0 & 3 & 0 & 0\\ 0 & 0 & 0 & 0} \sim \mtx{rrr|r}{3 & 5 & 3 & 0\\ 0 & 1 & 0 & 0\\ 0 & 0 & 0 & 0} \sim \mtx{rrr|r}{3 & 0 & 3 & 0\\ 0 & 1 & 0 & 0\\ 0 & 0 & 0 & 0} \sim \mtx{rrr|r}{1 & 0 & 1 & 0\\ 0 & 1 & 0 & 0\\ 0 & 0 & 0 & 0}.\] 
+Thus, the system of equations becomes: 
+\[\begin{linear}
+ x_1\ & &&+\ &x_3\ &=\ &0\\
+&&x_2\ &&&=\ &0\\
+&&&&0\ &=\ &0
+\end{linear}\pmod 7\] and the nontrivial solutions are of the form:
+\[\bb x \equiv \vr{x_1 \\ x_2 \\ x_3} \equiv \mtx{c}{6x_3 \\ 0 \\ x_3} \equiv x_3\vr{6\\ 0 \\ 1} \pmod 7.\] Thus, if  $\bb v \equiv \vr{6 \\ 0 \\ 1}$, then the solution set of $A\bb x = \bb 0$ is \[\Span\{\bb v\} = \{t\bb v \mid t\in \Z_7\} = \left\{\vr{0\\0\\0}, \vr{6\\0\\1}, \vr{5\\0\\2}, \vr{4\\0\\3}, \vr{3\\0\\4}, \vr{2\\0\\5}, \vr{1\\0\\6}\right\}. \qedhere\]
+\end{Exam}\vs
+
+\begin{Def}\label{def:null} Let $A$ be an $m\times n$ matrix. Then the \textbf{null space} (or \textbf{kernel}) of $A$, denoted $\nul A$, is the set of all solutions of the homogeneous system $A\bb x = \bb 0$. The \textbf{nullity} of $A$, denoted $\text{nullity}(A)$, is the number of non-pivot columns in $A$. This value counts the number of free variables in the homogeneous system and essentially measures the ``size'' of null space.
+\end{Def}\vs
+
+The null space $A$ is a subset of $F^n$.  Furthermore, $\nul A$ is a subspace. This agrees with the previous example where the solution set was spans of vectors. As such, we can geometrically visualize the solution set to a homogeneous system as a plane through the origin.\\
+
+\begin{Thm} The null space of an $m\times n$ matrix $A$ is a subspace of $F^n$.
+\end{Thm}
+\begin{proof}
+Since $A\bb 0 = \bb 0$, we have that $\bb 0 \in \nul A$. Next, suppose that $\bb x, \bb y \in \nul A$. This means that $A\bb x = \bb 0$ and $A\bb y = \bb 0$. Thus, $A(\bb x + \bb y) = A\bb x + A\bb y = \bb 0 + \bb 0 = \bb 0$. Hence, $\bb x + \bb y \in \nul A$. Finally, if $c\in F$, then $A(c\bb x) = c(A\bb x) = c\bb 0 = \bb 0$. Hence, $c\bb x \in \nul A$. Therefore, $\nul A$ is a subspace of $F^n$.
+\end{proof}\vs 
+
+\begin{Exam}\label{exam:nullspacespan} For the matrix $A=\mtx{rrrr}{1&3&-3&4\\2&1&4&3\\3&-2&13&1}$, find a spanning set for its null space. \\
+
+Note that when solving a homogeneous linear system, the augmented column is just the zero vector and no row operation will ever transform a column of zeros. As such, we often omit the zero column when solving homogeneous systems. In fact, solving homogeneous systems is essentially the same techniques as determining whether a set of vectors is linearly independent (compare \examref{exam:lineardependent}).
+\[\mtx{rrrr}{1&3&-3&4\\2&1&4&3\\3&-2&13&1} \sim \mtx{rrrr}{1&3&-3&4\\0&-5&10&-5\\0&-11&22&-11 } \sim \mtx{rrrr}{1&3&-3&4\\0&1&-2&1\\0&1&-2&1 }\sim \mtx{rrrr}{1&3&-3&4\\0&1&-2&1\\0&0&0&0 } \sim \mtx{rrrr}{1&0&3&1\\0&1&-2&1\\0&0&0&0 }.\]
+
+The associated reduced linear system would then be 
+\[\begin{linear} x_1\ && &+\ &3x_3\ &+\ &x_4\ &=\ &0\\ && x_2\ &-\ &2x_3\ &+\ &x_4\ &=\ &0\\  && && &&0\ &=\ &0\\ \end{linear}\ \sim\ \begin{linear} x_1\ && & & &=\ &-3x_3\ &-\ &x_4\\ && x_2\ && &=\ &2x_3\ &-\ &x_4\\  \end{linear}\] Thus, the general solution to the homogeneous system $A\bb x=\bb 0$ is \[\bb x=\vr{x_1\\x_2\\x_3\\x_4} = \mtx{c}{-3x_3-x_4\\2x_3-x_4\\x_3\\x_4} =  \mtx{c}{-3x_3\\2x_3\\x_3\\0} + \mtx{c}{-x_4\\-x_4\\0\\x_4} = x_3\vr{-3\\2\\1\\0} + x_4\vr{-1\\-1\\0\\1}.\] Let $\bb u = (-3,2,1,0)$ and $\bb v = (-1,-1,0,1)$. Hence, $\nul(A) = \Span\{\bb u, \bb v\}$.   
+\end{Exam}\vs
+
+Like a homogeneous system, a non-homogeneous system of linear equations with multiple solutions can have their solutions expressed in parametric form.\\
+
+\begin{Exam}\label{exam:solutionset} Describe all solutions of $A\bb x = \bb b$ over $\Z_7$, where\\
+$A = \mtx{rrrr}{3&5&3\\4&5&4\\6&1&6}$ and $\bb b = \vr{0 \\ 6 \\ 3}$.\\
+
+Here, $A$ is the same coefficient matrix as in the first example. Thus, using the same row operations, we can see that 
+\[\mtx{rrr|r}{3&5&3&0\\4&5&4&6\\6&1&6&3} \sim \mtx{rrr|r}{1 & 0 & 1 & 6\\ 0 & 1 & 0 & 2\\ 0 & 0 & 0 & 0}.\] Thus, the related system is \[\left\{\begin{alignedat}{100}
+&& x_1\ & &&+\ &x_3\ &=\ &6&\\
+&&&&x_2\ &&&=\ &2&\\
+&&&&&&0\ &=\ &0&.
+\end{alignedat}\right.\] and the solutions are all of the form:
+\[\bb x = \vr{x_1 \\ x_2 \\ x_3} = \mtx{c}{6+6x_3 \\ 2 \\ x_3} = \vr{6\\ 2 \\ 0 } + x_3\vr{6\\ 0 \\ 1}.\] Thus, if  $\bb v = \vr{6 \\ 0 \\ 1}$ and $\bb x_0 = \vr{6\\2\\0}$, then all solutions of $A\bb x = \bb b$ are points on the line determined by $\bb x = \bb x_0 + t\bb v$, $t\in \Z_7$. In fact, $t\bb v$ is the general form of the solutions for $A\bb x = \bb 0$. Thus, any solution to $A\bb x = \bb b$ is of the form $\bb x_0$ plus a solution to $A\bb v = \bb 0$. Using the $\Span\{\bb v\}$ from \examref{exam:nullsolutionset}, we see the seven solutions are 
+\[\aff\left\{\vr{6\\2\\0}, \vr{5\\2\\1}\right\} = \left\{\vr{6\\2\\0}, \vr{5\\2\\1},\vr{4\\2\\2}, \vr{3\\2\\3}, \vr{2\\2\\4}, \vr{1\\2\\5}, \vr{0\\2\\6} \right\}.\qedhere\] 
+\end{Exam}\vs
+
+\begin{Thm}\label{thm:solution6} Suppose the equation $A\bb x = \bb b$ is consistent for some given $\bb b$, and let $\bb x_0$ be a (particular) solution. Then the solution set of $A\bb x = \bb b$ is the set of all vectors of the form $\bb x = \bb x_0 + \bb x_n$, where $\bb x_n$ is any solution of the homogeneous equation $A\bb x = \bb 0$ and can be expressed in parametric form.
+\end{Thm}
+
+From a geometric perspective, a solution set to a homogeneous system is the null space of its coefficient matrix $A$. As such, it is a subspace spanned by $n$ independent vectors, where $n=\text{nullity}(A)$. \thmref{thm:solution6} tells us that a solution set to a non-homogeneous system generically is an affine span of $n$ independent vectors, in other words, it is an $n$-flat.
+
+%%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{solutionset}
+\noindent For Exercises \ref{exer:freevarstart}-\ref{exer:freevarstop}, determine whether the homogeneous system has a nontrivial solution. If so, list all the free variables, e.g., $x_2$, $x_4$, $x_5$.
+\begin{enumerate}[!HW!, start=1]
+\item\label{exer:freevarstart}\label{exer:freevarstop} $\begin{linear} 
+2x_1\ &+\ &3x_2\ &+\ &2x_3\ &=\ &0\\
+2x_1\ &+\ &5x_2\ &+\ &7x_3\ &=\ &0\\
+4x_1\ &+\ &6x_2\ &+\ &4x_3\ &=\ &0\\
+-2x_1\ &+\ &x_2\ &+\ &8x_3\ &=\ &0
+\end{linear}$ %anon
+\end{enumerate}
+
+
+\noindent For Exercises \ref{exer:nullspanstart}-\ref{exer:nullspanstop}, find a spanning set for the null space for each of the following matrices. Answers may vary.
+\begin{enumerate}[!HW!]
+\begin{multicols}{3}
+\item\label{exer:nullspanstart} $\mtx{rrrr}{9&12&-9&3\\10&11&-4&2\\4&7&2&0}$ %anon
+\itemspade $\mtx{rrr}{2&-4&0\\-2&4&1\\1&-2&3}$
+\item $\mtx{rrrr}{1&2&2&1\\2&1&-2&-2\\1&-1&-4&-3}$ %Runtian Tu
+\end{multicols}
+\end{enumerate}
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{3}
+\itemspade $\mtx{rr}{1&2\\-2&-4\\3&6\\4&8}$
+\itemspade $\mtx{rrrrr}{-5&10&7&4&-30\\-1&2&1&0&-8\\-1&2&2&2&-3\\4&-8&-3&0&29\\1&-2&2&-1&-5}$
+\item\label{exer:nullspanstop} $\mtx{rrrrr}{2&-1&-4&10&10\\1&0&-1&3&5}$
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:solutionsetrealstart}-\ref{exer:solutionsetrealstop}, describe all solutions to the matrix equation $A\bb x= \bb b$. The matrix $A$ will be listed first, followed by the vector $\bb b$. Answers may vary.
+\begin{enumerate}[!HW!]
+\begin{multicols}{2}
+\item \label{exer:solutionsetrealstart} $\mtx{rrrr}{2&-6&8&0\\1&-3&4&1\\0&0&0&1\\-1&3&-4&1}$,\ $\vr{10\\-3\\-8\\-13}$
+\itemspade $\mtx{rrr}{9&-4&-6\\-1&6&-16\\-1&-2&8}$,\ $\vr{1\\11\\-5}$
+\end{multicols}
+\begin{multicols}{2}
+\itemspade $\mtx{rrrr}{2&-2&2&0\\3&4&-5&0\\0&0&6&0\\-2&-1&4&0}$,\ $\vr{4\\-4\\18\\8}$
+
+
+\itemspade $\mtx{ccc}{3-4i&3+i&6+2i\\2&i&2i}$,\ $\mtx{c}{12+14i\\-2+5i}$
+\end{multicols}
+\end{enumerate}
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\item\label{exer:solutionsetrealstop} $\mtx{rrrrrr}{1&0&0&1&1&1\\1&1&0&0&1&0\\0&1&1&0&0&1}$,\ $\vr{0\\1\\0} \pmod 2$
+\end{enumerate}
+
+ We have seen that solution sets to homogeneous systems, aka null spaces, are subspaces, that is, they always contain the zero vector, are always closed under addition, and are always closed under scalar multiplication. In particular, if one has a list of solutions to the homogeneous system, then any linear combination of these vectors is likewise a solution to the system. What about solution sets of non-homogeneous systems? After all, the solution set to a linear system is a flat and subspaces are just flats through the origin. Sadly, such closure principles do not hold for general flats. Firstly, if the flat does not pass through the origin, then it cannot be a subspace since it does not contain the zero vector. Similar problems arise with closure under addition and scalars.
+\begin{enumerate}[!HW!]
+\itemspade Construct an example of a non-homogeneous system such that the sum of two solutions is not a solution. 
+\itemspade Construct an example of a non-homogeneous system such that the scalar multiple of a solution is not a solution.
+\itemspade Although solution sets of non-homogeneous systems are not closed under vector addition or scalar multiples, they are closed under lines, that is, if $\bb x_0$ and $\bb x_1$ are two distinct solutions to the non-homogeneous system then any vector on the line
+\[\bb x = (1-t)\bb x_0 + t\bb x_1,\quad t\in F\] is likewise a solution to the system. Prove that solution sets are closed under lines.
+\item We have already alluded to the fact that flat and affine spans are actually the same thing, despite being defined differently. In this direction, prove that a solution set is closed under all affine combinations.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+% \mbox{}\vfill
+\pagebreak

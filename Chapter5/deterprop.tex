@@ -1,0 +1,157 @@
+\begin{center} 
+\emph{``In most encounters we can determine the kind of experience we are going to have by how we respond.''\\ -- Wayne S. Peterson}
+\end{center}
+
+\section{Properties of Determinants}\label{sec:deterprop}
+Let $V$ and $W$ be vector spaces over $F$. We have seen previously that linear maps $T : V \to W$ are those that preserve the linear operations, that is, $T(\bb x+\bb y) = T(\bb x)+T(\bb y)$ and $T(c\bb x) = cT(\bb x)$ for all $\bb x,\bb y\in V$ and $c\in F$. Let $V^n = \{(\bb v_1, \bb v_2,\ldots, \bb v_n)\mid \bb v_1, \bb v_2,\ldots, \bb v_n\in V\}$, that is, $V^n$ is the set of all list of $n$ vectors from $V$. This is itself a vector space with $\dim V^n = n\dim V$. When $V=F^m$, then $V^n \cong F^{m\times n}$, the space of all $m\times n$ matrices as each list in $V^n$ can be identified with the columns vectors of an $m\times n$ matrix. \\
+
+\begin{Def} Let $V$ and $W$ be vector spaces over $F$. Let $n\in \N$. Let $B : V^n \to W$ be a function. We say that $B$ is \textbf{multilinear} if for each $i$ and choice of vector $\bb v_1, \bb v_2, \ldots, \bb v_n\in V$ the function 
+\[\bb x \mapsto f(\bb v_1, \bb v_2, \ldots, \bb v_{i-1}, \bb x, \bb v_{i+1},\ldots, \bb v_n)\] is a linear transformation. In other words, a multilinear map is one which is linear in each variable. When $n=2$, we say a multilinear map is \textbf{bilinear}. Of course, if $n=1$ then a multilinear map is simply just linear.
+\end{Def}\vs
+
+\begin{Exam} The dot product $\cdot : \R^n\times \R^n \to \R$ is bilinear since for all $\bb u, \bb v, \bb w$ and $c\in \R$ it holds
+\[(\bb u+\bb v)\cdot \bb w = \bb u\cdot \bb w + \bb v\cdot \bb w, (c\bb u)\cdot \bb v = c(\bb u\cdot \bb v), \bb u\cdot (\bb v+\bb w) = \bb u\cdot \bb v + \bb u\cdot \bb w, \bb u \cdot(c\bb v) = c(\bb u \cdot \bb v).\] Thus, the dot product is linear in the first and the second factor. \\
+
+Likewise, the tensor product $\otimes : \R^n\times \R^n \to \R^{n\times n}$ is also bilinear since  for all $\bb u, \bb v, \bb w$ and $c\in \R$ it holds
+\[(\bb u+\bb v)\otimes \bb w = \bb u\otimes \bb w + \bb v\otimes \bb w, (c\bb u)\otimes \bb v = c(\bb u\otimes \bb v), \bb u\otimes (\bb v+\bb w) = \bb u\otimes \bb v + \bb u\otimes \bb w, \bb u \otimes(c\bb v) = c(\bb u \otimes \bb v). \qedhere\]
+\end{Exam}\vs
+
+Deteriminants are NOT linear transformations ($\det(A+B) \neq \det(A) +\det(B)$). The determinant map $\det  : F^{n\times n} \to F$ is multilinear with respect to both its rows and columns since $\det(A) = \det(A^\top )$. In particular, if $A$, $B$, and $C$ are $n\times n$ matrices that differ only in a single row, say the $r$th row, and assume the $r$th row of $C$ is obtained by adding corresponding entries in the $r$th rows of $A$ and $B$. Then 
+\[\det(C) = \det(A) + \det(B).\] Likewise, if $A$ and $B$ are matrices that differ only in a single row, say the $r$th row, and assume the $r$th row of $B$ is obtained by scaling the  corresponding entries in the $r$th row of $A$ by $c\in F$. Then $\det(B) = c\det(A)$.\\
+
+\begin{Exam} Note that 
+\[\dtx{ccc}{  4&5&0\\3&-1&2\\ 1+0&2+4&3-2} = \dtx{rrr}{ 4&5&0\\3&-1&2\\ 1&2&3} + \dtx{rrr}{  4&5&0\\3&-1&2\\ 0&4&-2}\quad\text{and}\quad \dtx{ccc}{1&2&3\\4&6&8\\0&1&3} =  2\dtx{ccc}{1&2&3\\2&3&4\\0&1&3}. \qedhere\] %NEW
+\end{Exam}\vs
+
+The following is probably the most important property of determinants.\\
+
+\begin{Thm}\label{thm:deterproduct} If $A$ and $B$ are $n \times n$ matrices, then $\det(AB) = \det(A)\det(B)$.\end{Thm}\vs
+
+\begin{Exam} Let $A = \mtx{rr}{6&1\\3&2}$ and $B =\mtx{rr}{4&3\\1&2}$. Then $\det A = 6(2)-1(3) = 9$ and $\det B = 4(2)-3(1)=5$. Thus, $\det(A)\det(B) = \fbox{$45$}$. On the other hand, 
+\[AB = \mtx{rr}{6&1\\3&2}\mtx{rr}{4&3\\1&2} = \mtx{rr}{25 & 20\\ 14&13}.\] Thus, $\det(AB) = 25(13)-20(14) = 325-280= \fbox{$45$}$. 
+\end{Exam}\vs
+
+\begin{Cor} A square matrix $A$ is nonsingular if and only if $\det A \neq 0$. In this case, $\det(A^{-1}) = \dfrac{1}{\det(A)}$.\end{Cor}\vs
+
+The previous corollary tells us that the rows or columns are $A$ are linearly dependent, then $\det(A)=0$. In particular, if $A$ has a repeated row (or column) or a row (or column) of zeros, then $\det(A)=0$ without further calculation necessary.\\
+
+For a square matrix $A$, let $E$ and $B$ be square matrices such that $A=EB$ and $E$ is an elementary matrix. Thus, $\det(A) = \det(E)\det(B)$. If $E$ is a replacement elementary matrix, $\det(E)=1$ since it is unit triangular. If $E$ is a scaling elementary matrix by a factor of $c$, then $\det(E) = c$ since it is diagonal. If $E$ is an interchange elementary matrix, then $\det(E)=-1$.\\
+
+\begin{Thm}\label{row} Let $A$ be a square matrix.
+\begin{enumerate}[!THM!, start=1]
+\item (Replacement) If a multiple of one row of $A$ is added to another row to produce a matrix $B$, then $\det B = \det A$.\\
+\item (Scaling) If one row of $A$ is multiplied by $c$ to produce $B$, then $\det B = c\cdot \det A$.\\
+\item (Interchange) If two rows of $A$ are interchanged to produce $B$, then $\det B = -\det A$.\\
+\end{enumerate}
+\end{Thm}\vs
+%\begin{proof}
+%Let $E$ be an elementary matrix and let $B = EA$. Since $\det(B) = \det(E)\det(A)$ by Theorem 5.2.1, %\thmref{product}, 
+%it suffices to compute the determinant of an elementary matrix. If $E$ is replacement type, then $E$ is unit triangular and $\det E = 1$ by Theorem 2.1.9. Likewise, if $E$ is scaling type, then $E$ is diagonal and the diagonal entries are all $1$ except for one position which is $k$. Thus, $\det E = k$. Lastly, if $E$ is interchange type, then $E$ is identical to the identity matrix except for two rows which have been interchanged. Considering the cofactor expansion of $E$ across a non-interchanged row, the determinant of $E$ will be exactly the same as the determinant of minor matrix, which is also an interchange elementary matrix. By mathematical induction, this implies that $\det E = \dtx{cc}{0&1\\1&0} = -1$.
+%\end{proof}\vs
+
+\begin{Exam} Compute $\det A$, where $A = \mtx{rrr}{1&-4&2\\-2&8&-9\\-1&7&0}$.\\
+
+Using Theorem 3, we row reduce $A$ to an echelon form in order to compute $\det A$.
+\[ \dtx{rrr}{1&-4&2\\-2&8&-9\\-1&7&0} =  \dtx{rrr}{1&-4&2\\0&0&-5\\-1&7&0} =  \dtx{rrr}{1&-4&2\\0&0&-5\\0&3&2} = -\dtx{rrr}{1&-4&2\\0&3&2\\0&0&-5} = -1(3)(-5) = \fbox{$15$}. \qedhere\]
+\end{Exam}\vs
+
+\begin{Exam} Compute $\det A$, where $A = \mtx{rrrr}{2&-8&6&8\\3&-9&5&10\\-3&0&1&-2\\1&-4&0&6}$.\\
+
+Again, we row reduce to calculate the determinant.
+\begin{eqnarray*}
+\dtx{rrrr}{2&-8&6&8\\3&-9&5&10\\-3&0&1&-2\\1&-4&0&6} &=& 2\dtx{rrrr}{1&-4&3&4\\3&-9&5&10\\-3&0&1&-2\\1&-4&0&6} = 2\dtx{rrrr}{1&-4&3&4\\0&3&-4&-2\\0&-12&10&10\\0&0&-3&2} = 2\dtx{rrrr}{1&-4&3&4\\0&3&-4&-2\\0&0&-6&2\\0&0&-3&2}\\
+& =& 4\dtx{rrrr}{1&-4&3&4\\0&3&-4&-2\\0&0&-3&1\\0&0&-3&2} =4\dtx{rrrr}{1&-4&3&4\\0&3&-4&-2\\0&0&-3&1\\0&0&0&1} = 4(1)(3)(-3)(1)=\fbox{$-36$}. 
+\end{eqnarray*}
+\end{Exam}
+
+\begin{Exam} Compute $\dtx{rrrr}{0&1&2&-1\\2&5&-7&3\\0&3&6&2\\-2&-5&4&-2}$.\\
+
+This time we combine methods of cofactors and row reduction.
+\begin{eqnarray*}
+\dtx{rrrr}{0&1&2&-1\\2&5&-7&3\\0&3&6&2\\-2&-5&4&-2} &=& \dtx{rrrr}{0&1&2&-1\\2&5&-7&3\\0&3&6&2\\0&0&-3&1} \qquad\text{(add Row 2 to Row 4)}\\
+&=& -2\dtx{rrr}{1&2&-1\\3&6&2\\0&-3&1} \qquad\text{(cofactor expand across Column 1)}\\
+&=& -2\dtx{rrr}{1&2&-1\\0&0&5\\0&-3&1} \qquad\text{(add -3 Row 1 to Row 2)}\\
+&=& 2\dtx{rrr}{1&2&-1\\0&-3&1\\0&0&5} \qquad\text{(interchange Rows 2 and 3)}\\
+&=& 2(-3)(5) = \fbox{$-30$}.
+\end{eqnarray*}
+\end{Exam}
+
+%\begin{Thm} A square matrix $A$ is nonsingular if and only if $\det A \neq 0$.\end{Thm}
+%\begin{proof}
+%As seen before, if $A$ is nonsingular, then it is a product of elementary matrices, that is, $A = E_1E_2\ldots E_p$. But by Theorem 5.2.1, %\thmref{product}, 
+%$\det(A) = \det(E_1)\det(E_2)\ldots\det(E_p) \neq 0$ since $\det(E_i)\neq 0$ for any elementary matrix, by \thmref{row}. Conversely, suppose that $\det A \neq 0$. By \thmref{row}, every matrix $B$ row equivalent to $A$ has a nonzero determinant. If particular, any echelon form of $A$, say $U$, has nonzero determinant. Since $U$ is upper triangular, $\det U$ is equal to the product of diagonal entries of $U$ by Theorem 2.1.9. Since $\det U\neq 0$, no diagonal entry in $U$ is zero. Thus, $U$ and likewise $A$ has a pivot position in each row. Therefore, $A$ is nonsingular.
+%\end{proof}\vs
+
+%\begin{Thm} If $A$ is an $n\times n$ matrix, then $\det A^\top  = \det A$.\end{Thm}
+%\begin{proof}
+%Notice that the cofactor expansion of $A$ across Row 1 is exactly the same as the cofactor expansion of $A^\top $ across Column 1. Thus, $\det A = \det A^\top $.
+%\end{proof}\vs
+
+%\begin{Thm} Let $A$ be an invertible matrix. Then $\det(A^{-1}) = \dfrac{1}{\det(A)}$.\end{Thm}
+%\begin{proof}
+%We know that $AA^{-1} = I_n$. Then by Theorem 5.2.1,%\thmref{product},
+%\[\det(AA^{-1}) = \det(A)\det(A^{-1}) = \det(I_n) = 1,\] where the last equality follows from Theorem 2.1.9. Dividing both sides by $\det(A)$ then gives the result.
+%\end{proof}\vs
+
+%\begin{Thm} Let $A$ be an $n\times n$ matrix, and let $k$ be a scalar. Then $\det(kA) = k^n\det(A)$.\end{Thm}
+%\begin{proof}
+%We know that $kA = (kI_n)A$. Then by Theorem 5.2.1,%\thmref{product},
+%\[\det((kI_n)A) = \det(k_In)\det(A) = k^n\det(A),\] where the last equality follows from Theorem 2.1.9. 
+%\end{proof}\vs
+
+
+%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{deterprop}
+\noindent For Exercises \ref{exer:determinantknowstart}-\ref{exer:determinantknowstop}, suppose that $\dtx{rrr}{a&b&c\\e&f&g\\h&i&j} = 2$ and $\dtx{rrr}{a&b&c\\e&f&g\\x&y&z} = -3$. Compute the given expression.
+\begin{enumerate}[!HW!, start=1, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:determinantknowstart} $\dtx{rrr}{a&b&c\\h&i&j\\e&f&g}$ 
+\itemspade $\dtx{rrr}{5a&5b&5c\\e&f&g\\h&i&j}$ 
+\end{multicols}
+\begin{multicols}{2}
+\itemspade $\dtx{ccc}{3a&3c&3b\\h&j&i\\e+5a&g+5c&f+5b}$ 
+\item\label{exer:determinantknowstop} $\dtx{ccc}{e&f&g\\4a&4b&4c\\h+5x&i+5y&j+5z}$
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:deterRREFstart}-\ref{exer:deterRREFstop}, compute the determinant of the each of the following matrices using row reduction.
+\begin{enumerate}[!HW!]
+\begin{multicols}{4}
+\item\label{exer:deterRREFstart} $\dtx{rr}{6&1\\2&9}$ %Hannah Simonson 
+\item $\dtx{cc}{4+i&3+i\\-i&-2}$ %Hannah Simonson 
+\itemspade $\dtx{rrr}{-3&6&-1\\-8&11&-3\\2&-3&1}$
+\item $\dtx{rrr}{1&2&3\\-3&-2&-4\\5&10&21}$ %Jacob Kuhn
+\end{multicols}
+\begin{multicols}{3}
+\item $\dtx{rrr}{1&2&3\\4&5&6\\0&2&4}$ %Hannah Simonson 
+\item $\dtx{rrr}{2&26&36\\6&87&113\\5&65&97}$ %Jacob Kuhn
+\itemspade \mbox{$\dtx{rcr}{2&11&4\\9&1&4\\6&6&5} \pmod{13}$}
+\end{multicols}
+\begin{multicols}{3}
+\item $\dtx{rrrr}{2&4&7\\-2&-1&1\\3&6&15}$ %Jacob Kuhn 
+\itemspade \mbox{$\dtx{rrrr}{1&2&3&4 \\ 0&3&2&-1 \\3&5&0&1\\4&-1&-1&0}\pmod 7$}
+\itemspade $\dtx{rrrrr}{1&0&1&2&3 \\ -1&1&6&3&1\\0&2&6&3&4\\-2&4&3&5&0\\0&3&1&2&1}$ 
+\end{multicols}
+
+\item\label{exer:deterRREFstop} $\dtx{rrrrr}{2&3&9&1&4\\7&2&2&9&3\\0&0&3&3&0\\5&2&2&7&0\\6&2&6&5&4}$\ %Devan Triplett %729
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:deternonsingularstart}-\ref{exer:deternonsingularstop}, suppose $A$ is a $5\times 5$ real matrix such that $\det(A)=3$.
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:deternonsingularstart} Compute $\rank(A)$. Compute $\nullity(A)$.
+\itemspade Compute $\corank(A)$. Compute $\conullity(A)$.
+\end{multicols}
+\itemspade For any $\bb b\in \R^5$, is the linear system $A\bb x=\bb b$ consistent? How many free variables are in the linear system $A\bb x=\bb b$? How many solutions does $A\bb x=\bb b$ have?
+\itemspade Compute the row reduced echelon form of $A$.
+\item\label{exer:deternonsingularstop} Let $T:\R^5\to \R^5$ be the linear transformation with standard matrix $A$. Compute $\ker(T)$. Compute $\im(T)$. Is $T$ one-to-one? Is $T$ onto?\\
+\end{enumerate}
+
+\begin{enumerate}[!HW!]
+\item Prove Theorem \ref{thm:deterproduct} in the special case that $A$ and $B$ are $2\times 2$ matrices. %Mitchell Zufelt
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ \mbox{}\vfill
+ 
+\pagebreak

@@ -1,0 +1,185 @@
+\begin{center} 
+\emph{``The opposite of love is not hate, it's indifference.'' -- Elie Wiesel}
+\end{center}
+
+\section{Elementary Matrices}\label{sec:elementary}
+\begin{Def} An \textbf{elementary matrix} is a matrix obtained by performing a single row operation on the identity matrix.
+\end{Def}\vs
+
+Since there are three types of row operations, there are three types of elementary matrices. Each elementary matrix is nonsingular, whose inverse is the elementary matrix corresponding to the inverse row operation.\\
+\begin{enumerate}[!LIST!, start=1]
+\item (Replacement) If you replace Row $i$ with Row $i$ + $c$Row $j$ in the identity matrix, then the resulting elementary matrix will have 1's across the main diagonal and 0's everywhere else except in the position $(i,j)$ which will be $c$.\vspace{-0.1 in}
+\begin{multicols}{2} For example, the matrix $E_1$, depicted below, corresponds to the row operation\\ ``replace Row 3 with Row 3 - 2Row 1.''\columnbreak
+
+Likewise, the matrix $E_1^{-1}$ is the matrix which corresponds to the inverse row operation\\ ``replace Row 3 with Row 3 + 2Row 1.''
+\end{multicols}\vspace{-0.45 in}
+\begin{multicols}{2}
+\[E_1 = \mtx{rrr}{1&0&0\\0&1&0\\-2&0&1}\]\columnbreak
+\mbox{}\\
+\[E_1^{-1} = \mtx{rrr}{1&0&0\\0&1&0\\2&0&1}\] 
+\mbox{}
+\end{multicols}
+
+
+\item (Interchange) If you interchange Row $i$ with Row $j$ in the identity matrix, then the resulting elementary matrix will be like the identity matrix except the $i$th and $j$th rows are interchanged. \vspace{-0.1 in}
+\begin{multicols}{2}
+For example, the matrix $E_2$ corresponds to the row operation ``interchange Rows 2 and 3.''\columnbreak
+
+The inverse of $E_2$ is itself! It is also true that $E_2$ is equal to its own transpose.
+\end{multicols}\vspace{-0.45 in}
+\begin{multicols}{2}
+\[E_2 = \mtx{rrr}{1&0&0\\0&0&1\\0&1&0}\]  \columnbreak
+\mbox{}\\
+\[(E_2)^{-1} = E_2 = (E_2)^\top .\]
+\end{multicols} 
+
+\item (Scaling) If you scale Row $i$ by $c$ in the identity matrix, then the resulting elementary matrix has 0's in all off-diagonal entries and 1's in the main diagonal entries except $(i,i)$ which is $c$.\vspace{-0.1 in}
+\begin{multicols}{2}
+For example, the matrix $E_3$ corresponds to the row operation ``scale Row 2 by 7.''\columnbreak
+
+The inverse of $E_3$ corresponds to the row operation ``scale Row 3 by 1/5.''
+\end{multicols}\vspace{-0.45 in}
+\begin{multicols}{2}
+\[E_3 = \mtx{rrr}{1&0&0\\0&7&0\\0&0&1}\]  \columnbreak
+\vfill
+\[(E_3)^{-1} = \mtx{rrr}{1&0&0\\0&\frac{1}{7}&0\\0&0&1}.\]
+\mbox{}
+\end{multicols}
+\end{enumerate}\vs
+
+\begin{Exam} Let $A = \mtx{rrr}{a&b&c\\d&e&f\\g&h&i}$.  Using the elementary matrices $E_1, E_2,$ and $E_3$ from above, compute $E_1A, E_2A,$ and $E_3A$.
+%\begin{eqnarray*}
+\[E_1A =  \mtx{rrr}{1&0&0\\0&1&0\\-2&0&1} \mtx{rrr}{a&b&c\\d&e&f\\g&h&i} =  \mtx{ccc}{a&b&c\\d&e&f\\g-2a&h-2b&i-2c}, \]
+\[E_2A = \mtx{rrr}{1&0&0\\0&0&1\\0&1&0}\mtx{rrr}{a&b&c\\d&e&f\\g&h&i} = \mtx{rrr}{a&b&c\\g&h&i\\d&e&f}, \quad E_3A = \mtx{rrr}{1&0&0\\0&7&0\\0&0&1}\mtx{rrr}{a&b&c\\d&e&f\\g&h&i} = \mtx{ccc}{a&b&c\\7d&7e&7f\\g&h&i}\]
+%\end{eqnarray*}
+\end{Exam}\vs
+
+The previous example motivates the following proposition.\\
+
+\begin{Prop} If an elementary row operation\footnotemark[2] is performed on an $m\times n$ matrix $A$, the resulting matrix can be written as $EA$, where the $m\times m$ matrix $E$ is the elementary matrix associated to that elementary row operation.
+\end{Prop}\vs
+
+In the Nonsingular Matrix Theorem, we saw that an $n\times n$ matrix $A$ is invertible if and only if $A$ is row equivalent to $I_n$. It turns out that the process of row-reducing $A$ into $I_n$ can produce the inverse matrix $A^{-1}$ too.\\
+
+\begin{Thm}[Inversion Algorithm]\label{thm:inversealgor} Let $A$ be an invertible $n\times n$ matrix $A$. Then any sequence of elementary row operations that reduces $A$ to $I_n$ also transforms $I_n$ into $A^{-1}$.
+\end{Thm}
+\begin{proof}
+Suppose that $A$ is invertible. Hence, $A\sim I_n$ by the Nonsingular Matrix Theorem. Then there exists some sequence of row operations transforming $A$ into $I_n$. For each row operation in this sequence, there is a corresponding elementary matrix $E_i$. Say it took $p$ row operations. Thus, 
+\[A\sim E_1A \sim E_2(E_1A) \sim \ldots \sim E_p(E_{p-1}\ldots E_1A) = I_n.\] Thus, $(E_p\ldots E_2E_1)A = I_n$. Therefore, $E_p\ldots E_2E_1 = A^{-1}$.  Since $(E_p\ldots E_2E_1)I_n = A^{-1}$, the sequence of row operations transforming $A$ into $I_n$ transforms $I_n$ into $A^{-1}$.
+\end{proof}\vs
+
+The Inversion Algorithm is a process for compute matrix inverses. Consider the matrix $[A \mid I_n]$. By row reduction, \begin{equation}\label{eq:inversionalgorithm} [A \mid I_n] \sim [I_n \mid A^{-1}].\end{equation} Thus, row reduction saves the day again! Additionally, if $\mathcal{A}$ is the set of column vectors of $A$, which necessarily forms a basis for $F^n$, and $\mathcal{E}$ is the standard basis for $F^n$, then we see also that $A^{-1} = \underset{\mathcal{A}\leftarrow \mathcal{E}}{\mathcal P}$, the change of basis matrix from standard coordinates to $\mathcal{A}$-coordinates. Hence, the Inversion Algorithm is a special case of the Change-of-Basis Algorithm we saw in \eqref{eq:changeofbasismatrix}.\\
+
+%Leon Weingartner
+\begin{Exam}\label{exam:mtxInverse}
+Find the inverse of $A=\mtx{rrr}{0&1&-3\\1&-2&5\\-5&4&3}$.\\
+
+Using the method suggested above, we will row reduce $A$ and apply these same row operations to $I_n$.
+\begin{multline*}
+\mtx{crr|rrr}{\fbox{0}&1&-3&1&0&0\\1&-2&5&0&1&0\\-5\ &4&3&0&0&1} \sim \mtx{crr|rrr}{\fbox{1}&-2&5&0&1&0\\0&1&-3&1&0&0\\-5\ &4&3&0&0&1}
+\sim \mtx{rcr|rrr}{1&-2\ &5&0&1&0\\0&\fbox{1}&-3&1&0&0\\0 &-6\ &28&0&5&1}\\
+\sim \mtx{rrc|rrr}{1&-2&5&0&1&0\\0&1&-3\ &1&0&0\\0 &0&\fbox{10}&6&5&1} \sim \mtx{rrc|ccc}{1&-2&5&0&1&0\\0&1&-3\ &1&0&0\\0 &0&\fbox{1}&\frac{3}{5}&\frac{1}{2}&\frac{1}{10}}\sim \mtx{rrc|rrr}{1&-2&0&-3&-\frac{3}{2}&-\frac{1}{2}\\0&1&-3\ &1&0\ &0\ \\0 &0&\fbox{1}&\frac{3}{5}&\frac{1}{2}&\frac{1}{10}} \\
+ \sim \mtx{rcr|rrr}{1&-2\ &0&-3&-\frac{3}{2}&-\frac{1}{2}\\0&\fbox{1}&0&\frac{14}{5}&\frac{3}{2}&\frac{3}{10}\\0 &0&1&\frac{3}{5}\ &\frac{1}{2}&\frac{1}{10}} \sim \mtx{rcr|ccc}{1&0&0&\frac{13}{5}&\frac{3}{2}&\frac{1}{10}\\0&1&0&\frac{14}{5}&\frac{3}{2}&\frac{3}{10}\\0 &0&1&\frac{3}{5}&\frac{1}{2}&\frac{1}{10}}
+\end{multline*} Therefore, $A^{-1} = \mtx{ccc}{\frac{13}{5}&\frac{3}{2}&\frac{1}{10}\\\frac{14}{5}&\frac{3}{2}&\frac{3}{10}\\\frac{3}{5}&\frac{1}{2}&\frac{1}{10}} = \dfrac{1}{10}\mtx{rrr}{26&15&1\\28&15&3\\6&5&1}$.
+\end{Exam}\vs
+
+A modification of the inversion algorithm can be used to factor a nonsingular matrix as product of elementary matrices. Suppose that $A$ reduces to $I_n$ via a sequence of $p$-many replacement row operations. Let $E_1, E_2, \ldots, E_p$ be the corresponding elementary matrices. Thus, 
+\[(E_p\ldots E_2E_1)A = I_n,\quad\text{and}\quad A = (E_p\ldots E_2E_1)^{-1}I_n = (E_1^{-1}E_2^{-1}\ldots E_p^{-1}).\]
+
+%Leon Weingartner and Tyler Bayn
+\begin{Exam} In \examref{exam:mtxInverse} we reduced $A$ into $I_3$ by the following sequence of row operations, given
+as descriptions and elementary matrices:
+\begin{multicols}{4}
+\begin{center}
+    interchange\\ 
+    Rows 1 and 2,\\
+$\mtx{rrr}{0&1&0\\1&0&0\\0&1&0}$
+\end{center}\columnbreak
+
+\begin{center}
+replace $\row 3$ with\\ $\row 3 +5\row 1$,\\
+$\mtx{rrr}{1&0&0\\0&1&0\\5&0&1}$
+\end{center}\columnbreak
+
+\begin{center}
+replace $\row 3$ with\\ $\row 3 +6\row 2$,\\
+$\mtx{rrr}{1&0&0\\0&1&0\\0&6&1}$
+\end{center}\columnbreak
+
+\begin{center}
+scale $\row 3$ by $\dfrac{1}{10}$,\\
+$\mtx{rcr}{1&0&0\\0&1&0\\0&0&\frac{1}{10}}$
+\end{center}
+\end{multicols}
+
+\begin{multicols}{3}
+\begin{center}
+replace $\row 1$ with\\ $\row 1 -5\row 3$,\\
+$\mtx{rrr}{1&0&-5\\0&1&0\\0&0&1}$
+\end{center}\columnbreak
+
+\begin{center}
+replace $\row 2$ with\\ $\row 2 +3\row 3$,\\
+$\mtx{rrr}{1&0&0\\0&1&3\\0&0&1}$
+\end{center}\columnbreak
+
+\begin{center}
+replace $\row 1$ with\\ $\row 1 +2\row 2$.\\
+$\mtx{rrr}{1&2&0\\0&1&0\\0&0&1}$
+\end{center}
+\end{multicols}
+Following the same order but taking inverses, we get a factorization of $A$, namely:
+\[A= \mtx{rrr}{0&1&0\\1&0&0\\0&1&0}\mtx{rrr}{1&0&0\\0&1&0\\-5&0&1}\mtx{rrr}{1&0&0\\0&1&0\\0&-6&1}\mtx{rcr}{1&0&0\\0&1&0\\0&0&10}\mtx{rrr}{1&0&5\\0&1&0\\0&0&1}\mtx{rrr}{1&0&0\\0&1&-3\\0&0&1}\mtx{rrr}{1&-2&0\\0&1&0\\0&0&1}. \qedhere\]
+\end{Exam}
+
+%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{elementary}
+
+\noindent For Exercises \ref{exer:elemmatrixstart}-\ref{exer:elemmatrixstop}, for the row operation performed on an $m\times n$ matrix, write the corresponding elementary $m\times m$ matrix. 
+\begin{enumerate}[!HW!, start=1, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:elemmatrixstart} interchange Rows 1 and 3 in a $3\times 3$ matrix.
+\itemspade scale Row 3 by 2 in a $4\times 4$ matrix.
+\end{multicols}
+\begin{multicols}{2}
+\itemspade scale Row 2 by -5 in a $3\times 2$ matrix.
+\itemspade replace Row 3 with $\text{Row 3}+2\text{Row 1}$ in a $3\times 3$ matrix.
+\end{multicols}
+\begin{multicols}{2}
+\itemspade replace Row 4 with $\text{Row 4}-3\text{Row 2}$ in a $5\times 3$ matrix.
+\item\label{exer:elemmatrixstop} replace Row 1 with $\text{Row 1}-\text{Row 3}$ in a $4\times 2$ matrix.
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:inversematrixstart}-\ref{exer:inversematrixstop}, find the inverse matrix of the provided matrix, if possible. Verify your answer.
+\begin{enumerate}[!HW!]
+\begin{multicols}{3}
+\item\label{exer:inversematrixstart} $\mtx{rr}{6&2\\12&4}$  %Daven Triplett
+\item $\mtx{rrr}{4&-3&-1\\1&-1&0\\-2&-1&2}$ %Daven Triplett
+\itemspade $\mtx{rrr}{10&-1&-6\\-11&2&9\\-3&1&3}$
+\end{multicols}
+\begin{multicols}{3}
+\itemspade $\mtx{rrr}{2&4&3\\1&0&3\\2&1&0} \pmod 5$
+\item\label{exer:inversematrixstop} $\mtx{rrr}{\frac{1}{2}&-1&-\frac{3}{2}\\\frac{1}{2}&-\frac{1}{2}&-\frac{3}{2}\\-\frac{3}{2}&3&-\frac{7}{2}}$ %Daven Triplett
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:elemmatrixfactorstart}-\ref{exer:elemmatrixfactorstop}, factor the matrix as a product of elementary matrices. Answers may vary.
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{3}
+\item\label{exer:elemmatrixfactorstart} $\mtx{rrr}{-6&8&13\\-3&4&6\\1&-1&-2}$
+\item $\mtx{rrr}{5&-66&-8\\-1&16&2\\2&-20&-2}$ 
+\end{multicols}
+\end{enumerate}
+\begin{enumerate}[!HW!]
+\item\label{exer:elemmatrixfactorstop} $\mtx{ccc}{3&1+3i&7i\\2&1+2i&4i\\-2i&2&7}$ %Ethan Hoyer
+\end{enumerate}
+
+\begin{enumerate}[!HW!]
+\item If 
+\[A\equiv\mtx{rrr}{5&3&1\\0&2&5\\0&1&3},\ B\equiv\mtx{rrr}{5&4&1\\6&3&2\\6&2&1},\ C\equiv\mtx{rrr}{1&3&4\\2&3&6\\1&3&1} \pmod 7,\] solve the matrix equation $(AX)^{-1}\equiv B+C \pmod 7$. %anon
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ \mbox{}\vfill
+ \footnotetext[2]{Elementary column operations can also be performed on $A$ using the same three operations and the same three forms of elementary matrices, but the elementary matrices when multiplied on the right instead of left perform column operations.}
+\pagebreak 

@@ -1,0 +1,35 @@
+\startSolutions{cross}{Cross Products}
+
+\begin{enumerate}[!HW!, start=1]
+\begin{multicols}{5}
+\itemspade $\vr{-3\\7\\5}$
+\itemspade $\vr{-26\\9\\2}$
+\itemspade $\vr{4\\-6\\2}$
+
+\itemspade $\vr{1\\-5\\1}$
+\itemspade $\vr{19\\ -34\\ 12}$
+\end{multicols}
+
+\begin{multicols}{3}
+\itemspade $x+y+6z = 5$
+% We can construct the equation using a normal vector. First, consider the plane as a vector equation. Let $\bb u = (3,2,0)-(1,-2,1) = (2,4,-1)$ and $\bb v = (3,2,0)-(-1,0,1) = (4,2,-1)$. If $\bb x_0 = (-1,0,1)$, then the plane is given as $\bb x = s\bb u + t\bb v + \bb x_0$. As the vectors $\bb u$ and $\bb v$ give the ``slope'' of the plane, we want to find a vector orthogonal to both $\bb u$ and $\bb v$. Such a vector is $\bb u \times \bb v$. Note
+% \[\bb u \times \bb v = \dtx{rrr}{\bb e_1 & 2 & 4 \\ \bb e_2 & 4 & 2 \\ \bb e_3 & -1 & -1} = \dtx{rr}{4&2\\-1&-1}\bb e_1 - \dtx{rr}{2&4\\-1&-1}\bb e_2 + \dtx{rr}{2&4\\4&2}\bb e_3 = \mtx{c}{-4+2\\-(-2+4)\\4-16} = \vr{-2\\-2\\-12}.\]
+% Thus, the equation for the plane can be given as\\\\
+% $-2(x-(-1))-2(y-0) -12(z-1) = 0 \qRightarrow -2x-2-2y-12z+12 = 0 \qRightarrow$ }
+% \answer{$x+y+6z = 5$}
+\itemspade $x+2y+3z+4w=5$
+\itemspade $\begin{linear} -x\ &+\ &y &&&&&&=\ &1\\ 3x\ &&&-&\ &3z\ &+\ &4w\ &=\ &10\end{linear}$
+\end{multicols}
+
+\item \begin{proof} To prove part \ref{item:crossdist}, 
+\begin{multline*}
+\bb u \times (\bb v + \bb w) = \bb u \times \vr{v_1+w_1\\v_2+w_2\\v_3+w_3} = \dtx{ccc}{\bb e_1 & \bb e_2 & \bb e_3 \\ u_1 & u_2 & u_3 \\ v_1+w_1 & v_2+w_2 & v_3+w_3} =  \dtx{ccc}{\bb e_1 & \bb e_2 & \bb e_3 \\ u_1 & u_2 & u_3 \\ v_1 & v_2 & v_3} +  \dtx{ccc}{\bb e_1 & \bb e_2 & \bb e_3 \\ u_1 & u_2 & u_3 \\ w_1 & w_2 & w_3}\\ = (\bb u \times \bb v) + (\bb u \times \bb w),
+\end{multline*} where the second to last equality follows from multilinearity of the determinant.
+\end{proof}
+
+\item \begin{proof} To prove part \ref{item:crosszero}, 
+
+\[\bb u \times \bb u = \left( \dtx{cc}{ u_2 & u_3 \\ u_2 & u_3}, -\dtx{cc}{ u_1 & u_3 \\ u_1 & u_3}, \dtx{cc}{ u_1 & u_2 \\ u_1 & u_2}\right) = (0,-0,0) = \bb 0. \qedhere\]\vs
+\end{proof}
+
+\end{enumerate}

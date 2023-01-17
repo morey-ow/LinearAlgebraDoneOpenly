@@ -1,0 +1,383 @@
+\begin{center} 
+\emph{``When you put your hand to the plow, you can't put it down until you get to the end of the row.''\\ -- Alice Paul}
+\end{center}
+
+\section{Augmented Matrices}\label{sec:aug}/%$\blacklozenge$
+Let us begin to find an effective algorithm for solving linear systems. The following three \emph{Elementary Row Operations}\footnotemark[2] will be the basic techniques used to solve linear systems. In the elementary row operations, we refer to equations as ``rows'' for reasons that will be more clear by the end of this section.\\
+
+\label{def:rowoperations}\textbf{Elementary Row Operations}
+\begin{enumerate}[label=\arabic*., series=!LIST!]
+\item (Replacement) Replace one row by the sum of itself and a multiple of another row.\\
+\item (Interchange) Interchange the order of any two rows in the system.\\
+\item (Scaling) Multiply all scalars in a row by a nonzero scalar.
+\end{enumerate}\vs
+
+We say that two systems of linear equations are \textbf{row equivalent} if there is a sequence of row operations that transforms one system into the other.\\
+
+\begin{Thm} Two linear systems are equivalent if and only if they are row equivalent.\end{Thm}\vs
+
+\begin{Exam}\label{exam:RowOper} Solve  %Cameron Dix, Hamza H Samha
+\[\begin{linear}
+ && x_1\ & -\ &2x_2\ &+\ &2x_3\ & =\ & 0 &\\ 
+&& &&2x_2\ & -\ &8x_3\ & =\ & -8&\\ 
+&-&4x_1\ & +\ &6x_2\ &+\ &2x_3\ & =\ & 10&
+\end{linear}\] using row operations.
+
+\begin{multicols}{2}
+We begin by replacing Row 3 with\\ ($\text{Row 3} + 4*\text{Row 1}$). This gives:
+
+\[\begin{linear}
+& x_1\ &-\ & 2x_2\ &+\ &&2x_3\ & =\ & 0&\\
+&&& 2x_2\ &-\ && 8x_3\ & =\ & -8&\\
+&&-\ & 2x_2\ &+\ && 10x_3\ & =\ & 10&
+\end{linear}\]
+\end{multicols}
+
+\begin{multicols}{2}
+\noindent Next, we scale Row 2 by a factor of $\dfrac{1}{2}$, which gives:
+
+\[\begin{linear}
+& & x_1\ & -\ & 2x_2\ & +\ & 2x_3\ & = & 0& \\ 
+& & & & x_2\ & -\ & 4x_3\ &=\ & -4&\\ 
+& & &-\ & 2x_2\ & +\ & 10x_3\ &=\ & 10 &
+\end{linear}\]
+\end{multicols}
+
+\begin{multicols}{2}
+\noindent Lastly, we replace Row 3 with\\ $(\text{Row 3} + 2*\text{Row 2})$, which gives:
+
+\[\begin{linear}
+& & x_1& -\ & 2x_2\ & +\ & 2x_3\ & =\ & 0&\\
+& & & &  x_2\ & -\ & 4x_3\ &=\ & -4&\\ 
+& & & & & & 2x_3\ &=\ & 2&
+\end{linear}\]
+\end{multicols}
+
+At this point, we recognize that we have solved for $x_3$, that is, $x_3 =1$. Substituting this into Row 2 gives
+\[x_2 - 4x_3 = -4 \qRightarrow x_2 = -4 + 4x_3 = -4 + 4(1) = -4+4 = 0.\] Now we have solved for $x_2$. Lastly, we use these values to solve for $x_1$:
+\[x_1 -2x_2 + 2x_3 = 0 \qRightarrow x_1 = 2x_2 - 2x_3 = 2(0) - 2(1) = 0 - 2 = -2.\] Therefore, $(x_1,x_2,x_3) = \fbox{$(-2, 0, 1)$}$ is the unique solution to the above system. 
+\end{Exam}\vs
+
+\begin{Def} If $m$ and $n$ are positive integers, an $m\times n$ \textbf{matrix} is a rectangular array of scalars with $m$ rows and $n$ columns. Note that the numbers of rows always comes first.
+\end{Def}
+
+For example, \[\mtx{rrr}{1 & 2 & 3\\ 5 & 0 & -3}\] is a $2 \times 3$ matrix over $\R$.\\  %new
+
+\begin{multicols}{2}
+The essential information of a linear system can be recorded compactly in a matrix. Consider the system from the previous example\\
+\[\begin{linear}
+&& x_1\ & -\ &2x_2\ &+\ &2x_3\ & =\ & 0 &\\ 
+&& &&2x_2\ & -\ &8x_3\ & =\ & -8&\\ 
+&-&4x_1\ & +\ &6x_2\ &+\ &2x_3\ & =\ & 10&
+\end{linear}\]
+\end{multicols}
+
+\begin{multicols}{2}
+\noindent Aligning similar variables into columns, we create the \textbf{coefficient matrix} \\
+\[\mtx{rrr}{ 1 & -2 & 2\\ 0 & 2 & -8\\ -4 & 6 & 2}\] 
+\end{multicols}
+\begin{multicols}{2}
+\noindent and the \label{def:augmentedmatrix}\textbf{augmented matrix}\\\\
+\[\mtx{rrr|r}{ 1 & -2 & 2 & 0\\ 0 & 2 & -8 & -8\\ -4 & 6 & 2&10}\]
+\end{multicols}
+
+
+\begin{Exam} %Greg Walsh
+Solve the following system of equations:
+\[\begin{linear}
+& &  3x_2\ & +\ & 3x_3\ &=\ & 11 &\\ 
+2x_1\ & -\ &3x_2\ &+\ &3x_3\ & =\ &-4&\\ 
+x_1\ &+\ &x_2\ &+\ &4x_3\ &=\ &3&
+\end{linear}\] using the augmented matrix.
+
+\begin{multicols}{2}
+The augmented matrix is:\\\\
+\[\mtx{rrr|r}{ 0&3&3&11\\2&-3&3&-4\\1&1&4&3}\]
+\end{multicols}
+
+\begin{multicols}{2}
+\noindent Now, the row operations for linear systems work on augmented matrices as well. Interchanging Row's 1 and 3 gives:\\
+\[\mtx{rrr|r}{ 1&1&4&3\\2&-3&3&-4\\0&3&3&11}\]
+\end{multicols}
+
+\begin{multicols}{2}
+\noindent Next, replace Row 2 with $(\text{Row 2} - 2\text{Row 1})$, which gives:\\
+\[\mtx{rrr|r}{ 1&1&4&3\\0&-5&-5&-10\\0&3&3&11}\]
+\end{multicols}
+
+\begin{multicols}{2}
+\noindent Next, scale Row 2 by $-\dfrac{1}{5}$ to get:\\\\
+\[\mtx{rrr|r}{ 1&1&4&3\\0&1&1&2\\0&3&3&11}\]
+\end{multicols}
+
+\begin{multicols}{2}
+\noindent Finally, replace Row 3 with $(\text{Row 3} - 3\text{Row 2})$, which gives:\\\\
+\[\mtx{rrr|r}{ 1&1&4&3\\0&1&1&2\\0&0&0&5}\]
+\end{multicols}
+
+\begin{multicols}{2}
+ \noindent This implies that \\\\
+\[\begin{linear}
+& x_1\ &+\ &x_2\ &+\ &4x_3\ & =\ &3&\\ 
+& & & x_2\ &+\ &x_3\ &=\ & 2&\\  
+& & & & & 0\ &=\ &5&
+\end{linear}\]
+\end{multicols}
+\noindent which is impossible. Therefore, the system has no solution, that is, the system is \fbox{inconsistent}.
+\end{Exam}\vs
+
+\begin{Def}\label{def:echelon} In a matrix, we say a row is a \textbf{zero row} if all scalars in this row are zero. Otherwise, we call it a \textbf{nonzero row}. In a nonzero row, we say the \textbf{leading entry} of the row is the leftmost, nonzero entry in the row.\\
+
+A matrix is in (\textbf{row}) \textbf{echelon form} if it has the following three properties: %DIRTY
+\begin{enumerate}[!LIST!, start=1]
+\item\label{item:zerorow} There is no zero row above a nonzero row.
+\item\label{item:leadingentry} Each leading entry is in a column to the right of the leading entry of the row above it.
+\item\label{item:belowpivot} All entries in a column below a leading entry are zero.\\
+\end{enumerate}
+
+Essentially, \ref{item:zerorow} requires all zero rows to be at the bottom of a matrix in echelon form. Additionally, \ref{item:leadingentry} and \ref{item:belowpivot} require there exists a downward staircase of zeros in the lower left of the matrix, hence the name echelon.\\
+
+A matrix in echelon form is in\label{def:RREF} (\textbf{row}) \textbf{reduced echelon form} (or \textbf{RREF}) if additionally:
+\begin{enumerate}[!LIST!]
+\item The leading entry in each nonzero row is 1.
+\item All entries in a column above a leading entry are zero.\\
+\end{enumerate}
+
+When considering whether an augmented matrix is in (row reduced) echelon form, consider only those columns to the left of the vertical line. That is, an augmented matrix is in (row reduced) echelon form if and only if its coefficient matrix is.\\
+
+A \label{def:pivot}\textbf{pivot position}, or simply just a \textbf{pivot}, in a matrix is a location that corresponds to a leading entry in one of its echelon forms. A \textbf{pivot column} (or \textbf{row}) is a column (or row) that contains a pivot position. The number of pivots of a matrix $A$ is called its \textbf{rank}, denoted $\text{rank}(A)$.
+\end{Def}
+
+A priori, we do not know the locations of the pivots in a matrix, but we can easily see them when the matrix is in echelon form. Now if two matrices are row equivalent, then their pivot positions will be the same. Thus, it will be highly useful to be able to compute echelon forms row equivalent to given matrices.\\
+
+\begin{Exam} The following two matrices are in echelon form: %CLEAN
+\[\mtx{ccc|c}{\fbox{$1$}&i&2-5i&3\\0&0&\fbox{$1$}&2-i\\0&0&0&5} \qquad\text{and}\qquad \mtx{rrr|r}{ \fbox{$1$} & 0 & 0 & -3 \\ 0 & \fbox{$1$} & 0 & 0 \\ 0 & 0 & \fbox{$1$} & 4}.\] The first matrix is NOT in row reduced echelon form, since there are nonzero entries above the pivot in the third column. The second one is and the first three columns are pivot columns. The first matrix has rank 2, and the second has rank 3.
+\end{Exam}\vs
+
+Solving systems of linear equations when in echelon form is very simple. Solve first for the equation involving one variable. Substitute this assignment of the variable into the linear equation involving two variables. Solve for the remaining unknown. Plug these two assignments into the equation with three unknowns. Repeat this process as necessary. This technique is often called \textbf{back-substitution}.\\
+
+
+\begin{Exam} Solve the following linear systems from their augmented matrices which are in echelon form.
+\begin{enumerate}
+%Grayson Walker
+\item Examining below the echelon matrix and its corresponding system of linear equations, we see that we can easily solve this system. Starting with the third equation, we get that $z=5$. Substituting this into the second equation, which depends only on $y$ and $z$, we get $y = -46+8z = -46+40 = -6$. Finally, we substitute these values into the first equation and get $x=\dfrac{1}{2}(y-3z+25) = \dfrac{1}{2}(-6-15+25)= \dfrac{4}{2} = 2$. Therefore, the unique solution to the system is \fbox{$(2,-6,5)$}. 
+\[ \mtx{rrr|r}{ 2& -1&3&25\\0&-1&8&46\\0&0&15&75} \qquad\sim\qquad \begin{linear}2x\ &-\ &y\ &+\ &3z\ &=\ &25\\ &&-y\ &+\ &8z\ &=\ &46\\ &&&&15z\ &=\ &75\end{linear}\]
+
+%CLEAN
+\item This augmented matrix is in row reduced echelon form. In terms of the linear system, the system is already solved, and the solution corresponds to the augmented column of the matrix, that is, \fbox{$(3,-5,3)$} is the unique solution to this linear system.
+\[ \mtx{rrr|r}{ 1 & 0 & 0 & 3 \\ 0 & 1 & 0 & -5 \\ 0 & 0 & 1 & 3} \qquad\sim\qquad \begin{linear}x\ &&  &&  &=\ & 3 \\ & & y &&  &=\ & -5 \\ & & & & z &=\ & 3\end{linear}\]
+
+%Malcolm Hanks
+\item The final equation in this system is an identity which is true for all assignments of the variables. It neither adds or takes away any restrictions on the solution set. In fact, this equation could be removed without changing the solution set. Because the system essentially has two equations but three variables, it must be true that at least one of the variables is free.
+\[\mtx{rrr|r}{ 1 & 0 & -3 & 2\\ 0 & 1 & 3 & 7\\ 0 & 0 & 0 & 0 } \qquad\sim\qquad 
+\begin{linear}
+& x_1\ &&&& -\ & 3x_3\ & =\ & 2&\\
+&&&& x_2\ & +\ & 3x_3\ & =\ &7&\\
+&&&&&& 0\ & =\ & 0&
+\end{linear}
+\qquad\sim\qquad
+\begin{linear}
+x_1\ &=\ && 2+ 3x_3\\
+x_2\ &=\ && 7 - 3x_3\\
+x_3\ &=\ && \text{any number}
+\end{linear}\]
+Notice that the equation $0=0$ places no restriction on the variables. It could be removed without altering the solution set. Thus, there is no restriction placed on $x_3$, that is, $x_3$ could be freely assigned any real number $t$. This is what we mean by calling $x_3$ a \emph{free variable}. Upon choosing any such number, $x_1$ and $x_2$ are determined by their relation with $x_3$, that is, their assignment is restricted by equations 1 and 2. Thus, this system has multiple solutions, whose general form is \fbox{$(2+3t, 7-3t, t)$}.\\
+
+Whether there is a free variable or not in the a linear system is relatively easy to determine once you know how to look for it. In particular, dependent variables correspond to pivot columns of the augmented matrix, and free variables correspond to the remaining columns, the so-called \textbf{non-pivot columns}. 
+
+\begin{Thm} A linear system has multiple solutions if and only if it is consistent and have at least one non-pivot column. These non-pivot columns will correspond in a one-to-one manner with the free variables of the linear system.
+\end{Thm}
+
+%Jacob Jensen
+\item Examples like the previous one sometimes give the false narrative that multiple solutions occur only when the linear system contains the identity $0=0$ in some echelon form. This is patently false. Consider the following \emph{overdetermined} system (more rows than columns) below. The linear system contains two rows of zeros but has a unique solution, namely $(5, -2)$.
+\[\mtx{rr|r}{1&0&5\\0&1&-2\\0&0&0\\0&0&0}.\]
+On the other hand, an  \emph{underdetermined} system (more columns than rows) will necessarily have some columns which cannot have any pivots, as the number of pivots is bounded above by the number of rows and the number of columns. Thus, it MUST have at least one non-pivot column (see \propref{prop:1.1determine}). This translates to mean that an undetermined system MUST have free variables, which will provide multiple solutions if the linear system is consistent. For example, the below linear system is underdetermined but has no row of zeros. Nonetheless, the third column is non-pivot, meaning that $x_3$ is a free variable of the system. The general solution would then be $(2-t), 3-t, t)$ for any scalar $t$. \\
+\[\mtx{rrr|r}{\fbox{$1$}&1&2&5\\0&\fbox{$1$}&2&3} \sim \begin{linear} x_1\ & & &+\ &x_3\ &=\ &2\\ && x_2\ &+\ &x_3\ &3\end{linear} \sim \begin{linear} x_1\ &=\ &2\ &-\ &x_3\\ x_2\ &=\ &3\ &-\ &x_3.\end{linear}\]
+The false narrative derivatives from the overexposure linear algebra students often get from $n\times n$ (square) linear systems. In this case, if there is a row of zeros then the square system devolves into an undetermined system which has a free variable. The multiple solutions follow, not from the row of zeros, but from the non-pivot column(s).\\ 
+
+%Collin Reid
+\item The third equation gives a contradiction, since there is no choice of variables such that $0=8$. This tells us that the linear system is \fbox{inconsistent}. 
+\[\mtx{rrr|r}{ 1 & 0 & -1 & 1\\ 0 & 2 & 4 & 4\\ 0 & 0 & 0 & 8 } \qquad\sim\qquad 
+\begin{linear} 
+& x_1\ &&&& -\ & x_3\ & =\ & 1&\\
+&&&& 2x_2\ & +\ & 4x_3\ & =\ &4&\\
+&&&&&& 0\ & =\ & 8&
+\end{linear}\]
+
+\begin{Thm} A linear system is inconsistent if and only if it contains a row of the form
+\[\mtx{rrrr|r}{ 0 & 0 & \ldots & 0 & b}\qquad (b\neq 0)\] in some echelon form of the matrix. If the linear system is consistent, then the solution is unique if and only if the system has no free variables. \hfill$\qedhere$
+\end{Thm}
+\end{enumerate}
+\end{Exam}\vs
+
+%%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{aug}
+
+\noindent For Exercises \ref{exer:echelonstart}-\ref{exer:echelonstop}, identify if the matrix is in \hyperref[def:echelon]{echelon form} and if it is in \hyperref[def:RREF]{row reduced echelon form}. If in echelon form, identify the \hyperref[def:pivot]{pivot positions} and the \hyperref[def:pivot]{rank} of the matrix.
+\begin{enumerate}[!HW!, start=1]
+\begin{multicols}{3}
+\item\label{exer:echelonstart} $\mtx{rrr}{1&0&0\\0&1&0\\0&0&1}$
+\item $\mtx{rrrr}{1&2&0&-3\\0&0&1&5}$
+\item $\mtx{rrr}{0&0&0\\0&0&0\\0&0&0}$ %Chance Witt
+\end{multicols}
+\begin{multicols}{3}
+\item $\mtx{rrr}{0&0&0\\0&0&0\\0&0&0\\0&0&0}$
+\item $\mtx{rrrr}{3&-2&4&5}$ 
+\item $\mtx{rrrrrr}{1&2&3&4&5&6}$\\
+\mbox{}\\%Chance Witt
+\item $\mtx{rrr}{1&1&0\\0&1&0\\0&0&1}$ %Chance Witt
+\end{multicols}
+\begin{multicols}{3}
+\item $\mtx{rrr}{0&1&0\\0&0&0\\0&0&0}$ %Chance Witt
+\item $\mtx{rrrr}{1&2&4&-3\\0&0&1&5}$
+
+
+\item $\mtx{rrrr}{1&0&0&0\\0&0&2&0\\0&0&0&1}$ %Chance Witt
+\end{multicols}
+\begin{multicols}{3}
+\item $\mtx{rrrr}{1&6&-5&0\\0&0&0&2\\0&0&0&0}$
+\item $\mtx{rr|r}{5&6&3\\0&4&12}$ %Chance Witt
+\item $\mtx{rrr|r}{2&4&3&6\\0&2&6&2\\0&0&1&4}$ %Chance Witt
+\end{multicols}
+\begin{multicols}{3}
+\item $\mtx{rrr|r}{1&0&6&2\\0&0&3&4\\4&0&1&6}$ %Chance Witt
+\itemspade $\mtx{rrrr|r}{ 1 & 2 & 3 & 4 & 5 \\ 0 & 6 & 7 & 8 & 9 \\ 0 & 0 & 0& 3 & 4 }$
+\itemspade $\mtx{rrrr|r}{ 1 & 2 & 3 & 4 & 5 \\ 0 & 1 & 7 & 8 & 9 \\ 0 & 0 & 0& 0 & 2 }$
+\end{multicols}
+\begin{multicols}{3}
+\itemspade $\mtx{rrrr|r}{ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0& 0 & 2\\ 0 & 6 & 7 & 8 & 9  }$
+\itemspade $\mtx{rrrr|r}{ 1 & 0 & 3 & 0 & 5 \\ 0 & 1 & 7 & 0 & 9 \\ 0 & 0 & 0& 1 & 2 }$
+\itemspade $\mtx{rrrr|r}{ 1 & 0 & 3 & 4 & 5 \\ 0 & 1 & 7 & 8 & 9 \\ 0 & 0 & 0& 0 & 2 }$
+\end{multicols}
+\begin{multicols}{3}
+\itemspade $\mtx{rrrr|r}{ 1 & 0 & 0 & 4 & 5 \\ 0 & 0 & 1& 0 & 2\\ 0 & 1 & 0 & 8 & 9  }$
+\item $\mtx{rrr|r}{1&1&1&1\\5&-1&2&-2\\3&-1&1&3}$ %Thayne Hansen
+\item $\mtx{rrr|r}{1& -\frac{1}{5} & \frac{2}{5} & -\frac{2}{5}\\ 0&2&1&\frac{7}{3}\\ 0&0&0&1}$ %Thayne Hansen
+\end{multicols}
+\begin{multicols}{3}
+\item $\mtx{rrr|r}{1& 0 & \frac{1}{2} & 0\\ 0&1&\frac{1}{2}&0\\ 0&0&0&1}$ %Thayne Hansen
+\item $\mtx{rrr|r}{0&0&0&0\\0&9&1&3\\0&0&6&7\\2&1&3&4}$ %Chance Witt
+\item\label{exer:echelonstop} $\mtx{rrrr|r}{1&0&0&3&5\\0&7&0&0&4\\0&0&0&1&6\\0&0&0&0&0}$%Joshua Edgel
+\end{multicols}
+\end{enumerate}\vs
+
+\noindent For Exercises \ref{exer:augmentedstart}-\ref{exer:augmentedstop}, write the \hyperref[def:linearsystem]{linear system} as \hyperref[def:augmentedmatrix]{augmented matrix} or vice versa.\\
+\begin{enumerate}[!HW!]
+\begin{multicols}{3}
+\item\label{exer:augmentedstart} $\begin{linear} && 4x_2\ &+\ &2x_3\ &=\ &6\\
+3x_1\ &+\ &5x_2\ &+\ &2x_3\ &=\ &7\\
+3x_1\ &+\ &17x_2\ &+\ &8x_3\ &=\ &24
+\end{linear}$ %Kaden Allred
+\itemspade $\begin{linear} 3x\ & -\ & y\ &=\ &0\\   & -\ & 2y\ &=\ &5\\ x\ &+&\ 7y\ &=\ &13\end{linear}$
+\itemspade $\begin{linear} x\ & +\ & y\ & +\ &z\ &=\ &1\\  -2x\ & -\ & 6y\ &+\ &z\ &=\ &12\end{linear}$
+\end{multicols}
+\begin{multicols}{3}
+\item $\begin{linear}
+10x\ &-\ &7y\ &+\ &2z\ &-\ &4w\ &=\ &10\\
+3x\ &+\ &4y\ &-\ &3z\ &+\ &w\ &=\ &20\\
+x\ & & &+\ &4z\ & & &=\ &73\\
+ & &6y\ &-\ &3z\ &+\ &2w\ &=\ &10
+\end{linear}$ %Riley Drishinski
+\item $\begin{linear}
+12x\ &-\ &2y\ &+\ &3z\ &+\ &\frac{3}{2}w\ &=\ &13\\
+x\ &+\ &3y\ &-\ &2z\ && &=\ &9\\
+& &y\ &+\ &17z\ &-\ &20w\ &=\ &12
+\end{linear}$ %anon
+\item $\mtx{rrr|r}{ 1&-2&-3&-4\\0&1&2&1\\-2&0&-2&8}$\\ %Will Allen
+\end{multicols}
+\begin{multicols}{3}
+\itemspade $\mtx{rrr|r}{ 3 & -2 & -1  & 4 \\ 1 & 0 & 3 & -3\\ 0 & 0  &0 & 2}$
+\itemspade $\mtx{rrrr|r}{ 4 & -1 & -2 & 5 & 12 \\ -3 & 0 & 0& 1 & 5\\ 1 & 0 & 0 &0 & 0}$
+\item\label{exer:augmentedstop} $\mtx{rrrr|r}{2&0&1&-9&3\\0&9&21&25&-9\\14&-7&0&36&67\\3&4&-7&19&2\\-18&0&2&8&1}$ %anon
+\end{multicols}
+\end{enumerate}\vs
+
+\noindent For Exercises \ref{exer:rowoperationstart}-\ref{exer:rowoperationstop}, perform the indicated \hyperref[def:rowoperations]{elementary row operation(s)} to the \hyperref[def:linearsystem]{linear system} or \hyperref[def:augmentedmatrix]{augmented matrix}.
+\begin{enumerate}[!HW!]
+\begin{multicols}{3}
+\item\label{exer:rowoperationstart} 
+$\begin{linear}
+2x\ &+\ &2y\ && &=\ &5\\
+x\ &+\ &y\ &-\ &z\ &=\ &1\\
+ &- &5y\ &+\ &4z\ &=\ &-1
+ \end{linear}$\\
+ scale Row 2 by $3$ %Jianhe Yu
+\itemspade $\begin{linear} &  & 2y\ &+\ &5z\ &=\ &10\\
+x\ &-\ & y\ &+\ &3z\ &=\ &6\\
+2x\ &+&\ 7y\ &-\ &z\ &=\ &0\end{linear}$\\
+interchange Rows 1 and 2\\
+\itemspade $\begin{linear} 3x\ & -\ & y\ &=\ &0\\
+& -\ & 2y\ &=\ &5\\
+x\ &+&\ 7y\ &=\ &13\end{linear}$\\
+scale Row 2 by $-1/2$
+\end{multicols}
+\begin{multicols}{3}
+\itemspade $\begin{linear} x\ & +\ & y\ & +\ &z\ &=\ &1\\
+-2x\ & -\ & 6y\ &+\ &z\ &=\ &12\end{linear}$\\ 
+replace Row 2 with\\ \mbox{}\hfill $\text{Row 2} +2\text{Row 1}$\columnbreak
+\item \mbox{$\begin{linear}
+7x\ &+\ &y\ &-\ &2z\ &\equiv\ &10\\ 
+-x\ &-\ &y\ &+\ &7z\ &\equiv\ &5\\ 
+6x\ & & &-\ &z\ &\equiv\ &3 
+\end{linear} \pmod{11}$}\\ 
+scale Row 2 by $\frac{1}{2}$ %Jianhe Yu
+\item $\mtx{rrr|r}{1&3&1&3\\0&1&7&1\\0&0&1&0}$\\ 
+replace Row 1 with\\ 
+\mbox{}\hfill$\text{Row 1} + \text{Row 3}$ %Jianhe Yu
+\end{multicols}
+\begin{multicols}{3}
+\item $\mtx{rrrr|r}{0&0&0&0&0\\1&2&3&4&5\\2&0&0&0&7}$\\ 
+replace Row 3 with\\ 
+\mbox{}\hfill $\text{Row 3} + 2\text{Row 2}$ %Jianhe Yu
+\item $\mtx{rrrr|r}{2&4&6&-2&4\\0&1&3&5&5\\0&0&0&1&1}$\\ 
+scale Row 1 by $1/2$ %Anthony Nquyen
+\item $\mtx{rrr|r}{ 2&3&4&6\\1&2&2&3\\9&4&7&2}$\\ 
+replace Row 1 with\\ 
+\mbox{}\hfill $\text{Row 1} - \text{Row 2}$ %Anthony Nquyen
+\end{multicols}
+\begin{multicols}{3}
+\item $\mtx{rrr|r}{1&2&3&6\\2&3&4&1\\5&6&7&2}$\\
+replace Row 2 with\\ \mbox{}\hfill $\text{Row 2} - 2\text{Row 1}$,\\
+replace Row 3 with\\ \mbox{}\hfill $\text{Row 3} - 5\text{Row 1}$,\\
+replace Row 3 with\\ \mbox{}\hfill $\text{Row 3} - 4\text{Row 2}$ \columnbreak %Caroline Ashton
+\itemspade $\mtx{rrr|r}{ 0 & 0  &0 & 2\\ 3 & 2 & 1  & 4 \\ 1 & 0 & 3 & 3} \pmod5$\\
+interchange Rows 1 and 3 \columnbreak
+\itemspade \mbox{$\mtx{rrrr|r}{ 4 & 4 & 3 & 0 & 2 \\ 2 & 0 & 0& 1 & 0\\ 1 & 0 & 0 &0 & 0}\pmod5$}\\ 
+scale Row 1 by $4$
+\end{multicols}
+%\begin{multicols}{3}
+\end{enumerate}
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\item\label{exer:rowoperationstop} \mbox{$\mtx{rrrr|r}{ 1 & 2 & 3 & 4 & 0 \\ 0 & 1 & 3& 1 & 2\\ 0 & 1 & 2 & 3 & 4  } \pmod5$}\\ 
+replace Row 1 with %\\ \mbox{}\hfill 
+$\text{Row 1} - 2\text{Row 2}$ 
+%\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:rowoperationguessstart}-\ref{exer:rowoperationguessstop}, identify the \hyperref[def:rowoperations]{elementary row operation(s)} which transform the first matrix into the second matrix. Answers may vary.
+\begin{enumerate}[!HW!]
+\begin{multicols}{2}
+\item\label{exer:rowoperationguessstart}
+$\mtx{rrr}{0&2&6\\7&1&2\\-3&5&0}\sim \mtx{rrr}{7&1&2\\0&2&6\\-3&5&0}$ %anon
+\item
+$\mtx{rrr}{3&2&0\\5&4&1\\7&0&1}\sim \mtx{rrr}{1&-2&0\\5&4&1\\3&2&0}$ %anon
+\end{multicols}
+\begin{multicols}{2}
+\item
+$\mtx{rrr}{2&0&3\\0&2&-2\\3&4&-1}\sim \mtx{rrr}{1&4&-4\\0&1&-1\\0&-8&11}$ %anon
+\item
+$\mtx{rrrr}{1&-3&0&-9\\3&-8&2&-21\\2&-2&9&7\\-2&4&-1&10}\sim \mtx{rrrr}{1&-3&0&-9\\0&1&2&6\\0&4&9&25\\0&-2&-1&-8}$ %Gordan Ochsner
+\end{multicols}
+\begin{multicols}{2}
+\item\label{exer:rowoperationguessstop}
+$\mtx{rrrr}{1&0&6&9\\0&1&2&6\\0&0&1&1\\0&0&3&4}\sim \mtx{rrrr}{1&0&0&3\\0&1&0&4\\0&0&1&1\\0&0&0&1}$ %Gordan Ochsner
+\end{multicols}
+\end{enumerate}
+
+%Solve linear system by back substitution %already in echelon form
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+\mbox{}\vfill
+
+\footnotetext[2]{The elementary row operations come by many names, and many texts never give them names are all. The replacement operations is sometimes called row addition or row combination because it consists of adding a multiple of a row to another row. The interchange operation is sometimes called row swap or row switch for obvious reasons. Finally, the scaling operation is often called row multiplication because we multiply both sides of an equation by a nonzero constant. The naming scheme used here for the elementary row operations follows the scheme used by Lay \cite{Lay}. We prefer this naming scheme for two reasons. First, students will remember them better and be able to talk with their classmates about them more easily when they have short, simple names. Second, we will eventually see that these three elementary operations correspond to many concepts in linear algebra, including elementary column operations. For this reason, it is preferable to have names which do not use the word ``row.''}
+\pagebreak

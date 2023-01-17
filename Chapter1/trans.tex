@@ -1,0 +1,180 @@
+\begin{center} 
+\emph{``Don't spend time beating on a wall, hoping to transform it into a door.'' -- Coco Chanel}
+\end{center}
+
+\section{Linear Transformations}\label{sec:trans}
+
+The next important linear structure we have seen before (primarily in calculus) is the notion of a \emph{linear operator} or a \textbf{linear transformation}. This is a function on vectors which preserve linear combinations.\\
+
+\begin{Def}\label{def:linear} Let $X$ and $Y$ be vector space over a field $F$. A function $T : X \to Y$ is a \textbf{linear transformation} if:
+\begin{enumerate}[!DEF!, start=1]
+\item $T(\bb u + \bb v) = T(\bb u) + T(\bb v)$, for all vectors $\bb u, \bb v \in X$;
+\item $T(c\bb u) = cT(\bb u)$, for all vectors $\forall \bb u\in X$ and scalars $c\in F$.
+\end{enumerate}
+Recall that $X$ and $Y$ are called the \textbf{domain} and \textbf{codomain} of $T$, respectively. For any $\bb x\in X$, we call $T(\bb x)$ the \textbf{image} of $T\bb x$, and we call $\im(T) = \{T(\bb x) \mid \bb x\in X\}$ (the set of images) the \textbf{image} (or \textbf{range}) of $T$. The \textbf{kernel} of a linear transformation $T$ is the set of vectors which map to the zero vector, that is, $\ker T = \{\bb x\mid T(\bb x) = \bb 0\}$, denoted $\ker(T)$.\\
+\end{Def}
+
+\begin{Exam} In calculus, there are many linear operators. For example, the derivative is a linear transformation since
+\[\ddx[f(x)+g(x)] = \ddx[f(x)]+\ddx[g(x)]\qquad\text{and}\qquad \ddx[cf(x)] = c\ddx[f(x)].\] Note that $\ker \left(\ddx\right)$ is the set of constant functions. Likewise, limits are linear operators:
+\[\lim_{x\to a}[f(x) + g(x)] = \lim_{x\to a}[f(x)] + \lim_{x\to a}[g(x)]\qquad\text{and}\qquad \lim_{x\to a}[cf(x)] = c\lim_{x\to a}[f(x)].\]
+Likewise, antiderivatives, definite integrals, indefinite integrals, and series are all linear operators on functions. Linear algebra was everywhere in calculus, we just didn't know it!
+\end{Exam}\vs
+
+\begin{Prop} Let $T : X\to Y$ be a linear transformation. Let $\bb x_1, \ldots, \bb x_n\in X$ and $c_1,\ldots, c_n\in F$. Then 
+\[T(c_1\bb x_1 + \ldots + c_n\bb x_n) = c_1T(\bb x_1)+\ldots + c_nT(\bb x_n).\] The converse also is true, that is, $T$ is a linear transformation if it preserves linear combinations. In particular, $T(\bb 0) = \bb 0$.
+\end{Prop}\vs
+
+\begin{Exam}\label{exam:lintrans} Consider the function $T : \R^3 \to \R^2$ given by the rule $T(x_1, x_2, x_3) = (x_1+2x_2, x_3-3x_2)$, or in vector notation as:
+\[T\vr{x_1\\x_2\\x_3} =  \vr{x_1+2x_2\\ x_3-3x_2}.\] This is a function which takes a vector in 3-space, such as $(1,2,3)$, and maps it onto a vector in 2-space, namely $T(1,2,3)=(1+2(2), 3-3(2)) = (5,-3)$. But more than just a function that sends 3D vectors onto 2D vectors, this function \emph{preserves} the structure of the vector space $\R^3$ as it maps onto $\R^2$. This function is a linear transformation since 
+\[T\left(a\vr{x_1\\x_2\\x_3} + b\vr{y_1\\y_2\\y_3}\right) = T\vr{ax_1+by_1\\ax_2+by_2\\ax_3+by_3} = \vr{(ax_1+by_1) +2(ax_2+by_2) \\ (ax_3+by_3)-3(ax_2+by_2)}\]
+\[ a\vr{x_1+2x_2 \\ x_3-3x_2} + b\vr{y_1+2y_2\\y_3-3y_2} = aT\vr{x_1\\x_2\\x_3} + bT\vr{y_1\\y_2\\y_3}.\] 
+
+We next compute the kernel of $T$. Suppose $T(\bb x) = \bb 0$. This implies that $\vr{x_1+2x_2\\ x_3-3x_2} = \vr{0\\0}$. Comparing components, we find two linear equations $x_1+2x_2=0$ and $x_3-3x_2=0$. Together, this forms a homogeneous system of linear equations. 
+\[\begin{linear} x_1\ & +\ & 2x_2\ &&&=\ & 0\\
+&-\ &3x_2\ & +\ & x_3\ &=\ & 0.\end{linear}\] If we attempt to solve this system, we could use the method of substitution. Note we can solve for $x_1$ in the first equation, which gives $x_1 = -2x_2$. Likewise, we can solve $x_3$ in the second equation and find $x_3=3x_2$. What we see now is that $x_1$ and $x_3$ are determined by our choice of $x_2$ and there appears to be NO restriction on our choice of $x_2$, that is, we may choose it freely.  For example, if $x_2=1$, it would mean that $x_1=-2$ and $x_3=3$, that is, $x_1$ and $x_3$ are dependent on $x_2$. Note that 
+\[T\vr{-2\\1\\3} = \mtx{c}{(-2)+2(1)\\(3)-3(1)} = \mtx{c}{-2+2\\3-3} = \vr{0\\0} = \bb 0.\] Thus, this vector is in the kernel. In fact, the solution set to this system is exactly the kernel of $T$. If we let $x_2=t$, some free parameter $t$, then we see that \[\ker T = \left\{\mtx{c}{-2t\\ t \\ 3t}\ \middle|\ t\in \R\right\} = \left\{t\mtx{c}{-2\\ 1 \\ 3}\ \middle|\ t\in \R\right\} =  \Span\left\{\mtx{c}{2\\ -1 \\ -3}\right\}.\]
+
+Is the vector $\bb b = \vr{1\\2}$ in the image of $T$? If so, there would be a vector $\bb x = \vr{x_1\\x_2\\x_3}$ such that $T(\bb x) = \bb b$. But this implies that $\vr{x_1+2x_2\\ x_3-3x_2} = \vr{1\\2}$. Again, this vector equation implies two linear equations, namely, $x_1+2x_2=1$ and $-3x_2+x_3=2$, which as a system of equations is
+\[\begin{linear} x_1\ & +\ & 2x_2\ &&&=\ & 1\\
+&-\ &3x_2\ & +\ & x_3\ &=\ & 2.\end{linear}\] Again by substitution, we see $x_1 = 1-2x_2$ and $x_3=2+3x_2$. Thus, if $x_2=0$, we get that 
+\[T\left(\vr{1\\0\\2}\right) = \vr{1+2(0) \\ 2 - 3(0)} = \vr{1\\2}.\] Therefore, yes, $\bb b \in \im T$. Of course, many other choices of $\bb x$ were possible such that $T(\bb x) = \bb b$.
+\end{Exam}\vs
+
+Notice that the components of $T(\bb x)$ in the previous example are linear combinations of the components of the input vectors, that is, each slot in $T(\bb x)$ is a linear combination of the variables $x_1, x_2, \ldots$  It can be shown that a function $T : F^n \to F^m$ is a linear transformation if and only if the components of $T(\bb x)$ are linear combinations of the components of $\bb x$. Another takeaway from the previous example is that computing the kernel or image of a linear transformation resulted in solving a system of linear equations. This is no coincidence and we will discuss solving systems of linear equations more in the next sections. \\
+
+%Christpher Houston
+\begin{Exam} Consider the function $T : \hyperref[exer:polynomial space]{\mathcal{P}_2} \to \R^2$ given by the rule $T(ax^2+bx+c)=\mtx{c}{5a+2c\\-a+c}$.  Let $f(x) = a_1x^2+b_1x+c_1, g(x)=a_2x^2+b_2x+c_2\in \mathcal{P}_2$ and $r\in \R$. Then
+\begin{multline*}T(f(x) + g(x)) = T((a_1x^2+b_1x+c_1) + (a_2x^2+b_2x+c_2)) = T((a_1+a_2)x^2+(b_1+b_2)x+(c_1+c_2))\\ = \mtx{c}{5(a_1+a_2) + 2(c_1+c_2)\\ -(a_1+a_2)+(c_1+c_2)} = \mtx{c}{(5a_1+2c_1)+(5a_2+2c_2)\\(-a_1+c_1) + (-a_2+c_2)} = \mtx{c}{5a_1+2c_1\\-a_1+c_1} + \mtx{c}{5a_2+2c_2\\-a_2+c_2}\\ = T(a_1x^2+b_1x+c_1) + T(a_2x^2+b_2x+c_2) = T(f(x)) + T(g(x))\end{multline*}
+and
+\begin{multline*}T(rf(x)) = T(r(a_1x^2+b_1x+c_1)) = T((ra_1)x^2+(rb_1)x+(rc_1)) \\ =\mtx{c}{5(ra_1)+2(rc_1)\\ -(ra_1)+(rc_1)} = \mtx{c}{r(5a_1+2c_1)\\ r(-a_1+c_1)} = r\mtx{c}{5a_1+2c_1\\ -a_1+c_1} =\\ rT(a_1x^2+b_1x+c_1)=rT(f(x)).\end{multline*} Therefore we see that $T$ is a linear transformation between the vector spaces $\mathcal{P}_2$ and $\R^2$. \\
+
+To find the kernel of $T$, we must solve the vector equation $\mtx{c}{5a+2c\\-a+c} = \vr{0\\0}$, which corresponds to the linear system $\begin{linear}
+5a\ &+\ &2c\ &=\ &0\\ -a\ &+\ &c\ &=\ &0&.
+\end{linear}$ We solve this system by elimination. Scale the second equation by 5 and add together the resulting equation with the first equation. This gives $7c=0$, which implies that $c=0$. The original second equation $-a+c=0$ implies that $a=c$. Hence, $a=0$ likewise. What about the coefficient $b$? The map $T$ seems to ``forget'' about the coefficient $b$, that is, the calculation of the image $T(ax^2+bx+c)$ is independent of the coefficient $b$. The above linear system is actually a system with two equations and three unknowns, although none of the equations place any restriction on the coefficient $b$. Hence, $a=c=0$ are dependent variables and $b$ is a free variable. Therefore, $\ker T = \{bx\mid b\in \R\} \subseteq\mathcal{P}_2$. 
+
+To find the image of $T$, we consider the general vector equation $\mtx{c}{5a+2c\\-a+c} = \vr{x\\y}$, which corresponds to the linear system $\begin{linear}
+5a\ &+\ &2c\ &=\ &x\\ -a\ &+\ &c\ &=\ &y&.
+\end{linear}$ Reducing this linear system by the same elimination technique as we did with the kernel, we get $7c=x+5y$ or $c=\dfrac{x+5y}{7}$. Since $a=c-y$, we also get that $a=\dfrac{x+5y}{7}-y = \dfrac{x-2y}{7}$. For example, if we wanted a polynomial which mapped onto $\vr{3\\1}$ via $T$, we could select $f(x)=4x^2+3$ (like we saw in the kernel calculation, the coefficient $b$ is meaningless via this transformation). In particular, $\im T= \R^2$. 
+\end{Exam}
+
+\begin{Def}\label{def:injective}
+A mapping $T : X \to Y$ is said to be \textbf{onto} (or \textbf{surjective}) if for each $\bb b\in Y$ there is at least one $\bb x\in X$ such that $T(\bb x) = \bb b$, that is, the codomain and range of $T$ are the same.\\
+
+A mapping $T : X \to Y$ is said to be \textbf{one-to-one} (or \textbf{injective}) if for each $\bb b\in Y$ there is at most one $\bb x\in X$ such that $T(\bb x) = \bb b$, that is, $T(\bb u ) = T(\bb v)$ implies that $\bb u = \bb v$.\\
+
+A mapping $T : X \to Y$ is said to be \textbf{invertible} (or \textbf{bijective}) if for each $\bb b\in Y$ there is exactly one $\bb x\in X$, that is, $T$ is one-to-one and onto. In particular, there exists another linear transformation $S : Y \to X$ such that $S\circ T = \Id$ and $T\circ S = \Id$, where $\Id$ is the identity function $\bb x \mapsto \bb x$.\\
+\end{Def}
+
+\begin{Prop} Let $T : X \to Y$ be a linear transformation. Then $T$ is one-to-one if and only if $\ker T = \{\bb 0\}$. Additionally, $T$ is onto if and only if $\im T = Y$.
+\end{Prop}\vs
+
+\begin{Exam} In \examref{exam:lintrans}, we see that $T$ is not one-to-one since the kernel is nontrivial, that is, both $\bb 0$ and $\vr{2\\-1\\-3}$ have the same image. \\
+
+%Revision paragraph sponsored by Abby Allen %%%%%%%%%%%%%%%%%%%
+We can determine whether $T$ is onto  by determining if a generic vector in $\R^2$, say $\bb b = (b_1,b_2)$ is an image of some vector $\bb x\in \R^3$. Now this becomes a vector equation:
+\[T\vr{x\\y\\z} = \vr{b_1\\b_2}\qRightarrow \vr{x_1+2x_2 \\ x_3-3x_2} = \vr{b_1\\b_2} \qRightarrow \begin{linear} x_1\ &+\ &2x_2\ &&&=\ &b_1\\ &-\ &3x_2\ &+\ &x_3\ &=\ & b_2\end{linear}.\] Treating $x_2$ as a free variable and setting it equal to $0$, we see that $x_1=b_1$ and $x_3=b_2$. Therefore, $T(b_1,0,b_2) = (b_1,b_2) = \bb b$. As $\bb b$ was no specific vector in $\R^2$, but, in fact, a generic vector, this shows that any vector in $\R^2$ can be the image of a vector from $\R^3$ via $T$, that is, $T$ is onto.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{Exam}\vs
+
+\begin{Exam} Consider the linear transformation $T : \Z_2^3 \to \Z_2^4$ given by the rule:
+\[(x_1, x_2, x_3) \mapsto (x_1, x_2, x_3, x_1+x_2+x_3).\] This time, if $T(x_1,x_2,x_3) = (0,0,0,0)$ then $x_1 = x_2 = x_3 = 0$. Thus, $\ker T = \{(0,0,0)\}$. Therefore, $T$ is one-to-one. On the other hand, consider $\bb b = (1,1,1,0)$. If $\bb b \in \im T$, then $x_1 = x_2 = x_3 = 1$. But $x_1+x_2+x_3 \equiv 1 \not\equiv 0$. Thus, $\bb b \neq T(\bb x)$ for any $\bb x \in \Z_2^3$. Therefore, $T$ is not onto. Note this linear transformation determines an error detecting code, because if an error occurred in any of the first three bits then the sum of the first three transmitted bits would not add up to the last bit.
+\end{Exam}\vs
+
+%%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{trans}
+
+\setlength{\columnseprule}{0.4pt}
+\begin{multicols}{2}
+\noindent For Exercises \ref{exer:lineartransform23start}-\ref{exer:lineartransform23stop}, use the transformation\\ $T : \R^2 \to \R^3$ given by the rule:
+\[T(x,y) = (x+y, 0, 2x+3y).\]
+\begin{enumerate}[!HW!, start=1, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\item\label{exer:lineartransform23start} Show that $T$ is a \hyperref[def:linear]{linear transformation}.
+\item Compute $T(1, 2)$ and $T(5,-2)$.
+\item Compute \hyperref[def:linear]{$\ker T$}.
+\item Is $\bb b = (1,0,1)$ in the \hyperref[def:linear]{image} of $T$? Explain. 
+\item\label{exer:lineartransform23stop} Determine whether $T$ is \hyperref[def:injective]{one-to-one, onto, or neither}.
+\end{enumerate}\columnbreak
+
+\noindent For Exercises \ref{exer:lineartransform32start}-\ref{exer:lineartransform32stop}, use the transformation\\ $T : \R^3 \to \R^2$ given by the rule:
+\[T\vr{x_1\\x_2\\x_3} = \mtx{c}{x_1+x_3\\x_1+3x_2}.\]
+\begin{enumerate}[!HW!]
+\item\label{exer:lineartransform32start} Show that $T$ is a \hyperref[def:linear]{linear transformation}.
+\item Compute $T\vr{0\\0\\0}$ and $T\vr{1\\1\\2}$.
+\item Compute \hyperref[def:linear]{$\ker T$}.
+\item Is $\bb b = \vr{1\\1}$ in the \hyperref[def:linear]{image} of $T$? Explain. 
+\item\label{exer:lineartransform32stop} Determine whether $T$ is \hyperref[def:injective]{one-to-one, onto, or neither}.
+\end{enumerate}
+\end{multicols}\vspace{5 pt}
+
+\begin{multicols}{2}
+\noindent For Exercises \ref{exer:lineartransform2nd32start}-\ref{exer:lineartransform2nd32stop}, use the transformation\\ $T : \R^3 \to \R^2$ given by the rule:
+\[T(x, y, z) = (x+y-2z, -y+z).\] 
+\begin{enumerate}[!HW!]
+\item\label{exer:lineartransform2nd32start} Show that $T$ is a \hyperref[def:linear]{linear transformation}.
+\end{enumerate}
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\item Compute $T(1, 2, 3)$ and $T(1,0,-2)$.
+\item Compute \hyperref[def:linear]{$\ker T$}.
+\item Is $\bb b = (3, -1)$ in the \hyperref[def:linear]{image} of $T$? Explain. 
+\item\label{exer:lineartransform2nd32stop} Determine whether $T$ is \hyperref[def:injective]{one-to-one, onto, or neither}.
+\end{enumerate}\columnbreak
+
+\noindent For Exercises \ref{exer:lineartransformNOT33start}-\ref{exer:lineartransformNOT33stop}, use the transformation\\ $T : \R^3 \to \R^3$ given by the rule:
+\[T(x, y, z) = (2z+y, 2x+4, -2y).\] 
+\begin{enumerate}[!HW!]
+\item\label{exer:lineartransformNOT33start} Compute $T(1,3,2)$. %Colin Reid
+\item Is $\bb b = (1,6,2)$ in the \hyperref[def:linear]{image} of $T$? Explain. 
+\item\label{exer:lineartransformNOT33stop} Show that $T$ is NOT a \hyperref[def:linear]{linear transformation}.
+\end{enumerate}
+\end{multicols}\vspace{ 5 pt}
+
+\begin{multicols}{2}
+\noindent For Exercises \ref{exer:lineartransformNOT32start}-\ref{exer:lineartransformNOT32stop}, use the transformation\\ $T : \R^3 \to \R^2$ given by the rule:
+\[T(x, y, z) = (2,5).\] 
+\begin{enumerate}[!HW!]
+\item\label{exer:lineartransformNOT32start} Show that $T$ is NOT a \hyperref[def:linear]{linear transformation}.
+\item Is $\bb b = (3,2)$ in the \hyperref[def:linear]{image} of $T$? Explain. 
+\item\label{exer:lineartransformNOT32stop} Determine whether $T$ is \hyperref[def:injective]{one-to-one, onto, or neither}.
+\end{enumerate}\columnbreak
+
+\noindent For Exercises \ref{exer:lineartransformmod2start}-\ref{exer:lineartransformmod2stop}, use the transformation\\ $T : \Z_2^4 \to \Z_2$ given by the rule:
+\[T(x, y, z, w) \equiv x+y+z+w.\] 
+\begin{enumerate}[!HW!]
+\item \label{exer:lineartransformmod2start}Show that $T$ is a \hyperref[def:linear]{linear transformation}.
+\end{enumerate}
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\item Compute $T(1, 0, 0, 1)$ and $T(1, 0, 1, 1)$.
+\item Compute \hyperref[def:linear]{$\ker T$}.
+\item Is $\bb b = 1$ in the \hyperref[def:linear]{image} of $T$? Explain. 
+\item\label{exer:lineartransformmod2stop} Determine whether $T$ is \hyperref[def:injective]{one-to-one, onto, or neither}.
+\end{enumerate}
+\end{multicols}
+
+\begin{multicols}{2}
+\noindent For Exercises \ref{exer:lineartransformmod3start}-\ref{exer:lineartransformmod3stop}, use the transformation\\ $T : \Z_3^2 \to \Z_3$ given by the rule:
+\[T(x, y) = 2x+y.\] 
+\begin{enumerate}[!HW!]
+\item\label{exer:lineartransformmod3start}\label{exer:lineartransformmod3stop} Compute $T(1,2)$ and $T(5,2)$. %Emory Ward
+\end{enumerate} \mbox{}\columnbreak
+
+\noindent For Exercises \ref{exer:lineartransformmod5start}-\ref{exer:lineartransformmod5stop}, use the transformation\\ $T : \Z_5^3 \to \Z_5^3$ given by the rule:
+\[T(x, y, z) = \mtx{c}{x+2y+z\\ 2x+2y+2z\\ 3z+4y+3z}.\] 
+\begin{enumerate}[!HW!]
+\item\label{exer:lineartransformmod5start} Compute $T(1,0,1)$ and $T(1,2,3)$. %anon
+\item \label{exer:lineartransformmod5stop} Is $\bb b = (2,4,3)$ in the \hyperref[def:linear]{image} of $T$? Explain. %anon
+\end{enumerate}
+\end{multicols}
+
+\noindent For Exercises \ref{exer:lineartransformmfieldstart}-\ref{exer:lineartransformmfieldstop}, use the transformation\\ $T : F^n \to F$ given by the rule:
+\[T(x_1, x_2, \ldots, x_n) = a_1x_1+a_2x_2+\ldots+a_nx_n,\] where $F$ is a field and $a_1, a_2, \ldots, a_n\in F$.
+\begin{enumerate}[!HW!]
+\item\label{exer:lineartransformmfieldstart} Show that $T$ is a \hyperref[def:linear]{linear transformation}.
+\item Is it possible to determine if $T$ is \hyperref[def:injective]{one-to-one} with this information? Why or why not?
+\item\label{exer:lineartransformmfieldstop} Is it possible to determine if $T$ is \hyperref[def:injective]{onto} with this information? Why or why not?
+\end{enumerate}
+
+\setlength{\columnseprule}{0pt}
+
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+\pagebreak

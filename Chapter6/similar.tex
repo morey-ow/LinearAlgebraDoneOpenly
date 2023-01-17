@@ -1,0 +1,154 @@
+\begin{center} 
+\emph{``Transformation literally means going beyond your form.'' -- Wayne Dyer}
+\end{center}
+
+\section{Similarity and Linear Transformations}\label{sec:similar}
+Let $V$ and $W$ be $n$- and $m$-dimensional vector spaces with bases $\B = \{\bb b_1, \ldots, \bb b_n\}$ and $\c = \{\bb c_1, \ldots, \bb c_m\}$, respectively. Let $T: V\to W$ be a linear transformation. Likewise, the coordinate mappings $[\cdot]_\B : V \to F^n$ and $[\cdot]_\c : W \to F^m$ are linear transformations (in fact, they are isomorphisms). Consider the composite linear transformation $([\cdot]_\c\circ T\circ [\cdot]_\B^{-1}) : F^n\to F^m$. This is a linear transformation between $F^n$ and $F^m$. Let $A$ be the standard matrix of this composite transformation. Then 
+\[[T(\bb x)]_\c = A[\bb x]_\B\] for all $\bb x\in V$. This matrix $A =  \,_\c[T]_\B$ is called the \textbf{matrix representation} of $T$ relative to $\B$ and $\c$. In fact, 
+\[A = \mtx{cccc}{[T(\bb b_1)]_\c & [T(\bb b_2)]_\c & \ldots & [T(\bb b_n)]_\c}.\]  The following diagram may be useful in remembering the relationship here:
+\begin{center}
+\begin{tikzpicture}
+\path (0,0) node (x) {$\bb x$};
+\path (x) ++ (3,0) node (Tx) {$T(\bb x)$};
+\path (x) ++ (0,-1.5) node (xB) {$[\bb x]_\B$};
+\path (xB) ++ (3,0) node (TxC) {$[T(\bb x)]_\c$};
+\draw[thick, ->] (x) -- (Tx) node[midway, above] {$T$};
+\draw[thick, ->] (xB) -- (TxC) node[midway, above] {$A$};
+\draw[thick, ->]  (x) -- (xB);
+\draw[thick, ->]  (Tx) -- (TxC);
+\end{tikzpicture}
+\end{center}
+
+
+\begin{Exam} Consider the linear transformation $T:\R^4\to\R^4$ given by the rule
+\[T\left(\vr{x\\y\\z\\w}\right) = \mtx{c}{-2x+11y+z-w\\2x-9y+2z+w\\2x-4y+3z\\3x+1.5y+2z-w}.\] Note that the standard matrix $_\mathcal{E}[T]_\mathcal{E}$ for $T:\R^4\to \R^4$ is 
+\[_\mathcal{E}[T]_\mathcal{E} = \mtx{rrrr}{-2&11&1&-1\\2&-9&2&1\\2&-4&3&0\\3&1.5&2&-1}.\]
+Suppose $\B = \left\{\vr{1\\2\\3\\4}, \vr{1\\0\\-1\\0}\right\}$ is a basis for $V\subseteq \R^4$ and $\c = \left\{\vr{1\\-1\\1\\-1}, \vr{2\\0\\0\\1}, \vr{3\\-2\\1\\1}\right\}$ is a basis for $W\subseteq \R^4$. Then $T$ restricts to a linear transformation from $V$ to $W$, that is, $T:V\to W$. Note that \[T(\bb b_1) = \vr{19\\-6\\3\\8} \qquad T(\bb b_2) = \vr{-3\\0\\-1\\1}.\]
+In order to compute the matrix representation $T:V\to W$ with respect to $\B$ and $\c$ coordinates, we need to row reduce $\mtx{r|r}{\c & T(\B)}$:
+\[\mtx{r|r}{\c & T(\B)} = \mtx{rrr|rr}{1&2&3&19&-3\\-1&0&-2&-6&0\\1&0&1&3&-1\\-1&1&1&8&1} \sim \mtx{rrr|rr}{1&0&0&0&-2\\0&1&0&5&-2\\0&0&1&3&1\\0&0&0&0&0}.\] Thus, 
+\[[T(\bb b_1)]_\c =  \vr{0\\5\\3}\qquad\text{and}\qquad [T(\bb b_2)]_\c =  \vr{-2\\-2\\1}.\] This gives
+\[M = \mtx{cc}{[T(\bb b_1)]_\c & [T(\bb b_2)]_\c} =\mtx{rr}{0&-2\\5&-2\\3&1}.\qedhere\]
+\end{Exam}\vs
+
+Note that the matrix representation of $T$ depends on the bases chosen for the domain $V$ and codomain $W$, up to a point. \\
+
+\begin{Thm}\label{thm:similarmatrix} Let $T: V\to W$ be a linear transformations. Let $A$ and $A'$ be two matrix representations of $T$. If $m=\dim W$ and $n=\dim V$, then there nonsingular matrices $P\ (m\times m)$ and $Q\ (n\times n)$ such that $A = PA'Q^{-1}$.
+\end{Thm}
+\begin{proof} Let $\B, \B'$ be bases for $V$ and $\c, \c'$ be bases for $W$ such that $A = \,_\c[T]_\B$ and $A' = \,_{\c'}[T]_{\B'}$. Then let $Q = \underset{\B\leftarrow \B'}{P}$ and $P=\underset{\c\leftarrow \c'}{P}$. Let $\bb x\in V$. Then 
+\[[PA'Q^{-1}[\bb x]_\B = PA'[\bb x]_{\B'} = P[T(\bb x)]_{\c'} = [T(\bb x)]_{\c} = A[\bb x]_{\B}.\] Thus, $PA'Q^{-1} = A$.
+\end{proof}\vs
+
+When $T : V \to V$ is a linear transformation with the same domain and codomain, we often use the same basis for the domain and codomain. We then refer to the \textbf{matrix representation} $A = [T]_\B$ relative to $\B$. In this case,
+\[[T(\bb x)]_\B = A[\bb x]_\B.\]\vs
+
+%\begin{Exam} The mapping $D : \P_2 \to \P_2$, defined by %ANTON
+%\[D(a_0+a_1t+a_2t^2) = a_1+2a_2t,\] is linear (this is just the derivative). \\
+%\begin{enumerate}[(a)]
+%\begin{multicols}{2}
+%\item Find the standard matrix of $D$ relative to $\B$, where $\B = \{1, t,t^2\}$.\\
+%
+%Since $D(1) = 0$, $D(t) = 1$, and $D(t^2) = 2t$, we have that:  \columnbreak
+%\[[D]_\B = \mtx{rrr}{0&1&0\\0&0&2\\0&0&0}.\]
+%\end{multicols}\vs
+%
+%\item Verify that $[D(\bb p)]_\B = [D]_\B[\bb p]_\B$ for all $\bb p\in \P_2$.\\
+%
+%Let $\bb p(t) = a_0+a_1t+a_2t^2$. Then  $[\bb p]_\B = \vr{a_0\\a_1\\a_2}$ and 
+%\[[D]_\B[\bb p]_\B = \mtx{rrr}{0&1&0\\0&0&2\\0&0&0}\vr{a_0\\a_1\\a_2} = \vr{a_1\\2a_2\\ 0}.\] On the other hand,
+%\[[D(\bb p(t)]_\B = [a_1+2a_2t]_\B = \vr{a_1\\2a_2\\0}.\] Therefore, the two forms agree.
+%\end{enumerate}
+%\end{Exam}\vs
+
+\begin{Cor} Let $T : V \to V$ be a linear transformation. Let $A$ and $B$ be two matrix representations of $T$. Then there exists a nonsingular matrix $P$ such that $A = PBP^{-1}$. In particular, all matrix representations of $T$ are similar to each other.
+\end{Cor}
+\begin{proof} The result follows immediately from \thmref{thm:similarmatrix} once it is discovered that $Q=P$.\end{proof}\vs
+%\begin{proof} Let $\B = \{\bb b_1, \ldots, \bb b_n\}$. Next, $P = P_\B$, the change-of-coordinate matrix from $\B$ to standard coordinates. Then $P^{-1}$ is the change-of-basis matrix from standard coordinates to $\B$. Hence, 
+%\[P[\bb x]_\B = \bb x\qquad\text{and}\qquad P^{-1}\bb x = [\bb x]_\B.\] Thus,
+%\begin{eqnarray*}
+%C = [T]_\B &=& \mtx{cccc}{[T(\bb b_1)]_\B &[T(\bb b_2)]_\B & \ldots &[T(\bb b_n)]_\B} = \mtx{cccc}{[A\bb b_1]_\B &[A\bb b_2]_\B & \ldots &[A\bb b_n]_\B}\\
+%&=& \mtx{cccc}{P^{-1}A\bb b_1 & P^{-1}A\bb b_2 & \ldots & P^{-1}A\bb b_n} = P^{-1}A\mtx{cccc}{\bb b_1 & \bb b_2 & \ldots & \bb b_n}\\
+%&=& P^{-1}AP
+%\end{eqnarray*} Therefore, $A = PCP^{-1}$.
+%\end{proof}\vs
+
+Since matrix representations of a linear transformation always remains in the same similarity class, any property invariant on similar matrices can be attached to the linear transformation. For example, if $T : V \to V$ is a linear transformation, then we can define $\det(T)$ to be the determinant of any matrix representation of $T$. Likewise, we can define $\tr(T)$, $\nullity(T)$,  $\rank(T)$, etc. to be the trace, nullity, rank, etc. of any matrix representation of $T$. This includes the eigenvalues of a matrix.\\
+
+\begin{Exam} Let $T : \R^3\to \R^3$ be a linear transformation such that %new
+\[T\left(\vr{x\\y\\z}\right) = \mtx{c}{5x+2y\\2x+3y-z\\26x+16y-2z}.\] Then the standard matrix representation (using the standard basis on $\R^3$) yields
+\[A= [T] = \mtx{rrr}{5&2&0\\2&3&-1\\26&16&-2}.\] On the other hand, one could check that $\B = \left\{\bb b_1 = \vr{2\\-3\\1}, \bb b_2 = \vr{-1\\2\\2}, \bb b_3 = \vr{-1\\1\\-2}\right\}$ is a basis for $\R^3$. Then 
+\[[T]_\B = \mtx{ccc}{ [A\bb b_1]_\B & [A\bb b_2]_\B & [A\bb b_3]_\B}.\] To find these coordinate vectors, we solve the linear systems corresponding to the augmented matrix:
+\[[\B \mid A\B] = \mtx{rrr|rrr}{2&-1&-1&4&-1&-3\\-3&2&1&-6&2&3\\1&2&-2&2&2&-6} \sim \mtx{rrr|rrr}{1&0&0&2&0&0\\0&1&0&0&1&0\\0&0&1&0&0&3} \] Thus, $[T]_\B = \mtx{ccc}{2&0&0\\0&1&0\\0&0&3}$. This is the result of $\B$ being an eigenbasis of $A$. Thus, the eigenvalues of $T$ are $\lambda =2, 1, 3$. In $\B$-coordinates, $T$ is just a diagonal matrix, the diagonalization of $A$.
+\end{Exam}\vs
+
+
+%\begin{Exam} Let $V = C^1(-\infty, \infty)$. Let $T : V \to V$ be the derivative, which is linear, that is, $T( f) =  f'$.\\
+%
+%The ``vector'' $ f(x) =e^x$ is an eigenvector of $T$ with eigenvalue $\lambda =1$ since $T( f) = \ddx e^x = e^x =  f$. Likewise, if $g(x) = e^{kx}$, then $g$ is an eigenvector of $T$ with eigenvalue $\lambda = k$ because $T(g) = \ddx e^{kx} = ke^{kx} = kg$.\\
+%
+%Another eigenvector of $T$ is the constant function $f(x) = 1$. Note that $T(f) = \ddx 1 = 0 = 0f$. These describe all of the eigenvectors of $T$.
+%\end{Exam}\vs%$\footnote[2]{Of course, $1=e^{0x}$}
+%
+%\begin{Exam} Find the eigenvalues and bases for the eigenspaces of the linear operator $T : \P_2 \to \P_2$ defined by 
+%\[T(a+bx+cx^2) = -2c+(a+2b+c)x+(a+3c)x^2.\]
+%
+%The moral of the story here is to work in coordinates, using the standard basis $\B = \{1, x, x^2\}$. Thus, 
+%\[[T]_\B = \mtx{rrr}{0 & 0& -2 \\ 1 & 2 &1 \\ 1 & 0& 3}.\]  
+%\begin{eqnarray*}
+%\text{Thus,}\qquad\det(\lambda I - [T]) &=& \dtx{ccc}{\lambda & 0& 2 \\ -1 & \lambda-2 &-1 \\ -1 & 0& \lambda -3 } = \lambda\dtx{cc}{\lambda - 2 & -1 \\ 0 & \lambda -3} + 2\dtx{cc}{-1 & \lambda -2 \\ - 1 & 0}\\
+%&=& \lambda[(\lambda-2)(\lambda-3)+0] + 2[0 + (\lambda-2)] = \lambda(\lambda^2-5\lambda +6) + 2\lambda-4\\
+%&=& \lambda^3 -5\lambda^2+8\lambda-4 = (\lambda-2)^2(\lambda-1)
+%\end{eqnarray*} 
+%Thus, the eigenvalues of $T$ are $\lambda = 2, 1$. 
+%The associated eigenspaces can be computed:
+%\begin{multicols}{2}
+%$\lambda = 2$ : $\mtx{ccc}{2 & 0& 2 \\ -1 & 0 &-1 \\ -1 & 0& -1 } \sim \mtx{ccc}{1 & 0& 1 \\ 0 & 0 &0 \\ 0 & 0& 0 }$
+%
+%$\lambda = 1$ : $\mtx{ccc}{1 & 0& 2 \\ -1 & -1 &-1 \\ -1 & 0& -2 } \sim \mtx{ccc}{1 & 0& 2 \\ 0 & 1 & -1 \\ 0 & 0& 0 }$
+%\end{multicols}
+%This shows that the eigenspaces of $T$ are spanned by the vectors, in coordinates, 
+%\begin{multicols}{2}
+%$\lambda = 2$ : $\left\{\vr{-1\\0\\1},\ \vr{0\\1\\0}\right\}$
+%
+%$\lambda = 1$ : $\left\{\vr{-2\\1\\1}\right\}$
+%\end{multicols} Removing the coordinates, the eigenspaces of $T$ are:
+%\begin{multicols}{2}
+%$\lambda = 2$  : $\Span\{x^2-1, x\}$
+%
+%$\lambda = 1$ : $\Span\{x^2+x-2\}$
+%\end{multicols}
+%Notice the following:
+%\begin{eqnarray*}
+%T(x^2-1) &=& -2(1) + (-1+1)x + (-1+3(1))x^2 = -2+2x^2 = 2(x^2-1)\\
+%T(x) &=& -2(0) + 2(1)x + 0x^2 = 2(x)\\
+%T(x^2+x-2) &=& -2(1) + (-2+2(1)+1)x + (-2+3(1))x^2 = x^2+x-2 \qedhere
+%\end{eqnarray*}
+%\end{Exam}
+
+%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{similar}
+
+\noindent For Exercises \ref{exer:matrixrepresentationstart}-\ref{exer:matrixrepresentationstop}, given the linear transformation $T: F^n\to F^m$, a basis $\B$ of $F^n$, and a basis $\c$ of $F^m$, listed in that order, find the matrix representation $_\c[T]_\B$.
+\begin{enumerate}[!HW!, start=1, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{3}
+\item\label{exer:matrixrepresentationstart} $T : \R^2 \to \R^3$\\
+$T(x,y) = (x+y, 0, 2x+3y),$\\\\
+$\left\{\vr{1\\1}, \vr{1\\-1}\right\}$,\\ \\
+$\left\{\vr{2\\-3\\1}, \vr{-1\\2\\2}, \vr{-1\\1\\-2}\right\}$ %NEW
+
+\item $T : \R^3 \to \R^2$\\
+\mbox{$T(x, y, z) = (x+y-2z, -y+z),$}\\\\
+$\left\{\vr{1\\1\\1}, \vr{1\\0\\-2}, \vr{1\\2\\3}\right\}$,\\ \\
+$\left\{\vr{2\\-3}, \vr{-1\\2}\right\}$ %NEW
+
+\item\label{exer:matrixrepresentationstop} $T : \Z_2^4 \to \Z_2$\\
+\mbox{$T(x, y, z, w) = x+y+z+w \pmod 2,$}\\\\
+$\left\{\vr{1\\1\\0\\0}, \vr{0\\1\\1\\0}, \vr{1\\0\\1\\1}\right\}$,\\ \\
+$\left\{1\right\}$ %NEW
+\end{multicols}
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ \mbox{}\vfill
+ 
+\pagebreak

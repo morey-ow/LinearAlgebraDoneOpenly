@@ -1,0 +1,216 @@
+\begin{center} 
+\emph{``It is through gratitude for the present moment that the spiritual dimension of life opens up.''\\ -- Eckhart Tolle}
+\end{center}
+
+\section{Bases}\label{sec:basis}
+\begin{Def}  A \textbf{basis} $\B$ of a vector space $V$ is a linearly independent, spanning set of $V$. The size of the basis, $|\B|$, is called the \textbf{dimension} of $V$, denoted $\dim V$.
+\end{Def}\vs
+
+Every line through the origin is a one-dimensional subspace and every plane through the origin is two-dimensional. In general, a flat through the origin spanned by $p$ independent vectors (aka, a subspace) has dimension $p$. Consider for a moment the zero space $\{\bb 0\}$. This subspace has exactly two subsets $\{\bb 0\}$ and $\emptyset$. Vacuously, $\emptyset$ is linearly independent\footnotemark[2]. The set $\{\bb 0\}$ is linearly dependent because it contains $\bb 0$. Thus, $\emptyset$ is a basis for $\{\bb 0\}$. Therefore, $\dim \{\bb 0\} = 0$.\\
+
+\begin{Exam} For $F^n$, the set $\mathcal{E} = \{\bb e_1, \bb e_2, \ldots, \bb e_n\}$, where $\bb e_i$ is the vector with a 1 in the $i$th component and 0's everywhere else, is always a basis. This is known as the \textbf{standard basis} of $F^n$.\\
+
+On the other hand, the set $\B = \left\{\vr{1\\0\\0}, \vr{1\\1\\0}, \vr{1\\1\\1}\right\}$ is a non-standard basis for $F^3$.
+\end{Exam}\vs
+
+We mention some important properties of bases and dimension.
+
+\begin{Thm} Let $\B$ be a subset of the vector space $V$. Then the following are equivalent:
+\begin{enumerate}[!THM!, start=1]
+\item $\B$ is a basis;
+\item $\B$ is a maximal linearly independent set, that is, $\B$ is linearly independent but $\B\cup \{\bb u\}$ is linearly dependent for any $\bb u\in V$; 
+\item $\B$ is a minimal spanning set of $V$, that is, $V=\Span(\B)$ but $V\neq \Span(\B\setminus \{\bb v\})$ for any $\bb v\in \B$.
+\end{enumerate}
+\end{Thm}
+
+\begin{Thm}[The Expansion Theorem] Let $V$ be a vector space and let $S\subseteq V$ be a linearly independent subset. Then there exists a basis $B$ of $V$ such that $S\subseteq B$. 
+\end{Thm}
+In other words, every linearly independent set can be expanded into a basis by including potentially new vectors from $V$ not already contained in $S$.
+
+\begin{Thm}[The Pruning Theorem] Let $V$ be a vector space and let $S\subseteq V$ be a spanning set of $V$. Then there exists a basis $B$ of $V$ such that $B\subseteq S$.
+\end{Thm}
+ 
+In other words, every spanning set can be pruned down into a basis by removing unneeded vectors from $S$.
+
+\begin{Thm} The dimension of a vector space $V$ is well-defined, that is, if $\B$ and $\c$ are two bases for $V$, then $|\B|=|\c|$.
+\end{Thm}
+
+\begin{Thm} Let $V$ be an $n$-dimensional vector space and let $S\subseteq V$.
+\begin{enumerate}[!THM!, start=1]
+\item If $|S|> n$, then $S$ is linearly dependent. But if $S$ spans $V$, then there is a proper subset of $S$ which is a basis. 
+\item If $|S|<n$, then $S$ does not span $V$. But if $S$ is linearly independent, then there is a basis of $V$ that contains $S$ as a proper subset.
+\end{enumerate}
+\end{Thm}
+
+Given any $m\times n$ matrix $A$, there are two fundamental subspaces\footnotemark[8] associated to $A$: the \emph{column space} $\col(A)$ which is the span of the column vectors of $A$ (hence, a subspace of $F^m$) and the \emph{null space} $\nul(A)$ which is the solution set to the homogeneous system $A\bb x = \bb 0$ (hence, a subspace of $F^n$). The dimension of $\col(A)$ is called the \textbf{rank}\footnotemark[3] of $A$, and the dimension of $\nul(A)$ is called the \textbf{nullity} of $A$.\\
+
+\begin{Thm}\label{thm:columnrank} The pivot columns of $A$ form a basis for the column space of $A$.
+\end{Thm}
+
+The location of the pivots (or to say, the absence of pivots) in the echelon form of $A$ tells us which column vectors can be expressed as a linear combination of the previous column vectors 
+%\begin{proof}
+%Let $U = \mtx{cccc}{\bb u_1 & \bb u_2 & \ldots & \bb u_n}$ be an echelon form of $A = \mtx{cccc}{\bb a_1 & \bb a_2 & \ldots & \bb a_n}$. Suppose that $U$ has a non-pivot column $\bb u_i$. Then $\bb u_i$ can be expressed as a linear combination of the previous columns $\bb u_1, \bb u_2, \ldots, \bb u_{i-1}$. Likewise, this means that $\bb a_i$ can be expressed as a linear combination of the previous columns $\bb a_1, \bb a_2, \ldots, \bb a_{i-1}$. Thus, removing $\bb a_i$ in $A$ does not affect $\col(A)$. Therefore, pivot columns are a spanning set for the column space and are necessarily linearly independent. Therefore, the pivot columns form a basis for $\col(A)$.
+%\end{proof}\vs
+%\begin{proof} Let $T : \R^n \to \R^n$ be a bijective linear transformation. Since $T$ is injective, the set of vectors $\{\bb v_1, \ldots, \bb v_p\}$ is linearly independent if and only if $\{T(\bb v_1), \ldots, T(\bb v_p)\}$ is linearly independent, that is, injective linear maps preserve linear independence. Since $T$ is surjective, $\{\bb v_1, \ldots, \bb v_p\}$ spans the subspace $W\subseteq \R^n$ if and only if $\{T(\bb v_1), \ldots, T(\bb v_p)\}$ spans the subspace $T(W) \subseteq \R^n$, that is, surjective linear maps preserve spanning sets. Therefore, bijective transformations map a basis of the domain onto a basis of the range. \\
+%
+%By the Characterization of Linear Dependent Sets (Theorem 7, Chapter 1), if the columns of $A$ are linearly dependent, one of the column vectors can be removed without changing the span. By mathematical induction, we can continue to remove column vectors until we have a linearly independent subset without changing the span. Let $U$ be an echelon form of $A$. Thus, there exists a sequence of elementary matrices $E_1, E_2, \ldots, E_p$ such that $A = (E_1^{-1}E_2^{-1}\ldots E_p^{-1})U$. Then clearly the pivot columns of $U$ form a basis for $\col U$. Since each $E_p^{-1}$ is a nonsingular matrix, it maps this basis of $\col U$ onto a basis of $\col (E_p^{-1}U)$. But $E_p^{-1}$ maps the pivot columns of $U$ to the pivot columns of $E_p^{-1}U$.  By  induction, $(E_1^{-1}E_2^{-1}\ldots E_p^{-1})$ maps the pivot columns of $U$ onto the pivot columns of $A$, which is then a basis for $\col A$.
+%\end{proof} \vs
+
+%Kyle Wood
+\begin{Exam}\label{exam:columnspacebasis} Let $A = \mtx{rrrrr}{1&3&3&2&4\\2&7&6&3&9\\1&2&3&3&3}$. Construct a basis for $\col(A)$. \\
+
+We begin by computing an echelon form of $A$:
+\[\mtx{crrrr}{\fbox{$1$}&3&3&2&4\\2&7&6&3&9\\1&2&3&3&3} \sim \mtx{ccrrr}{\fbox{$1$}&3&3&2&4\\0&\fbox{$1$}&0&-1&1\\0&-1&0&1&-1} \sim \mtx{ccrrr}{\fbox{$1$}&3&3&2&4\\0&\fbox{$1$}&0&-1&1\\0&0&0&0&0}.\] We see now that this matrix is in echelon form, for which we can now easily identify the pivot columns, namely the first and second. This indicates that the third and fourth column vectors are both linear combinations of the first two column vectors. Therefore, a basis of $\col A$ is $\left\{\vr{1\\2\\1}, \vr{3\\7\\2}\right\}$ and $\rank(A) = 2$.\end{Exam}\vs
+
+\begin{Exam} Let $A = \mtx{rrrrr}{1&3&3&2&-9\\-2&-2&2&-8&2\\2&3&0&7&1\\3&4&-1&11&-8}$. Find a basis for the column space of $A$.\\
+
+Since $A\sim \mtx{rrrrr}{\fbox{$1$}&0&-3&5&0\\0&\fbox{$1$}&2&-1&0\\0&0&0&0&\fbox{$1$}\\0&0&0&0&0},$ we see that the third and fourth column vectors are linear combinations of the first and second column vectors. Thus, the set  
+$\left\{\vr{1\\-2\\2\\3}, \vr{3\\-2\\3\\4}, \vr{-9\\2\\1\\-8}\right\}$ is a basis for $\col A$, and the $\rank(A) = \dim(\col(A)) = 3$.
+\end{Exam}\vs
+
+\begin{Thm}\label{thm:nulldimension} If two matrices $A$ and $B$ are row equivalent, then $\nul A = \nul B$.\\\end{Thm}
+%\begin{proof} Suppose that $A$ is row equivalent to $B$. Then there exists a sequence of row operations transforming $A$ into $B$. Each of these row operations can be realized as matrix product of elementary matrices. In particular, there exists a matrix $E$, which is a product of elementary matrices such that $B = EA$. Now, since elementary matrices are nonsingular, $E$ is nonsingular being a product of nonsingular matrices. Let $\bb x \in \nul A$, that is, $A\bb x = \bb 0$. Thus, $B\bb x = (EA)\bb x = E(A\bb x) = E\bb 0 = \bb 0$. Thus, $\bb x \in \nul B$. On the other hand, suppose that $\bb x \in \nul B$, that is, $B\bb x =\bb 0$. Then $A\bb x = (E^{-1}B)\bb x = E^{-1}(B\bb x) = E^{-1}\bb 0 = \bb 0$. Thus, $\bb x \in \nul A$. Since the two sets containing exactly the same vectors, we conclude that $\nul A= \nul B$.
+%\end{proof}\vs
+
+Because of the previous theorem, one can use the row-reduced echelon form of $A$ to find a basis for $\nul(A)$. This will be the the same technique we applied in \examref{exam:nullspacespan} to find a spanning set for $\nul(A)$, which was already a basis. The basis vectors will be derived from the non-pivot columns of $A$'s row-reduced echelon form, that is, those columns which correspond to free variables of the linear system.\\
+
+%Kyle Wood
+\begin{Exam}\label{exam:nullspacebasis} Let $A = \mtx{rrrrr}{1&3&3&2&4\\2&7&6&3&9\\1&2&3&3&3}$. Construct a basis for $\nul(A)$. \\
+
+Remember that $\nul A$ is the solution set to $A\bb x = \bb 0$, which we now solve by row reducing the matrix $A$. We might recognize that this is the same matrix from \examref{exam:nullspacebasis}. As such, we have already seen that 
+\[[\ A \mid \bb 0\ ] \sim \mtx{ccrrr|r}{\fbox{$1$}&3&3&2&4&0\\0&\fbox{$1$}&0&-1&1&0\\0&0&0&0&0&0}.\]
+From echelon form, we can identify the pivot and non-pivot columns. Thus, we see that $\nullity(A)=3$. To find a specific basis, we are advantaged to continue to reduce the matrix to row-reduced echelon form, as shown below:
+\[[\ A \mid \bb 0\ ] \sim \mtx{ccrrr|r}{\fbox{$1$}&0&3&5&1&0\\0&\fbox{$1$}&0&-1&1&0\\0&0&0&0&0&0}.\] As we have seen many times, this augmented matrix corresponds to a linear system, namely 
+\[\begin{linear} x_1\ & & & +\ & 3x_3\ &+\ &5x_4\ &+\ &x_5\ &=\ &0\\
+ & & x_2\ & & &-\ &x_4\ &+\ &x_5\ &=\ &0.
+ \end{linear} \] In usual tradition, we solve for the two dependent variables, $x_1$, $x_2$, in terms of the three free variables, $x_3$, $x_4$, $x_5$. From this we see
+ \[\begin{linear} x_1\ &=\ &-3x_3\ &-\ &5x_4\ &-\ &x_5\\
+ x_2\ &=\ & & &x_4\ &-\ &x_5, \end{linear}\] which provides the parametric equations to the flat which is the solution set to $A\bb x=\bb 0$. Converting these parametric equations into a single vector equation, we see 
+\begin{equation}\label{eq:nullspacebasis} \bb x = \vr{x_1\\x_2\\x_3\\x_4\\x_5} =\mtx{c}{-3x_3-5x_4-x_5\\ x_4-x_5\\ x_3 \\ x_4\\x_5} = x_3\vr{-3\\0\\1\\0\\0} + x_4\vr{-5\\1\\0\\1\\0} + x_5\vr{-1\\-1\\0\\0\\1} = x_3\bb u + x_4\bb v + x_5\bb w.\end{equation} Then $\nul(A)=\Span\{\bb u, \bb v, \bb w\}$. Thus, $\{\bb u, \bb v, \bb w\}$ is a spanning set for $\nul(A)$. On the other hand, the construction of $\{\bb u, \bb v, \bb w\}$ guarantees that they are linearly independent since 
+\[x_3\bb u + x_4\bb v + x_5\bb w = \bb 0\] implies that $x_3$, $x_4$, and $x_5$ are all zero. To see this, consider the 3rd, 4th, and 5th components of $\bb x$ in \eqref{eq:nullspacebasis}. As $\bb u$ contains a 1 in the 3rd component and $\bb v$ and $\bb w$ both contain $0$, any combination of $\bb u$, $\bb v$, and $\bb w$ to form $\bb x$ must have the coefficient of $\bb u$ be $x_3$. The same is also true that the coefficients of $\bb v$ and $\bb w$ must be $x_4$ and $x_5$, respectively. Hence, if $\bb x$ were $\bb 0$, then $x_3=x_4=x_5=0$, proving the claim. Therefore, $\{\bb u, \bb v, \bb w\}$ is a basis for $\nul(A)$.
+\end{Exam}\vs
+
+Let us attempt to abbreviate the process given in the previous example (also in \examref{exam:nullspacespan}). First, compute the RREF of the matrix $A$. The basis of $\null(A)$ will have exactly $\nullity(A)$ many vectors, each vector corresponding to a free variable/non-pivot column. In those entries indexed by a free variable in the vectors we are building, place a 1 or 0 according to whether the vector corresponds to the free variable from that index. For example, in the previous example, the free variables were $x_3$, $x_4$, and $x_5$. Thus, we start building three vector templates, in this same order, of the form
+\[\vr{* \\ * \\ 1 \\ 0 \\ 0}, \vr{* \\ * \\ 0 \\ 1 \\ 0}, \vr{* \\ * \\0\\0\\1},\] where $*$ designates a yet unspecified scalar. To fill in the *'s, notice that there indices correspond to the dependent variables/pivot columns. These pivots also correspond to pivot rows in the RREF of $A$, which each contain a scalar in non-pivot columns corresponding to free variables. From the first row, record the inverse of the scalar you see in the corresponding columns into the vectors we are building. For example, the first pivot row tells us to fill in the *'s as
+\[\vr{-3 \\ * \\ 1 \\ 0 \\ 0}, \vr{-5 \\ * \\ 0 \\ 1 \\ 0}, \vr{-1 \\ * \\0\\0\\1}.\] We have to switch the signs of the scalars as this is a consequence of moving the variables from the left-hand side to the right-hand side of the parametric equations. Applying this same principle to Row 2, we get the same basis for $\null(A)$, namely,
+\[\vr{-3 \\ 0 \\ 1 \\ 0 \\ 0}, \vr{-5 \\ 1 \\ 0 \\ 1 \\ 0}, \vr{-1 \\ -1 \\0\\0\\1}.\]\vs
+
+%Kyle Wood
+\begin{Exam} Let \[A = \mtx{rrrrr}{1&-3&4&2&-2\\-2&6&-8&5&3} \sim \mtx{rrrrr}{\fbox{$1$}&-3&4&0&-1/9\\0&0&0&\fbox{$1$}&-1/9}.\] Find a basis for $\col(A)$ and $\nul(A)$.\\
+
+Since we have the RREF of $A$ already, we can very quickly determine that $\col(A) = \Span\left\{\vr{1\\-2}, \vr{2\\5}\right\}$, as a basis is formed by the 1st and 4th columns of $A$. Likewise, since the 2nd, 3rd, and 5th columns of $A$ are non-pivot columns, we see that a template for a basis of $\nul(A)$ can be begun as
+\[\vr{\ast\\1\\0\\\ast\\0}, \vr{\ast\\0\\1\\\ast\\0}, \vr{\ast\\0\\0\\\ast\\1}.\] Reading off the scalars in the first row tells us 
+\[\vr{3\\1\\0\\\ast\\0}, \mtx{c}{-4\ \\0\\1\\\ast\\0}, \mtx{c}{1/9\\0\\0\\\ast\\1}.\] Reading off the scalars in the second row gives us a basis for $\nul(A)$, namely 
+\[\vr{3\\1\\0\\0\\0}, \mtx{c}{-4\ \\0\\1\\0\\0}, \mtx{c}{1/9\\0\\0\\1/9\\1}.\] Now, one can interchange a vector in a spanning set with any non-zero multiple of that same vector without changing the span. Likewise, linear independence is not affected by interchanging a non-zero multiple of a vector. Thus, if we do not want the fractions in the last spanning vector $(1/9, 0, 0, 1/9, 1) = 1/9(1,0,0,1,9)$, then we may substitute it with simply $(1,0,0,1,9)$. Therefore,
+\[\nul(A) = \Span\left\{\vr{3\\1\\0\\0\\0}, \mtx{c}{-4\ \\0\\1\\0\\0}, \vr{1\\0\\0\\1\\9}\right\}. \qedhere\]
+\end{Exam}\vs
+
+%%%%%%%%%%%%%%%%%%%%%%% THEORY OF BASES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{Thm} If $U$ is an echelon form of the matrix $A$, then nonzero rows of $U$ form a basis for the row space of $A$.
+%\end{Thm}
+%\begin{proof}
+% It was shown previously that $\row(A) = \row(U)$ since $A$ and $U$ are row equivalent. Thus, a basis for $\row(U)$ is a basis for $r\row(A)$. If $U$ is in echelon form, then no nonzero row can be written as a linear combination of the other rows (otherwise we could have zeroed out that row). Thus, the nonzero rows give a basis.
+%\end{proof}\vs
+%
+%Much like the column space of $A$, the pivot rows of $A$ also form a basis of $\row(A)$. But unlike the column space, the pivot rows of $U$ form a basis of $\row(A)$. This is not true for the column space, that is, the pivot columns of $U$ do NOT form a basis for $\col(A)$. This is because row equivalent matrices need not have the same column space. Only the row space is guaranteed to be equal.\\
+%
+%\begin{Exam} Let $A = \mtx{rrrrr}{-2&-5&8&0&-17\\1&3&-5&1&5\\3&11&-19&7&1\\1&7&-13&5&-3}$. Compute a basis for $\row A$, $\col A$, and $\nul A$.\\
+%
+%Since \[A = \mtx{rrrrr}{-2&-5&8&0&-17\\1&3&-5&1&5\\3&11&-19&7&1\\1&7&-13&5&-3} \sim \mtx{rrrrr}{1&3&-5&1&5\\0&1&-2&2&-7\\0&0&0&-4&20\\0&0&0&0&0} \sim \mtx{rrrrr}{1&0&1&0&1\\0&1&-2&0&3\\0&0&0&1&-5\\0&0&0&0&0}.\] Therefore, \[\{(1,3,-5,1,5), (0,1,-2,2,-7), (0,0,0,-4,20)\}\] is a basis for $\row A$. Likewise, \[\{(1,0,1,0,1), (0,1,-2,0,3), (0,0,0,1,-5)\}\] is another basis of $\row A$. We also see that \[\left\{\vr{-2\\1\\3\\1}, \vr{-5\\3\\11\\7}, \vr{0\\1\\7\\5}\right\}\] is a basis for $\col A$. Finally, \[\left\{\vr{-1\\2\\1\\0\\0}, \vr{-1\\-3\\0\\5\\1}\right\}\]  is a basis for $\nul A$.
+%\end{Exam}\vs
+
+%We now address a very important question, ``Can a subspace have two different bases of different sizes?" For example, can a subspace $W$ have a linearly independent spanning set of size 2 and size 3?\\
+
+%\begin{Thm} Let $W$ be a subspace of $\R^n$. Then all bases of $W$ have the same size.
+%\end{Thm}\vs
+
+%\begin{Def} The \textbf{dimension} of a subspace $W$, denoted by $\dim W$, is the number of vectors in any basis for $W$.\\
+%
+%If a vector space $W$ can be spanned by a finite number of vectors, then we say that $W$ is \textbf{finite-dimensional}. If no finite set can span $W$, we say that $W$ is \textbf{infinite dimensional}.\end{Def}\vs
+
+%Every line through the origin is a one-dimensional subspace and every plane through the origin are two-dimensional. Consider for a moment the zero space $\{\bb 0\}$. This subspace has exactly two subsets $\{\bb 0\}$ and $\emptyset$. Vacuously, $\emptyset$ is linearly independent\footnote[3]{It has no dependence relation on the vectors in $\emptyset$!}. The set $\{\bb 0\}$ is linearly dependent because it contains $\bb 0$. Thus, $\emptyset$ is a basis for $\{\bb 0\}$. Thus, $\dim \{\bb 0\} = 0$.\\
+
+%\begin{Thm}[The Underdetermined and Overdetermined Theorems] If a subspace $W$ has dimension $n$, then any set in $V$ containing more than $n$ vectors is linearly dependent. Likewise, any set with fewer than $n$ vectors cannot span.
+%\end{Thm}
+%\begin{proof} Suppose that $W$ is all of $\R^n$. Orient the set of vectors as columns of a matrix $A$. If there are more than $n$ vectors, the matrix $A$ has more columns than rows, representing an underdetermined system which must have a non-pivot column. When considering the homogeneous system, this system must have a nontrivial solution, which shows that the columns of $A$ are linearly dependent. If there are less than $n$ vectors, the matrix $A$ has more rows than columns, representing an overdetermined which must have a row of zeros. As such, there will exist some vector which causes this row of zeros to manifest as a contradictory equation in the system, which shows the vectors cannot span.\\
+%
+%For an arbitrary subspace $W$ of $\R^n$, coordinate vectors which will be explained in the next section can be used to adapt the above proof to full generality.
+%\end{proof}\vs
+%
+%Does every vector space have a basis and hence a dimension? The answer is yes. We prove this in the next theorem for finite-dimensional vector spaces. Every infinite-dimensional vector space also has a basis and hence a dimension, although this proof is beyond the scope of our course.\footnote[2]{This proof requires an important, yet difficult, notion from set theory known as the Axiom of Choice.}\\
+
+%\begin{Thm}[The Expansion and Pruning Theorems] Let $W$ be a finite-dimensional subspace of $\R^n$. Any linearly independent set in $W$ can be expanded, if necessary, to a basis of $W$. In particular, every finite-dimensional vector space has a basis (expand $\emptyset \subseteq W$ to a basis). Likewise, every spanning set of $W$ can be pruned to a basis of $W$.
+%\end{Thm}\vs
+%\begin{proof}
+%Starting with a linearly independent set $S$ in $W$. If $\Span(S) \neq W$, then we can adjoin some vector $\bb v$ outside this span creating a larger subspace $\Span(S\cup \{\bb v\})$. This larger set $S\cup \{\bb v\}$ is also linear independent since $\bb v \notin \Span(S)$. Also, this new subspace genuinely has larger dimension since $\dim(\Span(S)) = |S| < |S|+1 = |S\cup \{\bb v\}| = \dim(\Span(S\cup \{\bb v\}))$. Because $W$ is finite-dimensional, this process can be repeated until the dimension of $W$ is reached. Call this set now $\B$. By the Overdetermined Theorem, we know that the previous process will not terminate if $|\B| < n$ since no set can span with fewer than $n$ vectors. If $\Span(\B)\neq W$, then we can adjoin one more vector $\bb w$ in $W$ not in $\Span(S')$. But then $\B\cup\{\bb w\}$ will be a linearly independent set in $W$ larger than $n$, a contradiction to Underdetermined Theorem. Therefore, $\B$ spans $W$ and is linearly independent, that is, $\B$ is a basis for $W$.\\
+%
+%Staring with a spanning set $S$ of $W$. If $S$ is not linearly independent, there must be a dependence relation between some vectors in $S$, that is, one vector $\bb v$  is a linear combination of other vectors in $S$. Remove $\bb v$, that is, replace $S$ with $S\setminus \{\bb v\}$. Because $\bb v$ is a linear combination of other vectors in $S$, it holds that $\Span(S\setminus \{\bb v\} = \Span(S) = W$. By the Underdetermined and Overdetermined Theorems, this pruning process will eventually terminate when only $n$ vectors remain, creating a basis for $W$ like above.
+%\end{proof} 
+
+%\begin{Thm}[The Basis Theorem] Let $V$ be a $n$-dimensional vector space. Any linearly independent set of exactly $n$ elements in $V$ is a basis of $V$. Also, any set of $n$ elements of $V$ that spans is a basis for $V$.
+%\end{Thm}
+%\begin{proof}
+%Let $S$ be a linearly independent subset of $V$ containing $n$ elements. Every linearly independent set $S$ can be extended to a basis  of $V$, by the Expansion Theorem. Each basis of $V$ has size $n$. Thus, $S$ must already be a basis.\\
+%
+% Suppose now $S$ is a spanning set of $V$ containing $n$ elements, that is, $\Span(S) = V$. By the Pruning Theorem, some subset of $S$ is linearly independent with the same span. This subset is then a basis and must contain exactly $n$ elements from $S$. So, $S$ is a basis.  
+%\end{proof}\vs
+
+%\begin{Def} The \textbf{nullity} of a matrix $A$, denoted $\nullity A$, is the dimension of $\nul A$. The \textbf{rank} of $A$, denoted $\rank A$, is the dimension of $\col A$. \end{Def}\vs
+
+%%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{basis}
+
+\noindent For Exercises \ref{true:basisstart}-\ref{true:basisstop}, determine with the statement is true or false. If false, correct the statement so that it is true.
+\begin{enumerate}[!HW!, start=1]
+\item\label{true:basisstart}\label{true:basisstop} If $A$ is an $m\times n$ matrix, then $\rank(A)+\nullity(A)=m$. %Da Huo
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:prunespanstart}-\ref{exer:prunespanstop}, let $S$ be the provided set of vectors. Let $W = \Span(S)$. Prune the spanning set $S$ down to find a basis for $W$. Answers may vary. 
+\begin{enumerate}[!HW!]
+\begin{multicols}{2}
+\item \label{exer:prunespanstart} $\left\{ \vr{1\\2\\7}, \vr{21\\16\\43}, \vr{6\\12\\42}\right\}$ %Jacob Jensen
+\item \label{exer:prunespanstop} $\left\{ \vr{0\\0\\1}, \vr{0\\0\\0}, \vr{1\\0\\1}\right\}$ %Jacob Jensen
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:columnbasisrealstart}-\ref{exer:columnbasisrealstop}, let $A$ be the provided matrix. Find a basis for $\col(A)$ consisting of column vectors of $A$ and a basis for $\nul(A)$. Find the rank and nullity of $A$. Answers may vary. 
+\begin{enumerate}[!HW!]
+\begin{multicols}{4}
+\item \label{exer:columnbasisrealstart} $\mtx{rrr}{1&15&8\\0&9&6\\0&0&2}$ %\Landry Benimana
+\item $\mtx{rrr}{1&1&2\\2&3&5\\4&2&4}$ %Jacob Jensen
+\item $\mtx{rrrr}{1&1&1&0\\2&3&4&2\\3&1&3&1}$ %Caroline Ashton
+\item $\mtx{rrrr}{5&4&2&1\\4&4&2&8\\2&5&6&3}$ %Jacob Jensen
+\end{multicols}
+\begin{multicols}{3}
+\itemspade $\mtx{rrrrr}{8&-3&-13&15&17\\-2&1&3&-3&-3}$ 
+\itemspade $\mtx{rrrr}{-1&2&1&0\\7&-14&-7&-8\\-3&6&3&2}$
+\item $\mtx{rrrr}{1&2&5&9\\3&4&7&1}$ %Landry Benimana
+\end{multicols}
+\begin{multicols}{3}
+\item $\mtx{rrrrrr}{6&5&4&3&2&1\\5&4&3&2&1&6\\2&4&6&8&2&4\\0&1&0&1&2&6}$ %anon
+\item $\mtx{rrrrr}{1&2&3&4&5\\2&4&6&8&10\\3&6&9&12&15\\2&-2&4&4&8}$ %Landry Benimana
+\end{multicols}
+\begin{multicols}{3}
+\itemspade $\mtx{cccccc}{1+2i&2-i&-1&0&1+i&-3+3i\\2+4i&4-2i&1+4i&-2&2+5i&-2+10i\\3-i&-1-3i&2&i&3-i&6+3i}$ \columnbreak
+\phantom{blank}\columnbreak
+\itemspade
+\mbox{$\mtx{rrrrrr}{1&0&0&1&1&1\\0&1&0&1&1&0\\0&0&1&1&0&1}\hspace{-7pt} \pmod 2$}
+\end{multicols}
+\begin{multicols}{3}
+\item \mbox{$\mtx{cccccc}{1&0&0&1&1&0\\0&1&1&1&1&1\\1&0&1&0&1&0}\hspace{-7pt}\pmod 2$} %Darby Parise
+\itemspade \mbox{$\mtx{rrrr}{2&1&1&1\\4&2&0&3\\2&1&3&0\\0&0&1&2}\hspace{-7pt} \pmod 5$} 
+\item \mbox{$\mtx{rrrr}{6&2&1&0\\1&5&6&6\\3&6&3&2}\hspace{-7pt}\pmod 7$} %anon
+\end{multicols}
+\item\label{exer:columnbasisrealstop} $\mtx{rrrrrr}{1&2&6&8&9&3\\1&3&0&0&1&2\\1&4&2&8&7&9}\pmod{11}$ %Phillip Goins
+\end{enumerate}
+
+\begin{enumerate}[!HW!]
+\item We say that a vector $\bb v = (v_1, v_2, \ldots, v_n)\in \R^n$ is \textbf{strongly positive} if $v_i>0$ for all $i$. Let $W\le \R^n$ be a subspace that contains a strongly positive vector. Prove that $W$ has a positive consisting of only strongly positive vectors. %Braden Carlson
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ \mbox{}\vfill
+ \footnotetext[2]{There are no dependence relations on the vectors in $\emptyset$!}
+ \footnotetext[8]{There are four fundamental subspaces associated to a matrix in total. Two other fundamental  subspaces, namely the Row Space and Left Null Space, will be defined later.}
+ \footnotetext[3]{These re-definitions of rank and nullity at first view may appear to be in conflict with the \defref{def:echelon} and \defref{def:null}, which were defined by counting pivots. \thmref{thm:columnrank} and the technique developed after \thmref{thm:nulldimension} show that these notions, in fact, coincide. }
+ \pagebreak

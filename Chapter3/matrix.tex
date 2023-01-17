@@ -1,0 +1,239 @@
+\begin{center} 
+\emph{``The thing that scares us the most is when familiar things operate in unfamiliar ways.'' -- Noah Hawley}
+\end{center}
+
+\section{Matrix Operations}\label{sec:matrix}
+We say that two $m\times n$ matrices $A = \mtx{r}{a_{ij}}$ and $B = \mtx{r}{b_{ij}}$ are \textbf{equal} if $a_{ij} = b_{ij}$ for all $i$ and $j$ (for all $a_{ij}, b_{ij}\in F$). We can \textbf{add} matrices term-wise,  that is, 
+\[A + B = \mtx{r}{a_{ij}+b_{ij}}.\] Finally, we can \textbf{multiply} matrices by a \textbf{scalar} term-wise, that is, 
+\[cA = \mtx{r}{ca_{ij}}\qquad\text{for all $c\in F$}.\]\vs
+
+%Hailey Checketts
+\begin{Exam} Let $A = \mtx{rrr}{3&9&1\\-2&4&6}$, $B = \mtx{rrr}{0&5&6\\3&1&1}$, and $C = \mtx{rr}{2&1\\0&4}$.\\
+
+Then \[A + B = \mtx{rrr}{3+0&9+5&1+6\\-2+3&4+1&6+1} = \mtx{rrr}{3&14&7\\1&5&7}.\] Now, $A+C$ is not possible since the matrices have different sizes.\\
+
+Next, \[2B = 2\mtx{rrr}{0&5&6\\3&1&1} = \mtx{rrr}{0&10&12\\6&2&2},\] and \[A - 2B =  \mtx{rrr}{3&9&1\\-2&4&6} - \mtx{rrr}{0&10&12\\6&2&2} = \mtx{rrr}{3&-1&-11\\-8&2&4}.\qedhere\]
+\end{Exam}\vs
+
+Because we can add and scale matrices, we can actually view matrices as vector themselves. Let $F$ be a field. Then $F^{m\times n}$ will denote the set of $m\times n$ matrices with entries from $F$, which is a vector space. This means that addition of matrices and multiplication of scalars follow the eight algebraic properties listed in \defref{def:vectorspace}. When working with matrices, we will let $0$ denote an $m\times n$ matrix with all entries equal to zero. This is called the \textbf{zero matrix}.\\
+
+Let $E_{ij}$ be the matrix whose entry in the $(i,j)$th entry is a one and all other entries are zero. Then $\mathcal{E} = \{E_{1,1}, E_{1,2}, \ldots, E_{1,n}, E_{2,1}, E_{2,2},\ldots, E_{2,n},\ldots, E_{m,1}, E_{m,2}, \ldots, E_{m,n}\}$ forms the \textbf{standard basis} of $F^{m\times n}$. The matrices $E_{i,j}$ are often called the \text{unit matrices}. Using coordinate vectors, we see that $F^{m\times n} \cong F^{mn}$, since $|\mathcal{E}| = mn$.\\
+
+\begin{Def} The \textbf{diagonal entries} in an $m\times n$ matrix $A  = \mtx{r}{a_{ij}}$ are the entries $a_{11}$, $a_{22}$, $a_{33}, \ldots$, that is, the entries $a_{ii}$, and they form the \textbf{main diagonal}.\\
+
+If $A$ is an $n\times n$ matrix, then we say that $A$ is a \textbf{square matrix}.\\
+
+Let $I_n$ denote the $n\times n$ matrix whose entries are $1$'s across the diagonal and $0$'s everywhere else. This matrix is known as the \textbf{identity matrix}.
+\end{Def}\vs
+
+\begin{Def} If $A$ is an $m\times n$ matrix and $B$ is an $n\times p$ matrix with column vectors 
+\[B = \mtx{rrrr}{\bb b_1 & \bb b_2 & \ldots & \bb b_p},\] then the \textbf{matrix product}
+\[AB = A\mtx{rrrr}{\bb b_1 & \bb b_2 & \ldots & \bb b_p} = \mtx{rrrr}{A\bb b_1 & A\bb b_2 & \ldots & A\bb b_p}.\] The matrix $AB$ is a $m\times p$ matrix.\\
+
+If $A$ is an $n\times n$ matrix, then $A^k = \underbrace{A\cdots A}_{k}$. We let $A^0 = I_n$.
+\end{Def}\vs
+
+Matrix multiplication can also be defined with the seemingly complicated formula, 
+\[AB = \mtx{r}{\dsum_{k=1}^na_{ik}b_{kj}} = \mtx{r}{a_{i1}b_{1j} + a_{i2}b_{2j} + \ldots + a_{in}b_{nj}}\qquad \text{for } A = \mtx{r}{a_{ik}} \text{ and } B= \mtx{r}{b_{kj}},\] which is none other than the ``finger-multiplication" we learned with the matrix-vector product.\\
+
+%Hailey Checketts
+\begin{Exam} Compute $AB$ with the given matrices $A = \mtx{rrr}{2&1&-1\\0&4&-2}$ and $B = \mtx{rrr}{9&-5&-3\\3&9&1\\-2&4&6}$.
+\[AB = \mtx{rrr}{A\vr{9\\3\\-2} & A\vr{-5\\9\\4} & A\vr{-3\\1\\6}}= \mtx{rrr}{2(9)+1(3)-1(-2) & 2(-5)+1(9)-1(4) & 2(-3)+1(1)-1(6) \\ 0(9)+4(3)-2(-2) & 0(-5)+4(9)-2(4) & 0(-3)+4(1)-2(6)}\]\[  = \mtx{rrr}{18+3+2 & -10+9-4 & -6+1-6 \\ 0+12+4 & 0+36-8 & 0+4-12} = \mtx{rrr}{23&-5&-11\\16&28&-8},\] which is a $2\times 3$ matrix.
+\end{Exam}\vs
+
+
+\begin{Def} If $A$ is a square matrix, say $n\times n$, and if 
+\[p(x) = a_0 + a_1x + a_2x^2 + \ldots + a_mx^m\] is a degree $m$ polynomial, then we define the $n\times n$ matrix $p(A)$ to be 
+\[p(A) = a_0I_n + a_1A + a_2A^2 + \ldots + a_mA^m.\] An expression of this form is called a \textbf{matrix polynomial} in $A$.
+\end{Def}\vs
+
+
+\begin{Exam} Find $p(A)$ for $p(x) = x^2+3x+2$ and $A=\mtx{rr}{4&2\\0&3}$ over $\Z_5$.
+\begin{multline*}
+p(A) \equiv A^2+3A+2I \equiv \mtx{rr}{4&2\\0&3}^2 + 3\mtx{rr}{4&2\\0&3} + 2\mtx{rr}{1&0\\0&1}\\
+\equiv \mtx{rr}{1&4\\0&4} + \mtx{rr}{2&1\\0&4} + \mtx{rr}{2&0\\0&2} \equiv \mtx{rr}{0 & 0\\0 & 0} \qedhere
+\end{multline*}
+\end{Exam}\vs
+
+\begin{Def} Let $A = \mtx{r}{a_{ij}}$ be an $m\times n$ matrix. Then the \textbf{transpose} of $A$, denoted $A^\top $, is the $n\times m$ matrix given by $A^\top  = \mtx{r}{a_{ji}}$, that is, the matrix whose columns are formed from the corresponding rows of $A$.
+\end{Def}\vs
+
+%Adym Warhurst
+\begin{Exam}  Let \[\begin{tikzpicture}
+\begin{scope}
+\clip (-1.5,0.75) rectangle (1.5,-0.75);
+\fill[cyan] (-0.4,0.75) rectangle (0,-0.75);
+\fill[magenta] (0.11,0.75) rectangle (0.51,-0.75);
+\fill[lime] (0.65,0.75) rectangle (1.05,-0.75);
+\path (0,0) node {$A = \mtx{rrr}{1&2&3\\4&5&6}$\text{,}};
+\end{scope}
+\begin{scope}[shift={(3,0)}]
+\clip (-1.5,0.75) rectangle (1.5,-0.75);
+\fill[cyan] (-0.4,0.75) rectangle (0,-0.75);
+\fill[magenta] (0.11,0.75) rectangle (0.51,-0.75);
+\fill[lime] (0.65,0.75) rectangle (1.05,-0.75);
+\path (0,0) node {$B = \mtx{rrr}{1&1&1\\3&5&7}$\text{,}};
+\end{scope}
+\begin{scope}[shift={(6.25,0)}]
+\fill[cyan] (0.09,0.75) rectangle (0.69,-0.75);
+\fill[magenta] (0.77,0.75) rectangle (1.37,-0.75);
+\path (0,0) node {\text{ and } $C = \mtx{rr}{2&-3\\0&1}.$};
+\end{scope}
+\end{tikzpicture}\] Then 
+\[
+\begin{tikzpicture}
+\fill[cyan] (-0.2,0.9) rectangle (1.07,0.5);
+\fill[magenta] (-0.2,0.15) rectangle (1.07,-0.25);
+\fill[lime] (-0.2,-0.55) rectangle (1.07,-0.95);
+\path (0,0) node {$A^\top  = \mtx{rr}{1&4\\2&5\\3&6}$\text{,}};
+\begin{scope}[shift={(3,0)}]
+\fill[cyan] (-0.2,0.9) rectangle (1.07,0.5);
+\fill[magenta] (-0.2,0.15) rectangle (1.07,-0.25);
+\fill[lime] (-0.2,-0.55) rectangle (1.07,-0.95);
+\path (0,0) node {$B^\top  = \mtx{rr}{1&3\\1&5\\1&7}$\text{,}};
+\end{scope}
+\begin{scope}[shift={(6.25,0)}]
+\fill[cyan] (0,0.58) rectangle (1.55,0.08);
+\fill[magenta] (0,-0.1) rectangle (1.55,-0.7);
+\path (0,0) node {$\text{and } C^\top  = \mtx{rr}{2&0\\-3&1}$.};
+\end{scope}
+\end{tikzpicture}
+\qedhere\]
+\end{Exam}\vs
+
+In the case of $\C$-matrices, an alternative to transposes is preferred for reasons that will be explained in Chapter 4.\\
+
+\begin{Def} Let $A$ be an $m\times n$ complex matrix. Then we define $A^* = (\overline{A})^\top $, which is called the \textbf{conjugate transpose}. This replaces the role of transposes in complex space.
+\end{Def}\vs
+
+When discussing transposes of matrices, whenever the matrices are complex, the conjugate transpose should ALWAYS be used instead of the standard transpose.\\
+
+%Tyler Bayn
+\begin{Exam} Let $A = \mtx{ccc}{ 1-2i & 3+5i & 6 \\ -2i & 0 & i}$ and  $B = \mtx{ccc}{2-3i & 0 & 2i \\ -i & 4 & 1+2i \\ 0 & 2-2i & 6}$.\\
+
+ Note that 
+\[A^* = \mtx{cc}{1+2i & 2i \\ 3-5i & 0 \\ 6 & -i},\qquad B^* =  \mtx{ccc}{2+3i & i & 0 \\ 0 & 4 & 2+2i \\ -2i & 1-2i & 6}. \qedhere \]
+\end{Exam}\vs
+
+\begin{Def} If $A$ is a square matrix, then the \textbf{trace} of $A$, denoted $\tr(A)$, is the sum of the diagonal entries of $A$.
+\end{Def}\vs
+
+%Hailey Checketts
+\begin{Exam} Let $A = \mtx{rr}{2&0\\1&4}$ and $B = \mtx{rrrr}{9&3&-2&3\\28&9&4&0\\16&1&6&3\\2&5&2&1}$. Then 
+\[\tr(A) = 2+4 = \fbox{$6$},\qquad \tr(B) =9+9+6+1 = \fbox{$25$}.\qedhere\]
+\end{Exam}\vs
+
+%%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{matrix}
+
+\noindent For Exercises \ref{true:matrixstart}-\ref{true:matrixstop}, determine with the statement is true or false. If false, correct the statement so that it is true.
+\begin{enumerate}[!HW!, start=1]
+\item\label{true:matrixstart} We say that two $m\times n$ matrices $A=[a_{ij}]$ and $B=[b_{ij}]$ are equal if $a_{ij}=b_{ij}$ for all $i$ and $j$. %Carson Blickenstaff
+\item If $A$ is a square matrix, then the trace of $A$ is the sum of the column entries of $A$. %Carson Blickenstaff
+\item We can multiply matrices by a scalar term-wise. %Carson Blickenstaff
+\item The identity matrix is an $n\times n$ matrix whose entries are $1$'s across the main diagonal and zeros everywhere else. %Carson Blickenstaff
+\item If $A$ is an $n\times n$ matrix, then we say that $A$ is a square matrix. %Carson Blickenstaff
+\item\label{true:matrixstop} The transpose of a matrix $A$ is a matrix whose columns are formed from the corresponding rows of $A$.\\ %Carson Blickenstaff
+\end{enumerate}
+
+\begin{enumerate}[!HW!]
+\item Write the matrix $E_{1,3}\in F^{3\times 3}$.
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:matrixwhatwrongstart}-\ref{exer:matrixwhatwrongstop}, using the matrices listed below, explain why the operation is not possible.
+\[A = \mtx{rr}{2&3\\1&4},\quad B = \mtx{rr}{1&1\\3&6}, \quad C = \mtx{rrr}{2&7&5\\1&5&4},\quad D=\mtx{rrr}{1&6&4\\5&9&2\\9&3&3}.\]
+\begin{enumerate}[!HW!]
+\begin{multicols}{3}
+\item\label{exer:matrixwhatwrongstart} $CA$ %Jacob Kuhn
+\item $ABD$%Jacob Kuhn
+\item\label{exer:matrixwhatwrongstop} $\tr(C)$ %Jacob Kuhn
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:matrixcomputerealstart}-\ref{exer:matrixcomputerealstop}, using the matrices listed below, perform the matrix calculation:
+\[A = \mtx{rrr}{1&2&3\\4&-3&0\\1&-2&-1},\quad B = \mtx{rrr}{0&5&6\\-5&-5&2\\2&0&-3}, \quad C = \mtx{rrrr}{3&0&-1&2\\1&7&8&-3\\3&3&2&-4},\quad D=\mtx{rrr}{2&3&-2\\-5&0&7\\0&-2&4\\1&2&3}.\]
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{6}
+\item\label{exer:matrixcomputerealstart} $2A+B^\top$\columnbreak %Alexis Borell
+\itemspade $4A-3B$ \columnbreak
+\itemspade $AC$ \columnbreak
+\itemspade $A^\top$ \columnbreak
+\itemspade $C^\top$ \columnbreak
+\itemspade $D^\top$
+\end{multicols}
+\begin{multicols}{4}
+\itemspade $\tr(A)$
+\itemspade $\tr(B)$
+\itemspade $DB^\top $
+\item\label{exer:matrixcomputerealstop} $A^2 + 2A-5I_3$
+\end{multicols}
+\end{enumerate}
+
+%NEW
+\noindent For Exercises  \ref{exer:matrixcomputeboringstart}-\ref{exer:matrixcomputeboringstop}, using the matrices listed below, perform the matrix calculation over the field $\R$:
+\[A = \mtx{rrr}{-1&0&2\\1&3&5},\quad B = \mtx{rrr}{5&1\\2&2\\3&4}, \quad C = \mtx{rrrr}{-2&0\\3&-2}.\]
+\begin{enumerate}[!HW!]
+\begin{multicols}{4}
+\item\label{exer:matrixcomputeboringstart} $2A^\top+B$ 
+\item$AB$ 
+\item $BC$ 
+\item\label{exer:matrixcomputeboringstop} $ABC$ 
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:matrixcomputecomplexstart}-\ref{exer:matrixcomputecomplexstop}, using the matrices listed below, perform the matrix calculation over the field $\C$:
+\[A = \mtx{cc}{1+2i & 1-3i \\ 5 & 1-i },\quad B = \mtx{cc}{0 & 3-4i \\ 3i & 1+i}, \quad C = \mtx{cc}{3&0\\i&2i\\3+i&1+3i},\quad D=\mtx{cccc}{1& 0 & i & 1-2i \\ 5  & 4+i & 0 & -4}.\]
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{5}
+\item\label{exer:matrixcomputecomplexstart} $(1+i)A-3B$\\
+\item $CA$
+\item $A^*$
+\item $C^*$
+\item $D^*$
+\end{multicols}
+\begin{multicols}{4}
+\item $\tr(A)$
+\item $\tr(B)$
+\item $(BD)^*$
+\item\label{exer:matrixcomputecomplexstop} $A^2+I_2$
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:matrixcomputefivestart}-\ref{exer:matrixcomputefivestop}, using the matrices listed below, perform the matrix calculation over the field $\Z_5$:
+\[A \equiv \mtx{rrrr}{1&2&3&4\\0&2&2&3\\1&2&2&1\\4&4&3&2},\quad B \equiv \mtx{rrrr}{0&1&1&2\\2&2&3&0\\1&2&3&2\\4&3&4&2}, \quad C \equiv \mtx{rrrr}{3&0&4&2\\1&2&3&2\\3&3&2&1},\quad D\equiv\mtx{rrr}{2&3&3\\0&0&2\\0&3&4\\1&2&3} \pmod 5.\]
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{5}
+\item\label{exer:matrixcomputefivestart} $2A-3B$
+\item $CA$
+\item $A^\top $ 
+\item $C^\top $
+\item $D^\top $
+\end{multicols}
+\begin{multicols}{4}
+\item $\tr(A)$
+\item $\tr(B)$
+\item $D^\top B$
+\item\label{exer:matrixcomputefivestop} $A^2+A-I_4$
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:mtxtracerealstart}-\ref{exer:mtxtracerealstop}, for the matrix $A$ provided, find $\tr(A)$, $A^\top $, and $\tr(A^\top )$.
+\begin{enumerate}[!HW!]
+\begin{multicols}{4}
+\item\label{exer:mtxtracerealstart} $\mtx{rrr}{8&-7&2\\0&-2&4\\3&2&1}$ %Daven Triplett
+\item $\mtx{rrrr}{1/8&-7/8&2/5&-12/13\\9/8&-1/2&1/4&1/4\\1&-12/15&2&1/5\\1/4&8/15&-3/8&3/8}$ %Daven Triplett
+
+\mbox{}
+
+\item\label{exer:mtxtracerealstop} \mbox{$\mtx{rrrr}{5&1&6&2\\3&0&3&4\\5&2&1&1\\2&3&0&0}\pmod 7$} %Daven Triplett
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:mtxtracecomplexstart}-\ref{exer:mtxtracecomplexstop}, for the matrix $A$ provided, find $\tr(A)$, $A^*$, and $\tr(A^*)$.
+\begin{enumerate}[!HW!]
+\item\label{exer:mtxtracecomplexstart}\label{exer:mtxtracecomplexstop} $A=\mtx{ccc}{1-3i&-5-5i&2+2i\\2-4i&8i&6+i\\-1+2i&3-6i&2+4i}$\\ %Daven Triplett
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ %\mbox{}\vfill
+ \pagebreak

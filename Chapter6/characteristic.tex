@@ -1,0 +1,142 @@
+\begin{center} 
+\emph{``There seems to be some perverse human characteristic that likes to make easy things difficult.''\\ -- Warren Buffett}
+\end{center}
+
+\section{The Characteristic Polynomial}\label{sec:characteristic}
+%\begin{Thm} If $\bb x_1, \ldots,  \bb x_r$ are eigenvectors of an $n\times n$ matrix $A$ which correspond to distinct eigenvalues $\lambda_1, \ldots, \lambda_r$, respectively, then $\{\bb x_1, \ldots, \bb x_r\}$ is linearly independent.
+%\end{Thm}
+%\begin{proof}
+%We proceed by induction. Clearly, if $\{\bb x_1\}$ is a set of eigenvectors, then $\{\bb x_1\}$ is linearly independent since $\bb x_1 \neq \bb 0$.\\
+%
+%For our induction hypothesis, we assume that if $\{\bb x_1, \ldots, \bb x_k\}$ is a set of eigenvectors of $A$ corresponding to distinct eigenvalues then $\{\bb x_1, \ldots, \bb x_k\}$ is linearly independent for all $k < r$.\\
+%
+%Let $\{\bb x_1, \ldots, \bb x_r\}$ be a set of eigenvectors $A$ corresponding to distinct eigenvalues and let 
+%\[c_1\bb x_1 + \ldots + c_r\bb x_r = \bb 0.\] Then
+%\begin{eqnarray*}
+% c_1\bb x_1 + \ldots + c_r\bb x_r &=& \bb 0\\
+%A(c_1\bb x_1 + \ldots + c_r\bb x_r) &=& A\bb 0\\
+%c_1(A\bb x_1) + \ldots + c_r(A\bb x_r) &=& \bb 0\\
+%c_1(\lambda_1\bb x_1) + \ldots + c_r(\lambda_r\bb x_r) &=& \bb 0
+%\end{eqnarray*} Likewise, 
+%\[c_1(\lambda_r\bb x_1) + \ldots + c_r\lambda_r\bb x_r = \bb 0.\] Subtracting these two equations gives:
+% \[c_1(\lambda_1-\lambda_r)\bb x_1 + \ldots + c_{r-1}(\lambda_{r-1} - \lambda_r)\bb x_{r-1} = \bb 0.\] By our induction hypothesis, $c_i(\lambda_i-\lambda_{r}) = 0$ for all $i < r$. But  $\lambda_i-\lambda_{r}\neq 0$, since all the eigenvalues are distinct. This implies that $c_i = 0$ for all $i< r$. Therefore, 
+%\[c_r\bb x_r = \bb 0.\] Since $\bb x_r\neq \bb 0$, $c_r = 0$. Therefore, $\{\bb x_1, \ldots, \bb x_r\}$ is linearly independent and the result follows by induction.
+%\end{proof}\vs
+
+As observed previously, for an $n\times n$ matrix $A$, a scalar $\lambda$ is an eigenvalue if and only if $(A-\lambda I)\bb x = \bb 0$ has a nontrivial solution if and only if $A-\lambda I$ is singular if and only if $\det(A-\lambda I) = 0$. In this context, determinants will be a valuable tool to compute eigenvalues.\\
+
+\begin{Def} Let $A$ be an $n\times n$ matrix. Treating $\lambda$ as a variable, the value $\det(A-\lambda I)$ is a polynomial of degree $n$, called the \textbf{characteristic polynomial} of $A$. The roots of the characteristic polynomial are exactly the eigenvalues of $A$ since the roots are the solutions to the equation $\det(A-\lambda I)=0$. The (\textbf{algebraic}) \textbf{multiplicity} of each eigenvalue is its multiplicity in the characteristic polynomial.
+\end{Def}\vs
+
+\begin{Exam} Let $A = \mtx{rrr}{3&6&-8\\0&0&6\\0&0&2}$ and $B = \mtx{rrr}{4&0&0\\-2&1&0\\5&3&4}$.
+
+Then the characteristic polynomial of $A$ is  
+\begin{eqnarray*}
+\det(A-\lambda I) &=&  \dtx{rrr}{3-\lambda&6&-8\\0&-\lambda&6\\0&0&2-\lambda} = (3-\lambda)(-\lambda)(2-\lambda)\\
+&=& (6-5\lambda+\lambda^2)(-\lambda) = -6\lambda + 5\lambda^2 - \lambda^3.
+\end{eqnarray*} Note that the eigenvalues of $A$ are 3, 0, and 2, where all multiplicities are one.\\
+
+The characteristic polynomial of $B$ is 
+\begin{eqnarray*}
+\det(B-\lambda I) &=&  \dtx{rrr}{4-\lambda&0&0\\-2&1-\lambda&0\\5&3&4-\lambda} = (4-\lambda)(1-\lambda)(4-\lambda)\\
+&=& (16-8\lambda+\lambda^2)(1-\lambda) = 16-24\lambda +9\lambda^2 -\lambda^3.
+\end{eqnarray*} Note that the eigenvalues of $B$ are 4 and 1, where $4$ has multiplicity two and $1$ has multiplicity one.
+\end{Exam}\vs
+
+Let $A$ be a matrix with eigenvalue $\lambda$. Suppose that $m$ is the geometric multiplicity of $\lambda$ ($\nullity(A-\lambda I)$) and $n$ is the algebraic multiplicity of $\lambda$. Then $1 \le m \le n$, that is, the algebraic multiplicity is an upper bound for the geometric multiplicity.\\
+
+\begin{Exam} Find the eigenvalues of $A = \mtx{rr}{2&3\\3&-6}$.\\
+
+We can find the eigenvalues of $A$ by computing the characteristic polynomial of $A$ and factoring it.
+\begin{eqnarray*}
+\det(A-\lambda I) &=& \dtx{cc}{2-\lambda&3\\3&-6-\lambda} = (2-\lambda)(-6-\lambda) - 3(3)\\
+&=& (-12+4\lambda+\lambda^2)-9 = -21 + 4\lambda + \lambda^2\\
+&=& (\lambda+7)(\lambda-3)
+\end{eqnarray*} Therefore, the eigenvalues of $A$ are $\lambda = -7, 3$.
+\end{Exam}\vs
+
+\begin{Exam} If $A = \mtx{rr}{0&-1\\1&0}$, then the characteristic polynomial of $A$ is 
+
+\[\dtx{cc}{-\lambda & -1\\1&-\lambda} = \lambda^2+1 = (\lambda -i)(\lambda +i)\] and the complex eigenvalues of $A$ are $\pm i$. Since \[A-iI = \mtx{rr}{-i&-1\\1&-i}  \sim \mtx{rr}{i&1\\0&0} \sim  \mtx{rr}{1&-i\\0&0},\] we have that $\vr{i\\1}$ is an eigenvector. Note that 
+\[A\vr{i\\1} = \mtx{rr}{0&-1\\1&0}\vr{i\\1} = \vr{-1\\i} = i\vr{i\\1}.\] Likewise, 
+\[A+iI = \mtx{rr}{i&-1\\1&i}  \sim \mtx{rr}{i&-1\\0&0} \sim  \mtx{rr}{1&i\\0&0}.\] Thus, $\vr{-i\\1}$ is an eigenvector of $A$ and 
+\[A\vr{-i\\1} = \mtx{rr}{0&-1\\1&0}\vr{-i\\1} = \vr{-1\\-i} = -i\vr{-i\\1}.\] In particular, $A$ is diagonalizable with 
+\[A = \mtx{rr}{i&-i\\1&1}\mtx{rr}{i&0\\0&-i}\mtx{rr}{-i/2&1/2\\i/2&1/2}.\]
+\end{Exam}\vs
+
+Let $A$ be an $n\times n$ matrix with \emph{real} entries. Then $\overline{A\bb x} = \overline{A}\;\overline{\bb x} = A\overline{\bb x}$. If $\lambda$ is an eigenvalue of $A$ and $\bb x$ is a corresponding eigenvector, then 
+\[A\overline{\bb x} = \overline{A}\;\overline{\bb x} =\overline{A\bb x} = \overline{\lambda \bb x} = \overline{\lambda}\;\overline{\bb x}.\] Then the conjugate of $\bb x$ is also an eigenvector of $A$ whose corresponding eigenvalue is the conjugate of $\lambda$. We saw this in the last example. In greater generality, the eigenvalues of a matrix of a field $F$ might lie in some \emph{extension field} $E$ such that $F\subseteq E$.\\
+
+\begin{Thm} An $n\times n$ matrix $A$ is nonsingular if and only if $0$ is not an eigenvalue of $A$. In particular,  if $A\bb x = \lambda \bb x$, then $A^{-1}x = \dfrac{1}{\lambda}\bb x$.
+\end{Thm}
+%\begin{proof} Let $A$ be singular, which implies that $\det(A) = 0$. Then $\det(A-\lambda I_n) = 0$ and $\lambda = 0$ is a root of the characteristic polynomial. Therefore, $\lambda = 0$ is an eigenvalue. The converse is handled similarly.\\
+%
+%Let $A\bb x = \lambda \bb x$. Then $A^{-1}(A\bb x) = A^{-1}(\lambda \bb x) \qRightarrow \bb x = \lambda(A^{-1}\bb x) \qRightarrow \dfrac{1}{\lambda}\bb x= A^{-1}\bb x$.
+%\end{proof}\vs
+
+\begin{Exam} Let $A = \mtx{rrr}{3&6&-8\\0&0&6\\0&0&2}$. Then its eigenvalues are $\lambda = 3, 0, 2$. In particular, $0$ is an eigenvalue of $A$. Even though, $\bb 0$ cannot be an eigenvector, $0$ can be an eigenvalue. Notice that the eigenvalues of $\lambda =0$ are simply the vectors in $\nul(A)$, that is, the nullity of $A$ is simply the geometric multiplicity of $0$ as an eigenvalue of $A$. In fact, 
+
+\[A\vr{-2\\1\\0} = \mtx{rrr}{3&6&-8\\0&0&6\\0&0&2}\vr{-2\\1\\0} = \vr{0\\0\\0} = 0\vr{-2\\1\\0}. \qedhere\] 
+\end{Exam}
+
+\begin{Def} Let $A$ and $B$ be $n \times n$ matrices. We say that two matrices are \textbf{similar} if there exists a nonsingular $n\times n$ matrix $P$ such that $PAP^{-1} =  B$. 
+\end{Def}
+
+\begin{Exam} The matrices $A = \mtx{rrr}{1&0&-7\\5&1&2\\-4&2&0}$ and $B =\mtx{rrr}{15&-18&-2\\17&-17&-4\\7&-22&4}$ are similar since $P = \mtx{rrr}{1&-2&-1\\1&-1&0\\1&-4&-2}$ is nonsingular with $P^{-1} =  \mtx{rrr}{2&0&-1\\2&-1&-1\\-3&2&1}$ and 
+\[PAP^{-1} = \mtx{rrr}{1&-2&-1\\1&-1&0\\1&-4&-2}\mtx{rrr}{1&0&-7\\5&1&2\\-4&2&0}\mtx{rrr}{2&0&-1\\2&-1&-1\\-3&2&1} = \mtx{rrr}{1&-2&-1\\1&-1&0\\1&-4&-2}\mtx{rrr}{23&-14&-8\\6&3&-4\\-4&-2&2}\] \[ = \mtx{rrr}{15&-18&-2\\17&-17&-4\\7&-22&4} = B. \qedhere\]
+\end{Exam}
+
+\begin{Thm} If $A$ and $B$ are two similar matrices, then they have the same characteristic polynomial and hence the same eigenvalues (with the same multiplicities).
+\end{Thm}
+%\begin{proof}
+%If $B = PAP^{-1}$, then 
+%\begin{eqnarray*}
+%B-\lambda I &=& PAP^{-1}  - \lambda I =  PAP^{-1}  - (\lambda I)(PP^{-1})\\
+%& = & PAP^{-1}  - P(\lambda I)P^{-1} = P(A-\lambda I)P^{-1}.
+%\end{eqnarray*} Therefore, 
+%\begin{eqnarray*}
+%\det(B-\lambda I) &=& \det( P(A-\lambda I)P^{-1}) = \det(P)\det(A-\lambda I)\det(P^{-1})\\  &=& \det(P)\det(P^{-1})\det(A-\lambda I) = \det(PP^{-1})\det(A-\lambda I)\\ &=& \det(I)\det(A-\lambda I). \qedhere
+%\end{eqnarray*}
+%\end{proof}\vs
+
+%A similar proof can be used to show that similar matrices have the same determinant. 
+Likewise, similar matrices have the same determinant, rank, nullity, and trace. Thus, if any two matrices differ on one of these \emph{invariants} then they cannot be similar.\\
+
+\begin{Exam} The matrices $A=\mtx{rr}{1 & 2\\ 0  & -2}$ and $B = \mtx{rr}{3&1\\-1&2}$ are not similar since $\tr(A) = 1-2 = -1\neq 5 = 3+2 = \tr(B)$.
+\end{Exam}\vs
+
+%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{characteristic}
+
+\noindent For Exercises \ref{exer:findeigenvaluesstart}-\ref{exer:findeigenvaluesstop}, find the eigenvalues and bases for the eigenspaces of the matrix $A$ given. Answers may vary.
+\begin{enumerate}[!HW!, start=1, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{3}
+\item\label{exer:findeigenvaluesstart} $\mtx{rr}{10&6\\-12&-8}$ %NEW
+\item $\mtx{rr}{6&1\\-1&4}$ %NEW
+\item $\mtx{rr}{35&48\\-24&-33}$ %NEW  
+\end{multicols}
+\begin{multicols}{3}
+\item $\mtx{rr}{4&-5\\1&0}$ %Anton 5.3.15 p. 324
+\item $\mtx{rr}{-1&-5\\4&7}$ %Anton 5.3.16
+\item $\mtx{rr}{5&-2\\1&3}$ %Anton 5.3.17
+\end{multicols}
+\begin{multicols}{3}
+\item $\mtx{rrr}{-6  & -2 & -2 \\ 17 & 6 & 5 \\ 7 & 2 & 3}$
+\item $\mtx{rrr}{17&5&5\\-41&-12&-14\\-19&-6&-4}$
+\item\label{exer:findeigenvaluesstop} $\mtx{rrr}{3&1&1\\-2&-1&-1\\-7&-2&-2}$
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:notsimilarstart}-\ref{exer:notsimilarstop}, explain why the matrices $A$ and $B$ below are NOT similar. (Sure, do it QUICKLY if you want a challenge, UNDER 60 SECONDS!)
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:notsimilarstart} $\mtx{rr}{1&0\\0&4}$, $\mtx{rr}{1&-3\\5&2}$ 
+\item\label{exer:notsimilarstop} $\mtx{rr}{1&0\\0&4}$, $\mtx{rr}{2&-3\\0&3}$
+\end{multicols}
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ \mbox{}\vfill
+ 
+\pagebreak

@@ -1,0 +1,165 @@
+
+\begin{center} 
+\emph{``When you put your hand to the plow, you can't put it down until you get to the end of the row.''\\ -- Alice Paul}
+\end{center}
+
+\section{Matrix Properties}\label{sec:rowspace}
+We mentioned in the previous section that $F^{m \times n}$, meaning that matrix addition and scalar multiplication satisfy the eight properties listed in \defref{def:vectorspace}. Transposes and traces also follow very nice algebraic properties.\\
+
+\begin{Thm}  Let $A$ and $B$ be matrices with sizes such that the indicated sums and products are defined. Let $c\in F$.
+\begin{multicols}{2}
+\begin{enumerate}[!THM!, start=1]
+\item $(A+B)^\top  = A^\top  + B^\top $\\
+\item $(cA)^\top  = cA^\top $\\
+\item $(A^\top )^\top  = A$\\
+\item $(AB)^\top  = B^\top A^\top $\\
+\end{enumerate}
+\end{multicols}
+\end{Thm}\vspace{-0.15 in}
+
+We see by the first two properties that transposition is a linear transformation $\mbox{}^\top  : F^{m\times n} \to F^{n\times m}$. Note the last property states that the transpose of a product of matrices equals the product of their transposes in the reverse order! This is called the \emph{Shoe-Sock Principle}\footnotemark[2]. As we will see momentarily, this order matters a lot.\\ 
+
+\begin{Thm}  Let $A$ and $B$ be $n\times n$ matrices. Let $c\in F$.
+\begin{multicols}{2}
+\begin{enumerate}[!THM!, start=1]
+\item $\tr(A+B) = \tr(A) + \tr(B)$\\
+\item $\tr(cA) = c\tr(A)$\\
+\item $\tr(A^\top ) = \tr(A)$\\
+\item $\tr(AB) = \tr(BA)$\\
+\end{enumerate}
+\end{multicols}
+\end{Thm}\vspace{-0.15 in}
+
+We see by the first two properties that the trace is a linear transformation $\tr : F^{m\times n} \to F$. It should be mentioned that the last property does NOT say that $\tr(AB) = \tr(A)\tr(B)$. This is, in fact, very false. Also, this property does NOT say that $AB=BA$ only that $\tr(AB) = \tr(BA)$. As hinted to already, we will soon see that $AB \neq BA$, in general. \\ 
+
+Unfortunately, matrix multiplication is not as well behaved as multiplication of real numbers which we are used to. Many of the typical algebraic properties do hold.\\
+
+\begin{Thm} Let $A$, $B$, and $C$ be matrices with sizes such that the indicated sums and products are defined. Let $c\in F$.
+\begin{multicols}{2}
+\begin{enumerate}[!THM!, start=1]
+\item $A(BC) = (AB)C$\\
+\item $A(B+C) = AB + AC$\\
+\item $(A+B)C = AC + BC$\\
+\item $c(AB) = (cA)B = A(cB)$\\
+\item Let $A$ be an $m\times n$ matrix. Then \[I_mA = A = AI_n.\] \mbox{}
+\end{enumerate}
+\end{multicols}
+\end{Thm}\vspace{-0.15 in}
+
+Please be aware that certain multiplicative properties in the previous list are omitted. This is quite intentional because many algebraic properties that we take for granted with real multiplication do NOT hold for matrix multiplication.\\
+
+\begin{Thm}\label{thm:cantmultiply} Let $A$, $B$, and $C$ be matrices with sizes such that the indicated sums and products are defined.
+\begin{enumerate}[!THM!, start=1]
+\item\label{item:cantmultiplycommute} You CANNOT assume that $AB = BA$\\
+\item You CANNOT assume that if $AB=AC$, then $B = C$\\
+\item You CANNOT assume that if $AB = 0$, then $A =0$ or $B=0$.
+\end{enumerate}
+\end{Thm}
+
+\begin{Exam} Let $A = \mtx{rr}{1 & 2\\-1&3}$ and $B = \mtx{rr}{0&-3\\1&1}$. Then 
+\[AB = \mtx{rr}{1 & 2\\-1&3}\mtx{rr}{0&-3\\1&1} = \mtx{rr}{2&-1\\3&6}\quad\text{and}\quad BA = \mtx{rr}{0&-3\\1&1}\mtx{rr}{1 & 2\\-1&3} = \mtx{rr}{3&-9\\0&5}.\] Therefore, $AB\neq BA$.
+\end{Exam}\vs
+
+\begin{Exam} Let $A = \mtx{rr}{0&2\\0&-1}$, $B = \mtx{rr}{1&2\\3&4}$, and $C = \mtx{rr}{5&6\\3&4}$. Then 
+\[AB = \mtx{rr}{0(1)+2(3)& 0(2)+2(4)\\ 0(1)-(3)& 0(2)-(4)} = \mtx{rr}{6&8\\-3&-4} \quad\text{and}\quad AC = \mtx{rr}{0(5)+2(3)& 0(6)+2(4)\\ 0(5)-(3)& 0(6)-(4)} = \mtx{rr}{6&8\\-3&-4}.\] Therefore, $AB=AC$ but $B\neq C$. In other words, we cannot divide both sides by $A$.
+\end{Exam}\vs
+
+\begin{Exam} Let $A = \mtx{rr}{0&2\\0&-1}$ and $B = \mtx{rr}{4&2\\0&0}$. Then
+\[AB = \mtx{rr}{0(4)+2(0)& 0(2)+2(0)\\ 0(4)-(0)& 0(2)-(0)} = \mtx{rr}{0&0\\0&0},\] which is the zero matrix. Therefore, $AB=0$ but $A\neq 0$ not $B\neq C$. In other words, the zero product property does NOT hold for matrices.
+\end{Exam}\vs
+
+\begin{Def} Let $A$ be an $m\times n$ matrix. Define the \textbf{row space} of $A$, denoted $\row A$, as the column space of $A^\top $, that is, $\row A = \col A^\top $. \\
+
+The dimension of $\row A$ is called the \textbf{corank}, denoted $\corank A = p$, where $p$ is the number of pivots in $A$. 
+\end{Def}\vs
+
+Note that the corank is not really a new quantity. Note that $\corank(A) = \dim(\row A) = \text{the number of pivot positions} = \rank A = \dim(\col A)$.\\
+
+For another way to describe the row space of $A$, note that each row of $A$ contains $n$ entries and can be identified with a vector in $F^n$. Then $\row A$ is the span of the rows of $A$ under this identification.\\
+
+\begin{Thm}\label{thm:rowspaceequivalence} Two matrices $A$ and $B$ are row equivalent if and only if $\row A = \row B$.
+\end{Thm}\vs
+%\begin{proof} We will show that if $A\sim B$, that is, if $A$ and $B$ are row equivalent, then $\row A = \row B$. Let $\{\bb r_1, \ldots, \bb r_m\}$ be the rows of $A$. Certainly, interchange would not change the row space since 
+%\[\Span\{\bb r_1, \ldots, \bb r_i, \ldots, \bb r_j,\ldots, \bb r_m\} = \Span\{\bb r_1, \ldots, \bb r_j, \ldots, \bb r_i,\ldots, \bb r_m\}.\] Additionally, scaling by a nonzero value $c$ does not affect the span of the rows since 
+%\[c\bb r_i \in \Span\{\bb r_1, \ldots, \bb r_i, \ldots, \bb r_m\}\qquad\text{and}\qquad \bb r_i - \frac{1}{c}(c\bb r_i) \in \Span\{\bb r_1, \ldots, c\bb r_i, \ldots,  \bb r_m\}.\] Finally, replacement also does not change the row space because 
+%\[\bb r_j + c\bb r_i \in \Span\{\bb r_1, \ldots, \bb r_i, \ldots, \bb r_j,\ldots, \bb r_m\}\qquad\text{and}\qquad \bb r_j = (\bb r_j +c\bb r_i) - c\bb r_i \in \Span\{\bb r_1, \ldots, \bb r_i, \ldots, \bb r_j+c\bb r_i,\ldots, \bb r_m\}.\] Since no row operation changes the row space, $\row A = \row B$ for all $A\sim B$. The other direction is handled similarly.
+%\end{proof}\vs
+
+\begin{Thm}\label{thm:rowspaceequivalencerref} If $U$ is an echelon form of the matrix $A$, then nonzero rows of $U$ form a basis for the row space of $A$.
+\end{Thm}\vs
+%\begin{proof}
+% It was shown previously that $\row(A) = \row(U)$ since $A$ and $U$ are row equivalent. Thus, a basis for $\row(U)$ is a basis for $r\row(A)$. If $U$ is in echelon form, then no nonzero row can be written as a linear combination of the other rows (otherwise we could have zeroed out that row). Thus, the nonzero rows give a basis.
+%\end{proof}\vs
+
+Much like the column space of $A$, the pivot rows of $A$ also form a basis of $\row(A)$. But unlike the column space, the pivot rows of $U$ form a basis of $\row(A)$. This is not true for the column space, that is, the pivot columns of $U$ do NOT form a basis for $\col(A)$. This is because row equivalent matrices need not have the same column space. Only the row space is guaranteed to be equal.\\
+
+%Walt Williams
+\begin{Exam} Let $A = \mtx{rrrrr}{1 & 3 & 2 & 4 & 2 \\
+ 2 & 6 & 4 & 8 & 4 \\
+ 3 & 2 & 5 & 2 & 1 \\
+ 4 & 2 & 5 & 1 & 0 \\}$. Compute a basis for $\row A$, $\col A$, and $\nul A$.\\
+
+Since \[A = \mtx{rrrrr}{1 & 3 & 2 & 4 & 2 \\
+ 2 & 6 & 4 & 8 & 4 \\
+ 3 & 2 & 5 & 2 & 1 \\
+ 4 & 2 & 5 & 1 & 0 \\} \sim \mtx{rrrrr}{ 1 & 0 & 0 & -1 & -1 \\
+ 0 & 1 & 0 & 15/11 & 7/11 \\
+ 0 & 0 & 1 & 5/11 & 6/11 \\ 
+ 0 & 0 & 0 & 0 & 0 \\}.\] Therefore, \[\{(1,0,0,-1,-1), (0,1,0,15/11,7/11), (0,0,1,5/11,6/11)\}\] is a basis for $\row A$. Hence, $\corank(A)=3$. If a basis without fractions is desired, those vectors can be scaled by $11$ without adjusting the span or the linear independence. Thus,  \[\{(1,0,0,-1,-1), (0,11,0,15,7), (0,0,11,5,6)\}\] is another basis of $\row A$.
+ \begin{multicols}{2}
+ We also see that \[\left\{\vr{1\\2\\3\\4}, \vr{3\\6\\2\\2}, \vr{2\\4\\5\\5}\right\}\] is a basis for $\col A$. Hence, $\rank(A)=3$. \columnbreak
+ 
+ Likewise, \[\left\{\vr{11\\-15\\-5\\1\\0}, \vr{11\\-7\\-6\\0\\1}\right\}\]  is a basis for $\nul A$. Hence, $\nullity(A)=2$. \hfill$\qedhere$
+ \end{multicols}
+\end{Exam}\vs
+
+Alternatively, one could find a basis for $\row A$ by finding a basis for $\col A^\top $ as we did before. This would, in fact, provide a basis consisting of actual rows of $A$. The method above has the advantage (other than providing simpler vectors) than we can find all these bases of the fundamental spaces of $A$ simultaneously. 
+
+%%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{rowspace}
+
+\begin{enumerate}[!HW!, start=1]
+\item Rewrite the eight axioms of a vector space, listed in \defref{def:vectorspace}, as properties of $m\times n$ matrices. \\
+
+\item Verify \thmref{thm:cantmultiply} \ref{item:cantmultiplycommute} using $A=\mtx{rrr}{3&2&1\\1&5&0\\4&1&2}$, $B=\mtx{rrr}{1&3&2\\0&1&4\\2&1&7}$. %Candace Fehr
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:rowspacerealstart}-\ref{exer:rowspacerealstop}, for the matrix $A$ provided, find a basis for $\row(A)$ and compute $\corank(A)$. Answers may vary.
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:rowspacerealstart} $\mtx{rrrrr}{8&-3&-13&15&17\\-2&1&3&-3&-3}$ 
+\item $\mtx{rrrr}{-1&2&1&0\\7&-14&-7&-8\\-3&6&3&2}$ 
+\end{multicols}
+\begin{multicols}{2}
+\itemspade $\mtx{rrrrrr}{1&0&0&1&1&1\\0&1&0&1&1&0\\0&0&1&1&0&1} \pmod 2$ 
+\itemspade $\mtx{rrrr}{2&1&1&1\\4&2&0&3\\2&1&3&0\\0&0&1&2} \pmod 5$
+\end{multicols}
+\item\label{exer:rowspacerealstop} $\mtx{cccccc}{1+2i&2-i&-1&0&1+i&-3+3i\\2+4i&4-2i&1+4i&-2&2+5i&-2+10i\\3-i&-1-3i&2&i&3-i&6+3i}$ 
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:rowcolumnstart}-\ref{exer:rowcolumnstop}, let $A$ be the matrix provided on the left. The second matrix is row equivalent to $A$. Find a basis for $\col(A)$ and $\row(A)$ and compute $\rank(A)$ and $\corank(A)$.
+\begin{enumerate}[!HW!]
+\item\label{exer:rowcolumnstart}\label{exer:rowcolumnstop} $\mtx{rrrrrr}{
+1&1&-3&7&9&-9\\
+1&2&-4&10&13&-12\\
+1&-1&-1&1&1&-3\\
+1&-3&1&5&7&3\\
+1&-2&0&0&-5&4} 
+\sim \mtx{rrrrrr}{
+1&1&-3&7&9&-9\\
+0&1&-4&3&4&-3\\
+0&0&0&1&-1&2\\
+0&0&0&0&0&0\\
+0&0&0&0&0&0}$ %Noah Swenson
+\end{enumerate}
+
+\begin{enumerate}[!HW!]
+\item Show that $\R^{2\times 2}$ with respect to matrix addition and matrix multiplication is NOT a field. 
+
+\item Show that if $F$ is any field and $n$ a positive integer, then $F^{n\times n}$ is a field if and only if $n=1$. 
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ \mbox{}\vfill
+ \footnotetext[2]{\emph{In the morning you put your socks on then your shoes. In the evening, you take your shoes off then your socks.}}
+ \pagebreak

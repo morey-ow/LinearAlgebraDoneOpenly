@@ -1,0 +1,312 @@
+%% Formatting and Layout
+%%%%%%%%%%%%%%%%%%%%%
+	\usepackage{fancyhdr} %reformatting footers
+	\usepackage{color} %allows the use of color
+	\usepackage{multicol}
+	\usepackage[titletoc]{appendix}
+	\usepackage{draftwatermark}
+	\usepackage{verbatim}
+
+	%\usepackage{verbatim} %allows comment environment	
+	\usepackage{cancel} %allows \cancel and \bcancel
+	%\usepackage{mathrsfs} %Provides a \mathscr command, rather than overwriting the standard \mathcal command, as in calrsfs.	
+	%\usepackage{subfig}
+	%\usepackage{enumerate} \usepackage{enumitem} 
+	%\usepackage{mathabx}  %allows new symbols including \bigast
+	%\usepackage{bbold}   %changes style of mathbb but allows mathbb for 1
+
+
+	\usepackage{geometry} % Use the option [showframe] to see margin lines. 
+	%\usepackage{layout}%Use the package layout and the command \layout at the beginning of the document to see a diagram labeling the margin names.
+	\setlength{\paperwidth}{8.5 in}\setlength{\paperheight}{11 in}
+	\setlength{\oddsidemargin}{0 in} \setlength{\evensidemargin}{0 in} \setlength{\textwidth}{6.5 in}
+	\setlength{\topmargin}{-0.5 in}\setlength{\textheight}{9.5 in}
+	
+	\setlength{\unitlength}{1. cm}
+	\linespread{1}
+	\renewcommand{\arraystretch}{1.75}
+	\allowdisplaybreaks[4]
+	\raggedbottom
+	
+	%\definecolor{junglegreen}{RGB}{65,150, 00}
+
+%%Numbering, Referencing, and Theorem Style
+%%%%%%%%%%%%%%%%%%%%%
+	\usepackage{amsthm, thmtools}
+	\usepackage{enumitem} %allows user to customize enumerate environment OPTIONS : shortlabels
+	\usepackage[colorlinks = true, linkcolor = black, urlcolor = blue, citecolor = black, pdfborder={0 0 0}]{hyperref} %Beamer doesn't like this package
+	\hypersetup{bookmarksnumbered,colorlinks=true}
+	%\usepackage{chngcntr}
+    %\usepackage{titlesec}
+
+	\declaretheoremstyle[
+	  spaceabove=1em, spacebelow=1em,
+	  headfont= \bfseries,
+	  notefont=\mdseries, notebraces={(}{)},
+	  bodyfont=\normalfont,
+	  postheadspace=1em,
+	  qed= \tiny $\blacksquare$
+	]{example}
+	
+	\declaretheoremstyle[
+	  spaceabove=\topsep, spacebelow=\topsep,
+	  headfont= \bfseries,
+	  notefont=\mdseries, notebraces={(}{)},
+	  bodyfont=\normalfont,
+	  postheadspace=1em,
+	  qed= $\blacktriangledown$
+	]{remark}
+	
+	\declaretheoremstyle[
+	  spaceabove=\topsep, spacebelow=\topsep,
+	  headfont= \bfseries,
+	  notefont=\mdseries, notebraces={(}{)},
+	  bodyfont=\it{\normalfont},
+	  postheadspace=1em,
+	  qed= \qedsymbol
+	]{obvious}
+	
+	
+	\theoremstyle{plain}
+	\newtheorem{Thm}{Theorem}[section]
+	\newtheorem{AppThm}{Theorem}[chapter]
+	\newtheorem{Prop}[Thm]{Proposition}
+	\newtheorem{Cor}[Thm]{Corollary}
+	\newtheorem{Lem}[Thm]{Lemma}
+	\newtheorem{Por}[Thm]{Porism}
+	\declaretheorem[style=obvious, name = Lemma, sharenumber = Thm]{simpleLem}
+	\declaretheorem[style=obvious, name = Proposition, sharenumber = Thm]{simpleProp}
+	\declaretheorem[style=obvious, name = Corollary, sharenumber = Thm]{simpleCor}
+	
+	\theoremstyle{definition}
+	\newtheorem{Def}[Thm]{Definition}
+	\newtheorem{Quest}[Thm]{Question}
+	\declaretheorem[style=example, name = Example, sharenumber = Thm]{Exam}
+	\declaretheorem[style=example, name = Example, sharenumber = AppThm]{AppExam}
+	\declaretheorem[style=example, name = Counterexample, sharenumber = Thm]{Counter}
+	\declaretheorem[style=remark, name = Remark, sharenumber = Thm]{Rem}
+	
+	%\theoremstyle{remark}
+	%\newtheorem*{remark}{Remark}
+
+	%%%%%%% set the labeling style
+	%%%%%%%%%%%%%%%%
+		\numberwithin{section}{chapter}
+		\numberwithin{subsection}{section}
+		\numberwithin{equation}{section}
+		\numberwithin{table}{section}
+		\numberwithin{footnote}{section}
+	
+		\renewcommand{\labelenumi}{(\alph{enumi})}
+		\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+		\newcommand\inlineeqno{\stepcounter{equation}\ \hfill (\theequation)}
+		\newcommand{\itemspade}{\stepcounter{enumi}\item[$\spadesuit$\ \theenumi.]}
+
+	%%%%%%% set the QED style
+	%%%%%%%%%%%%%%%%
+		\newcommand{\Examqed}{\;_{\mbox{\tiny $\blacksquare$}}}
+		\newcommand{\Remqed}{\;_{\mbox{ $\blacktriangledown$}}}
+		\renewcommand{\qedsymbol}{{\mbox{\tiny $\square$}}}
+
+	%%% referencing commands
+	%%%%%%%%%%%%%
+		\newcommand{\thmref}[1]{Theorem \ref{#1}}
+		\newcommand{\corref}[1]{Corollary \ref{#1}}
+		\newcommand{\porref}[1]{Porism \ref{#1}}
+		\newcommand{\lemref}[1]{Lemma \ref{#1}}
+		\newcommand{\propref}[1]{Proposition \ref{#1}}
+		\newcommand{\defref}[1]{Definition \ref{#1}}
+		\newcommand{\examref}[1]{Example \ref{#1}}
+		\newcommand{\counterref}[1]{Counterexample \ref{#1}}
+		\newcommand{\exerref}[1]{Exercise \ref{#1}}
+		\newcommand{\remref}[1]{Remark \ref{#1}}
+		\newcommand{\tableref}[1]{Table \ref{#1}}
+		\newcommand{\secref}[1]{Section \ref{#1}}
+		\newcommand{\chapref}[1]{Chapter \ref{#1}}
+		\newcommand{\appref}[1]{Appendix \ref{#1}}
+		\newcommand{\figref}[1]{Figure \ref{#1}}
+		\newcommand{\probref}[1]{Problem \ref{#1}}
+		
+		\newcommand{\thmrepeat}[2]{\noindent\textbf{\thmref{#1}} \emph{#2} }
+		\newcommand{\correpeat}[2]{\noindent\textbf{\corref{#1}} \emph{#2} }	
+		\newcommand{\proprepeat}[2]{\noindent\textbf{\propref{#1}} \emph{#2} }		
+		\newcommand{\lemrepeat}[2]{\noindent\textbf{\lemref{#1}} \emph{#2} }
+		
+	\newcommand{\startExercises}[1]{
+	%\vfill
+	\pagebreak
+    \pdfbookmark[2]{Exercises}{book:#1}
+    \subsection*{Exercises \hfill{\normalfont \normalsize (\hyperref[soln:#1]{Go to Solutions})}} 
+    \label{hw:#1}
+	}
+	
+	\newcommand{\startSolutionsChap}[2]{
+	\pdfbookmark[1]{Chap \ref{chap:#1} #2}{booksolnchap:#1}
+	\section*{Chapter \hyperref[chap:#1]{\ref*{chap:#1} : #2}}
+	}
+	
+	\newcommand{\startSolutions}[2]{
+	\pdfbookmark[2]{\ref{sec:#1} #2}{booksoln:#1}
+	\subsection*{\hyperref[hw:#1]{\ref*{sec:#1} \quad #2}}
+	\label{soln:#1}
+	}
+	
+	\newcommand{\appsection}[1]{
+	    \renewcommand\thesection{\thechapter.\arabic{section}\ $\blacklozenge$\ }
+	    \section{#1}
+	    \renewcommand\thesection{\thechapter.\arabic{section}}
+	    }
+%%% Create shortcut commands for various fonts and common symbols
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newcommand{\vs}{\vspace{0.1 in}}
+	\newcommand{\answer}[1]{\hfill{\color{red} #1}}
+	\newcommand{\hint}[1]{\mbox{}\\{\color{red}Hint:\ #1}}
+	\newcommand{\rightsq}{\\\mbox{}\hfill}
+	\newcommand{\ctrlT}{\noindent\hangindent=0.7cm}
+	\newcommand{\rb}[1]{ {\color{red} \bb{#1}} }
+	
+	\renewcommand{\setminus}{\smallsetminus}
+	%\newcommand{\contra}{\Rightarrow\Leftarrow}
+	\newcommand{\qRightarrow}{\quad\Rightarrow\quad}
+
+
+	%%%%%%%%% Functions
+		\DeclareMathOperator*{\im}{im}
+		%\DeclareMathOperator{\dom}{dom}
+		%\DeclareMathOperator{\ran}{ran}
+		%\DeclareMathOperator*{\lcm}{lcm}
+		\newcommand{\dsum}{\displaystyle\sum}
+		\newcommand{\dlim}{\displaystyle \lim}
+		%\newcommand{\dint}{\displaystyle \int}
+		%\newcommand{\dydx}{\dfrac{dy}{dx}}
+		\newcommand{\ddx}{\dfrac{d}{dx}}
+
+		\DeclareMathOperator*{\coim}{coim}
+		\DeclareMathOperator*{\coker}{coker}
+		\DeclareMathOperator*{\Id}{Id}
+
+	%%%%%%%%% Scalars
+		\newcommand{\R}{\mathbb{R}}
+		\newcommand{\C}{\mathbb{C}}
+		\newcommand{\Z}{\mathbb{Z}}
+		\newcommand{\Q}{\mathbb{Q}}
+		\newcommand{\N}{\mathbb{N}}
+
+	%%%%%%%%% Matrices/Vectors
+		\newenvironment{linear}{\left\{ \begin{alignedat}{100}}{\end{alignedat} \right.}
+		\newcommand{\bb}{\boldsymbol}		
+		\newcommand{\mtx}[2]{\left[\begin{array}{#1} #2 \end{array}\right]}
+		\newcommand{\ptx}[2]{\left(\begin{array}{#1} #2 \end{array}\right)}
+		\newcommand{\dtx}[2]{\left|\begin{array}{#1} #2 \end{array}\right|}
+		\newcommand{\vr}[1]{\left[\begin{array}{r} #1 \end{array}\right]}
+		
+		\newcommand{\B}{\mathcal{B}}
+		\renewcommand{\c}{\mathcal{C}}
+		\renewcommand{\P}{\mathcal{P}}
+
+	%%%%%%%%% Matrix Operators
+		\DeclareMathOperator*{\row}{Row}
+		%\DeclareMathOperator*{\SL}{SL}
+		\DeclareMathOperator{\adj}{adj}
+		\DeclareMathOperator*{\tr}{tr}
+		%\DeclareMathOperator{\Hom}{Hom}
+		\DeclareMathOperator{\col}{Col}
+		\DeclareMathOperator{\nul}{Nul}
+		\DeclareMathOperator{\Span}{Span}
+		\DeclareMathOperator*{\aff}{Aff}
+		\DeclareMathOperator*{\nullity}{nullity}
+		\DeclareMathOperator*{\rank}{rank}
+		\DeclareMathOperator*{\corank}{corank}
+		\DeclareMathOperator*{\conullity}{conullity}
+		\DeclareMathOperator*{\lnl}{Lnl}
+		\DeclareMathOperator*{\dist}{dist}
+		\DeclareMathOperator{\proj}{proj}
+
+%%%%%% Graphics
+	\usepackage{graphicx} %allows the use of graphics and images
+	\usepackage{tikz} %can be used to create graphs
+	\usetikzlibrary{calc}
+	%\usetikzlibrary{decorations.pathreplacing}
+	%\usetikzlibrary{patterns}
+	\usepackage{rotating}
+	\usepackage[nomessages]{fp} %An extensive collection of arithmetic operations for fixed point real numbers of high precision.
+	%\usepackage{ifthen}
+	%\usepackage[all]{xy}  %can create xy matrices
+	%\usepackage{amscd}%this package adapts the commutative diagram macros of AMS-TEX for use in LATEX.
+
+	%% TiKZ Commands
+	%%%%%%%%%%%
+		\newcommand{\gridlines}[4]{
+		\draw[->, very thick] (0,0) -- (#1,0);
+		\draw[->, very thick] (0,0) -- (#2,0) node[right] {$x$};
+		\draw[->, very thick] (0,0) -- (0,#3);
+		\draw[->, very thick] (0,-1/2) -- (0,#4) node[above] {$y$};
+		
+		\FPeval{\blarg}{clip(#1*(-1))}
+		\ifcase \blarg
+		
+		\or
+		
+		\else
+		\FPeval{\result}{clip(#1+1)}
+		\foreach \x in {\result,...,-1}
+		  \draw[shift={(\x,0)}, very thick] (0pt,5pt) -- (0pt,-5pt);
+		\fi
+		
+		\ifcase #2
+		
+		\or
+		
+		\else
+		\FPeval{\result}{clip(#2-1)}
+		\foreach \x in {1,...,\result}
+		  \draw[shift={(\x,0)}, very thick] (0pt,5pt) -- (0pt,-5pt);
+		\fi
+		
+		\FPeval{\blarg}{clip(#3*(-1))}
+		\ifcase \blarg
+		
+		\or
+		
+		\else
+		\FPeval{\result}{clip(#3+1)}
+		\foreach \y in {\result,...,-1}
+		  \draw[shift={(0,\y)}, very thick] (5pt,0pt) -- (-5pt,0pt);
+		\fi
+		
+		\ifcase #4
+		
+		\or
+		
+		\else
+		\FPeval{\result}{clip(#4-1)}
+		\foreach \y in {1, ..., \result}
+		  \draw[shift={(0,\y)}, very thick] (5pt,0pt) -- (-5pt,0pt);
+		\fi
+		}
+		
+		\newcommand{\vertex}{
+        coordinate[draw, shape=circle, inner sep=2]
+        }
+        \newcommand{\vertexshape}[1]{
+        coordinate[draw, shape=#1, inner sep=2]
+        }
+
+        \newcommand{\graphnode}[3]{
+        \ifthenelse{\equal{#3}{left}}
+        {\path[ultra thick] #1 coordinate[draw, shape=circle, inner sep=2] (#2) node[#3, xshift=-3] {$#2$};}
+        {	
+	        \ifthenelse{\equal{#3}{right}}
+	        {\path[ultra thick] #1 coordinate[draw, shape=circle, inner sep=2] (#2) node[#3, xshift=3] {$#2$};}
+	        {     	
+		        \ifthenelse{\equal{#3}{above}}
+		        {\path[ultra thick] #1 coordinate[draw, shape=circle, inner sep=2] (#2) node[#3, yshift=3] {$#2$};}
+		        {  	
+			        \ifthenelse{\equal{below}{below}}
+			        {\path[ultra thick] #1 coordinate[draw, shape=circle, inner sep=2] (#2) node[#3, yshift=-3] {$#2$};}
+			        {{\path[ultra thick] #1 coordinate[draw, shape=circle, inner sep=2] (#2) node[#3] {$#2$};}}
+		        }
+	        }	
+        }
+}
