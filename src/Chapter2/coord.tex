@@ -1,0 +1,116 @@
+\begin{center} 
+\emph{``If you want to get each individual's honest opinion, you don't want that opinion to be influenced by others who are present, much less allow a group to coordinate what they are going to say.'' -- Thomas Sowell}
+\end{center}
+
+\section{Coordinates}\label{sec:coord}
+Let $V$ be a vector space with basis $\B = \{\bb v_1, \bb v_2, \ldots, \bb v_n\}$. Let $\bb x \in V$. Since $\B$ is a spanning set for $V$, there exists scalars $c_1, c_2, \ldots, c_n\in F$ such that 
+\[\bb x = c_1\bb v_1 + c_2\bb v_2 +\ldots + c_n\bb v_n.\] Suppose that $\bb x$ can be expressed as a linear combination of $\B$ in another way, say 
+\[\bb x = d_1\bb v_1 + d_2\bb v_2 +\ldots + d_n\bb v_n,\] for $d_1, d_2, \ldots, d_n\in F$. Then 
+\[\bb 0 = \bb x - \bb x = ( c_1\bb v_1 + c_2\bb v_2 +\ldots + c_n\bb v_n) - (d_1\bb v_1 + d_2\bb v_2 +\ldots + d_n\bb v_n) = (c_1-d_1)\bb v_1 + (c_2-d_2)\bb v_2 +\ldots + (c_n-d_n)\bb v_n.\] But $\B$ is linearly independent, which implies that each $c_i-d_i = 0$, that is, $c_i=d_i$. Therefore, each element of $V$ can be expressed \emph{uniquely} as a linear combination of $\B$.\\
+
+\begin{Def} Suppose the set $\B = \{\bb v_1, \bb v_2, \ldots, \bb v_n\}$ is a basis for vector space $V$. For each $\bb x\in V$, the \textbf{coordinates} of $\bb x$ \textbf{relative to} the basis $\B$ are the unique coefficients $c_1, \ldots, c_n \in F$ such that 
+\[\bb x = c_1\bb v_1 + c_2\bb v_2 +\ldots + c_n\bb v_n.\] 
+ The vector
+$[\bb x]_\B = \mtx{c}{c_1\\\vdots\\c_n} \in F^n$ is called the \textbf{coordinate vector} of $\bb x$ \textbf{relative to} $\B$ or the \textbf{$\B$-coordinate vector} of $\bb x$.
+\end{Def}\vs 
+
+%Kaylee Hall
+\begin{Exam}
+Let $\bb v_1 = \vr{1\\0\\1}$, $\bb v_2 = \vr{5\\2\\3}$, $\bb x = \vr{3\\2\\1}$, and $\B = \{\bb v_1, \bb v_2\}$. Then $\B$ is a basis for $V = \Span\{\bb v_1, \bb v_2\}$ because $\B$ is linearly independent. Determine if $\bb x \in V$, and if it is, find the coordinate vector of $\bb x$ relative to $\B$.\\
+
+If $\bb x \in V$, then there exists $c_1, c_2 \in \R$ such that $c_1\bb v_1 + c_2\bb v_2 = \bb x.$ Then, we row reduce the corresponding \vspace{-0.15 in}
+\begin{multicols}{2}
+\noindent  augmented matrix, below:
+\[\mtx{rr|r}{1&5&3\\0&2&2\\1&3&1} \sim \mtx{rr|r}{1&0&-2\\0&1&1\\0&0&0}.\] 
+
+From this we see that $\bb x \in V$ and 
+\[\vr{3\\2\\1} = -2\vr{1\\0\\1} + \vr{5\\2\\3}.\] 
+\end{multicols} Therefore, $[\bb x]_\B = \vr{-2\\1}$. The basis $\B$ determines a ``coordinate system'' for the plane spanned by $\bb v_1$, $\bb v_2$.
+\end{Exam}\vs
+
+In the previous example, even though the vectors in $V$ are vectors in $\R^3$, they are completely determined by their coordinate vectors, which belong to $\R^2$. Thus, there is a natural identification between the vectors  of $W$ and the vectors in $\R^2$, namely $\bb x \mapsto [\bb x]_\B$. This mapping is a one-to-one, onto linear transformation. Essentially, this means that the two spaces \emph{look} the same. In this example, $V$ and $\R^2$ are geometrically the same as they are both planes. We even write that $V\cong \R^2$, and we say that $W$ is \textbf{congruent} to (or \textbf{isomorphic} to) to $\R^2$.\\
+
+\begin{Exam} Consider two bases $\B = \{\bb b_1,\bb b_2\}$ and $\c = \{\bb c_1, \bb c_2\}$ for a vector space $V$, such that 
+\[\bb c_1 = 2\bb b_1 - 3\bb b_2\qquad\text{and}\qquad \bb c_2 = -3\bb b_1+5\bb b_2.\] Suppose further that 
+\[\bb x = \bb c_1+ 3\bb c_2.\] Compute $[\bb x]_\B$.\\
+
+We already know that  
+\[[\bb c_1]_\B = \vr{2\\-3}, \qquad [\bb c_2]_\B = \vr{-3\\5}, \quad\text{and}\quad[\bb x]_\c = \vr{1\\3}.\] Thus,
+\[[\bb x]_\B = [\bb c_1 + 3\bb c_2]_\B = [\bb c_1]_\B + 3[\bb c_2]_\B = \vr{2\\-3} + 3\vr{-3\\5} = \vr{-7\\12}.\]
+On the other hand, the vector equation
+\[[\bb x]_\B = [\bb c_1]_\B + 3[\bb c_2]_\B\] can be rewritten as a matrix equation
+\[  [\bb x]_\B =\mtx{cc}{[\bb c_1]_\B & [\bb c_2]_\B}[\bb x]_\c \qRightarrow \vr{-7\\12}=\mtx{rr}{2&-3\\-3&5}\vr{1\\3}  \qedhere\]
+\end{Exam}\vs
+
+\begin{Thm} Let  $\B = \{\bb b_1, \ldots, \bb b_n\}$ and $\c = \{\bb c_1, \ldots, \bb c_n\}$  be bases of a vector space $V$. Then there is a unique $n\times n$ matrix $\underset{\B\leftarrow \c}{P}$, called the \textbf{change-of-basis matrix} to $\B$ from $\c$  such that
+\[[\bb x]_\B = \underset{\B\leftarrow \c}{P}[\bb x]_\c.\] The columns of $\underset{\B\leftarrow \c}{P}$ are the $\B$-coordinate vectors of the elements of $\c$, that is, 
+\[\underset{\B\leftarrow \c}{P} = \mtx{cccc}{[\bb c_1]_\B & [\bb c_2]_\B & \ldots & [\bb c_n]_\B}.\]
+\end{Thm}\vs
+
+Multiplication by $\underset{\B\leftarrow \c}{P}$ converts $\c$-coordinate vectors to $\B$-coordinate vectors. To change coordinates between two bases, we need the coordinates of the old basis in terms of the new basis.\\
+
+\begin{Exam} Let $\bb b_1 = \vr{3\\2}$, $\bb b_2 = \vr{4\\3}$, $\bb c_1 = \vr{1\\2}$, $\bb c_2 = \vr{5\\1}$, $\B = \{\bb b_1, \bb b_2\}$ and $\c = \{\bb c_1, \bb c_2\}$. Then both $\B$ and $\c$ are bases of $\R^2$. Find the change-of-basis matrix $\underset{\B\leftarrow \c}{P}$.\\
+
+We need to compute the coordinate vectors $[\bb c_1]_\B$ and $[\bb c_2]_\B$. 
+We compute the first coordinate vector by solving the linear system
+\[\mtx{rr|r}{\bb b_1 & \bb b_2 & \bb c_1} = \mtx{rr|r}{3&4&1\\2&3&2} \sim \mtx{rr|r}{1&0&-5\\0&1&4} \qRightarrow [\bb c_1]_\B = \vr{-5\\4}.\]
+Using the same row operations, we see that \[\mtx{rr|r}{\bb b_1 & \bb b_2 & \bb c_2} = \mtx{rr|r}{3&4&5\\2&3&1} \sim \mtx{rr|r}{1&0&11\\0&1&-7} \qRightarrow [\bb c_2]_\B = \vr{11\\-7}.\] 
+This gives
+\[\underset{\B\leftarrow \c}{P} = \mtx{rr}{-5&11\\4&-7}.\qedhere\]
+\end{Exam}\vs
+
+Let $\B$ and $\c$ be two bases of a vector space $V$. Then mimicking the previous example, we can see that 
+\begin{equation}\label{eq:changeofbasismatrix}\mtx{c|c}{\B & \c} \sim \mtx{c|c}{\mathcal{E} & \underset{\B\leftarrow \c}{P}},\end{equation} where $\mathcal{E}$ denotes the standard basis for $F^n$. We should mention that the echelon form of $\B$ might contain rows of zeros. Thus, the left-hand side of this row-reduced echelon form really should be of the form $\vr{\mathcal{E} \\ 0}$, where here $0$ denotes some matrix consisting of only zeros.   If, in fact, $\B$ and $\c$ really do not span the same vector space, then there would instead be a nonzero entry on the right side of one of these rows of zeros, indicating an inconsistent linear system. When the linear system is consistent though, then $\B$ and $\c$ truly were bases for the same span and on the right-hand side of each of these rows of zeros will be accompanying rows of zeros. Thus, \eqref{eq:changeofbasismatrix} more properly should be $\mtx{c|c}{\B & \c} \sim \mtx{c|c}{\mathcal{E} & \underset{\B\leftarrow \c}{\P} \\ 0 & 0}$.\\
+
+%Abby Allen
+\begin{Exam}  Let $\bb b_1 = \vr{1\\1\\-3\\0}$, $\bb b_2 = \vr{1\\0\\-2\\4}$, $\bb b_3 = \vr{3\\0\\0\\-2}$,  $\bb c_1 = \mtx{c}{6\\3\\-21\\26}$, $\bb c_2 = \mtx{c}{15\\5\\-23\\12}$, $\bb c_3 = \vr{3\\2\\-8\\4}$, $\B = \{\bb b_1, \bb b_2, \bb b_3\}$ and $\c = \{\bb c_1, \bb c_2, \bb c_3\}$. Then both $\B$ and $\c$ are bases for the same subspace of $\R^4$. \\
+\begin{enumerate}
+\item Find the change-of-basis matrix to $\B$ from $\c$.\\
+\[
+\mtx{c|c}{\B & \c} = \mtx{rrr|rrr}{1&1&3&6&15&3\\1&0&0&3&5&2\\-3&-2&0&-21&-23&-8\\0&4&-2&26&12&4} \sim  \mtx{rrr|rrr}{1&0&0&3&5&2\\0&1&0&6&4&1\\0&0&1&-1&2&0\\0&0&0&0&0&0}.\] Thus, $\underset{\B\leftarrow\c}{P} = \mtx{rrr}{3&5&2\\6&4&1\\-1&2&0}.$\\ 
+
+\item If $[\bb x]_\c = \vr{2\\-3\\4}$, then compute $[\bb x]_\B$.\\
+
+\[[\bb x]_\B = \underset{\B\leftarrow \c}{P}[\bb x]_\c = \mtx{rrr}{3&5&2\\6&4&1\\-1&2&0}\vr{2\\-3\\4} = \vr{-1\\4\\-8}.\]Note that \[\bb x = -\bb b_1+ 4\bb b_2- 8\bb b_3 = 2\bb c_1 - 3\bb c_2+4\bb c_3= \mtx{c}{-21\\-1\\-5\\32}.\qedhere\]
+\end{enumerate}
+\end{Exam}\vs
+
+%%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{coord}
+
+\noindent For Exercises \ref{exer:coordinatevectorrealstart}-\ref{exer:coordinatevectorrealstop}, find the coordinate vector $[\bb x]_{\mathcal{B}}$ given the basis $\mathcal{B}$, where $\bb x$ is the vector provided first and $\mathcal{B}$ is the set of vectors provided second. 
+\begin{enumerate}[!HW!, start=1, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:coordinatevectorrealstart} $\mtx{c}{4\\-25\\6}$, $\left\{\vr{1\\2\\3}, \vr{3\\-5\\7}\right\}$
+\item $\mtx{c}{-1\\22\\3\\2}$, $\left\{\vr{2\\5\\-3\\2}, \vr{1\\4\\3\\0}, \vr{4\\0\\0\\1}\right\}$
+\end{multicols}
+\item\label{exer:coordinatevectorrealstop} $ \vr{-2-3i\\-5+6i}$, $\left\{\vr{1\\i}, \vr{1+2i\\2-3i}\right\}$
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:changecoordrealstart}-\ref{exer:changecoordrealstop}, given the coordinate vector $[\bb x]_{\mathcal{C}}$ and the change-of-basis matrix $\underset{\B\leftarrow \c}{P}$, compute the coordinate vector $[\bb x]_{\mathcal{B}}$, where $[\bb x]_\mathcal{C}$ is the vector provided first and $\underset{\B\leftarrow \c}{P}$ is the matrix provided second.  
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{3}
+\item\label{exer:changecoordrealstart} $\vr{1\\2\\3}$, $\mtx{rrr}{2&-2&1\\3&0&2\\5&6&-2}$
+\item $\vr{1\\2\\3\\4}$, $\mtx{rrrr}{3&-2&-1&0\\3&2&2&-1\\0&0&8&2\\-1&-2&2&1}$
+\item
+$\vr{1\\2\\3}$, \mbox{$\mtx{rrr}{6 & 7 & 2 \\ 1 & 3 & 4 \\ 5 & 5 & 1} \pmod{11}$}
+\end{multicols}
+\end{enumerate}
+\begin{enumerate}[!HW!]
+\item \label{exer:changecoordrealstop} $\vr{1\\2\\3}$, $\mtx{ccc}{5-6i&-3-i&8+7i\\3+i&2+i&1+i\\4+2i&-9-6i&3-i}$ %Jaden Torgenson
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:coordmatrixrealstart}-\ref{exer:coordmatrixrealstop}, compute the change-of-basis matrix $\underset{\B\leftarrow \c}{P}$ for the bases $\B$ and $\c$.
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\item\label{exer:coordmatrixrealstart} $\mathcal{B} = \left\{\vr{1\\2\\3}, \vr{-1\\-2\\4}, \vr{3\\7\\-5}\right\}$, $\mathcal{C} = \left\{\vr{4\\8\\5}, \vr{-5\\-12\\20}, \vr{-12\\-28\\27}\right\}$
+\end{enumerate}
+\begin{enumerate}[!HW!]
+\itemspade $\mathcal{B} = \left\{\vr{1\\2\\3\\4}, \vr{-5\\0\\0\\7}, \vr{1\\1\\2\\2}, \vr{-1\\-1\\-2\\5}\right\}$, $\mathcal{C} = \left\{\vr{-52\\1\\-1\\72}, \vr{-20\\2\\2\\88}, \vr{-6\\-3\\-9\\29}, \vr{3\\5\\3\\52}\right\}$
+\item $\mathcal{B} = \left\{\vr{2\\0\\0\\0}, \vr{0\\0\\0\\1}, \vr{0\\1\\1\\0}, \vr{1\\2\\4\\-1}\right\}$, $\mathcal{C} = \left\{\vr{-15\\35\\1\\0}, \vr{-15\\25\\3\\4}, \vr{4\\10\\-6\\0}, \vr{2\\-8\\4\\4}\right\}$ %Skyler Clark
+\itemspade $\mathcal{B} = \left\{\mtx{c}{1+2i \\ 2-3i}, \mtx{c}{1-i\\1+4i}\right\}$, $\mathcal{C} = \left\{\mtx{c}{4i\\1}, \mtx{c}{7+6i\\i}\right\}$
+\item $\B\equiv\left\{\vr{1\\3\\3}, \vr{2\\4\\4}, \vr{3\\4\\0}\right\}$, $\mathcal{C}\equiv\left\{\vr{2\\0\\2}, \vr{2\\4\\3}, \vr{0\\2\\4}\right\} \pmod 5$ %Shelby Bartlett
+\item\label{exer:coordmatrixrealstop} $\B\equiv\left\{\vr{0\\1\\0}, \vr{2\\2\\1}, \vr{1\\0\\1}\right\}$, $\mathcal{C}\equiv\left\{\vr{0\\3\\1}, \vr{2\\1\\3}, \vr{1\\2\\1}\right\} \pmod 5$ %Samuel Andersen
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ %\mbox{}\vfill

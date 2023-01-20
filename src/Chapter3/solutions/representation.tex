@@ -1,0 +1,31 @@
+\startSolutions{representation}{Representations of Linear Transformations as Matrices}
+
+\begin{enumerate}[!HW!, start=1]
+\begin{multicols}{3}
+\itemspade $[T] =\mtx{rr}{2&-1\\0&-4}$
+\itemspade $[T] =\mtx{rrr}{1&2&1\\3&-5&14\\-5&3&-18\\-7&19&-40}$
+\itemspade $[T] = \mtx{r}{1\\i\\-1\\-i}$
+\end{multicols}
+\begin{multicols}{2}
+\itemspade $[T] = \mtx{rrrr}{1&1&1&1}$
+\itemspade  $[T] = \mtx{rrr}{0&0&1\\0&1&0\\1&0&0}$
+\end{multicols}
+
+\itemspade $[S\circ T] = [S][T] = \mtx{rrr}{0&-2&1\\1&0&-2}\mtx{rr}{0&2\\3&0\\2&-3}=\mtx{rr}{-4&-3\\-4&8}$ %NEW
+
+\itemspade $[T] \sim \mtx{cc}{\fbox{$1$}&0\\0&\fbox{$1$}}$. Hence, $T$ is one-to-one and onto. $\ker T = \Span\{\} =  \{\bb 0\}$, $\im T = \Span\{\bb e_1, \bb e_2\} = \R^2$
+\itemspade $[T] \sim\mtx{ccr}{\fbox{$1$}&0&3\\0&\fbox{$1$}&-1\\0&0&0\\0&0&0}$ Hence, $T$ is neither one-to-one nor onto. $\ker T = \Span\{[-3,1,1]^\top \}$, $\im T = \Span\{[1,3,-5,-7]^\top , [2,-5,3,19]^\top \}$
+\itemspade $[T] \sim \mtx{c}{\fbox{$1$}\\0\\0\\0}$. Hence, $T$ is one-to-one but not onto. $\ker T = \Span\{\}= \{\bb 0\}$, $\im T = \Span\{[1, i, -1, -i]^\top \}$
+\itemspade $[T] \sim \mtx{rrrr}{\fbox{$1$}&1&1&1}$. Hence, $T$ is onto but not one-to-one. $\ker T = \{[-1,1,0,0]^\top , [-1,0,1,0]^\top ,[-1,0,0,1]^\top \}$, $\im T = \Span\{1\} = \Z_2$
+\itemspade  $[T] \sim \mtx{ccc}{\fbox{$1$}&0&0\\0&\fbox{$1$}&0\\0&0&\fbox{$1$}}$. Hence, $T$ is one-to-one and onto. $\ker T = \Span\{\} = \{\bb 0\}$, $\im T = \Span\{\bb e_1, \bb e_2, \bb e_3\} = \Z_5^3$
+
+\item As this is the identity transformation, it is clearly one-to-one and onto. %Jacob Kuhn
+\item $T$ cannot be one-to-one as the standard matrix $[T]$ is $2\times 3$ and has too many columns. (It is onto since in the standard matrix, the two rows are not multiples of each other, that is, they are linear independent, and the matrix will have two pivots).  %Daven Triplett
+\item $T$ cannot be onto as the standard matrix $[T]$ is $4\times 3$ and has too many rows. (It is onto, something we see from row reducing the standard matrix). %Daven Triplett
+\item $T$ cannot be onto as the standard matrix $[T]$ is $3\times 1$ and has too many rows. (It is one-to-one since only zero maps to the zero vector).%Jacob Kuhn
+\item $T$ cannot be onto as the standard matrix $[T]$ is $3\times 1$ and has too many rows. (It is one-to-one since only zero maps to the zero vector).\\ %Daven Triplett
+\item $T$ cannot be one-to-one as the standard matrix $[T]$ is $1\times 3$ and  has too many columns. (It is onto since for any scalar $c$ we have that $T(c,0,0) = c$). %Jacob Kuhn
+\item As the standard matrix $[T]$ is $2\times 2$, $T$ could potentially be one-to-one or potentially onto. (It is, in fact, both).  %Daven Triplett
+\end{enumerate}
+
+\vspace{-15 pt}

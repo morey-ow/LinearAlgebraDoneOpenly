@@ -276,6 +276,6 @@ TSWLatexianTemp*
 *.lpz
 
 
-# Maybe these come from my ide pycharm?
+# Maybe these come from my texify-idea ide pycharm?
 *.idea/*
 *.DS_Store

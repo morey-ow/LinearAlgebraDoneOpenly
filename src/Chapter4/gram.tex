@@ -1,0 +1,107 @@
+\begin{center} 
+\emph{``Anyone who imagines that bliss is normal is going to waste a lot of time running around shouting that he has been robbed.'' -- Jenkins Lloyd Jones}
+\end{center}
+
+\section{The Gram-Schmidt Algorithm}\label{sec:gram}
+Using orthogonal projections, we can construct an orthogonal basis from a given basis. If desired, we can also construct an orthonormal basis by normalizing.\\
+
+\begin{Thm}[The Gram-Schmidt Process]
+Let $\B=\{\bb x_1, \ldots, \bb x_p\}$ be a basis for a subspace $W\le F^n$. Define recursively the vectors
+\begin{eqnarray*}
+\bb v_1 &=& \bb x_1\\
+\bb v_2 &=& \bb x_2 - \dfrac{\bb v_1\cdot \bb x_2}{ \bb v_1\cdot \bb v_1}\bb v_1\\
+\bb v_3 &=& \bb x_3 - \dfrac{\bb v_1\cdot \bb x_3}{\bb v_1\cdot \bb v_1}\bb v_1 - \dfrac{\bb v_2\cdot \bb x_3}{\bb v_2\cdot \bb v_2}\bb v_2\\
+&\vdots&\\
+\bb v_p &=& \bb x_p - \dfrac{\bb v_1\cdot \bb x_p}{\bb v_1\cdot \bb v_1}\bb v_1 - \ldots - \dfrac{\bb v_{p-1}\cdot \bb x_p}{\bb v_{p-1}\cdot \bb v_{p-1}}\bb v_{p-1}
+\end{eqnarray*} Then $\c = \{\bb v_1, \ldots, \bb v_p\}$ is an orthogonal basis of $W$. In addition, 
+\[\Span\{\bb v_1, \ldots, \bb v_k\} = \Span\{\bb x_1,\ldots, \bb x_k\}\qquad \forall k.\]
+\end{Thm}\vs
+%\begin{Thm}[The Gram-Schmidt Process]
+%Let $\{\bb x_1, \ldots, \bb x_p\}$ be a basis for a subspace $W\le V$. Define recursively the vectors
+%\begin{eqnarray*}
+%\bb v_1 &=& \bb x_1\\
+%\bb v_2 &=& \bb x_2 - \dfrac{\langle \bb x_2,\ \bb v_1\rangle}{\langle \bb v_1,\ \bb v_1\rangle}\bb v_1\\
+%\bb v_3 &=& \bb x_3 - \dfrac{\langle\bb x_3,\ \bb v_1\rangle}{\langle\bb v_1,\ \bb v_1\rangle}\bb v_1 - \dfrac{\langle\bb x_3,\ \bb v_2\rangle}{\langle\bb v_2,\ \bb v_2\rangle}\bb v_2\\
+%&\vdots&\\
+%\bb v_p &=& \bb x_p - \dfrac{\langle\bb x_p,\ \bb v_1\rangle}{\langle\bb v_1,\ \bb v_1\rangle}\bb v_1 - \ldots - \dfrac{\langle\bb x_p,\ \bb v_{p-1}\rangle}{\langle\bb v_{p-1},\ \bb v_{p-1}\rangle}\bb v_{p-1}
+%\end{eqnarray*} Then $\C = \{\bb v_1, \ldots, \bb v_p\}$ is an orthogonal basis of $W$. In addition, 
+%\[\Span\{\bb v_1, \ldots, \bb v_k\} = \Span\{\bb x_1,\ldots, \bb x_k\}\qquad \forall k.\]
+%\end{Thm}\vs
+%\begin{proof}
+%We shall prove the theorem by induction. Let $\B_k = \{\bb v_1, \ldots, \bb v_k\}$ and $W_k = \Span(\B_k)$. Then we mention that $\bb v_{k+1} = \bb x_{k+1} - \proj_{W_k} \bb x_{k+1}$.\\
+%
+%For the base case, notice that $\{\bb v_1\} = \{\bb x_1\}$ is an orthogonal basis for $W_1 = \Span\{\bb v_1\} = \Span\{\bb x_1\}$. For our induction hypothesis, suppose that $W_i = \Span\{\bb x_1, \ldots, \bb x_i\}$ and $\B_i$ is an orthogonal basis for $W_i$ for all $i < k$. \\
+%
+%For the inductive step, let $\widehat{\bb x_k} = \proj_{W_{k-1}} \bb x_k$. Since $\bb v_k = \bb x_k - \widehat{\bb x_k}$ and $\widehat{\bb x_k} \in W_{k-1}$, $\Span\{\bb x_1, \ldots, \bb x_{k-1}, \bb x_k\} = \Span\{\bb x_1, \ldots, \bb x_{k-1}, \bb v_k\}$. Using our inductive hypothesis, we get
+%\[\Span\{\bb x_1, \ldots, \bb x_{k-1}, \bb x_k\} = \Span\{\bb x_1, \ldots, \bb x_{k-1}, \bb v_k\}  = \Span\{\bb v_1, \ldots, \bb v_{k-1}, \bb v_k\} = W_k.\] Also, by our inductive hypothesis, $\B_{k-1}$ is an orthogonal set. Since $\bb v_k = \bb x_k - \widehat{\bb x_k} \in W_{k-1}^\perp$, the set $\B_k$ is orthogonal and hence is linearly independent. Therefore, $\B_k$ is an orthogonal basis of $W_k$. In particular, when $k=p$, $\{\bb v_1, \ldots, \bb v_p\}$ is an orthogonal basis of $W$.
+%\end{proof}\vs
+
+\begin{Exam}\label{exam} Let $\bb x_1 = \vr{1\\1\\1\\1}$, $\bb x_2 = \vr{0\\1\\1\\1}$, and $\bb x_3 = \vr{0\\0\\1\\1}$, which as a set is linearly independent. Let $W = \Span\{\bb x_1, \bb x_2, \bb x_3\}$. Then using the Gram-Schmidt procedure, we can construct an orthogonal basis of $W$.
+\begin{eqnarray*}
+\bb v_1 &=& \bb x_1 = \vr{1\\1\\1\\1}\\
+\bb v_2 &=& \bb x_2 - \dfrac{\bb v_1\cdot \bb x_2}{\bb v_1\cdot \bb v_1}\bb v_1 = \vr{0\\1\\1\\1} - \dfrac{3}{4}\vr{1\\1\\1\\1} = \vr{-3/4\\1/4\\1/4\\1/4}\\
+\bb v_3 &=& \bb x_3 - \dfrac{\bb v_1\cdot \bb x_3}{\bb v_1\cdot \bb v_1}\bb v_1 - \dfrac{\bb v_2\cdot \bb x_3}{\bb v_2\cdot \bb v_2}\bb v_2 = \vr{0\\0\\1\\1} - \dfrac{2}{4}\vr{1\\1\\1\\1} - \dfrac{1/2}{12/16}\vr{-3/4\\1/4\\1/4\\1/4} \\
+&=& \vr{0\\0\\1\\1} - \vr{1/2\\1/2\\1/2\\1/2} - \vr{-3/6\\1/6\\1/6\\1/6} = \vr{0\\-2/3\\1/3\\1/3}
+\end{eqnarray*} Note that
+\[\bb v_1\cdot \bb v_2 = -3/4+1/4+1/4+1/4=0,\quad \bb v_1\cdot \bb v_3 = 0-2/3+1/3+1/3=0,\quad \bb v_2\cdot \bb v_3 = 0-2/3+1/3+1/3 = 0.\] Therefore, $\{\bb v_1, \bb v_2, \bb v_3\}$ is an orthogonal basis for $W$. If we normalize:
+\[\bb u_1 = \dfrac{1}{\sqrt{4}}\vr{1\\1\\1\\1} = \vr{1/2\\1/2\\1/2\\1/2}, \quad \bb u_2 = \sqrt{\dfrac{4}{3}}\vr{-3/4\\1/4\\1/4\\1/4} = \vr{-3/\sqrt{12}\\1/\sqrt{12}\\1/\sqrt{12}\\1/\sqrt{12}},\quad \bb u_3 = \sqrt{\dfrac{9}{6}}\vr{0\\-2/3\\1/3\\1/3} = \vr{0\\-2/\sqrt{6}\\1/\sqrt{6}\\1/\sqrt{6}},\] then
+$\{\bb u_1, \bb u_2, \bb u_3\}$ is an orthonormal basis of $W$.
+\end{Exam}\vs
+
+
+\begin{Exam} Let $\bb u = \vr{1 \\ i \\ 0}$ and $\bb v = \vr{1 \\ 0 \\ -i}$. Let $W = \Span\{\bb u,\ \bb v\} \subseteq \C^n$. Compute an orthogonal basis for $W$. \\
+
+The set $\{\bb u,\ \bb v\}$ is a basis for $W$ since the set is linearly independent ($\bb v \neq z\bb u$ for any scalar $z\in \C$). Applying the Gram-Schmidt process, we set $\bb x_1 = \bb u$ and 
+\[\bb x_2 = \bb v - \dfrac{\bb u \cdot \bb v}{\bb u \cdot \bb u}\bb u = \vr{1 \\ 0 \\ -i} - \dfrac{1}{2}\vr{1\\ i \\ 0} = \vr{1/2 \\ -i/2 \\ -i}.\] Note that 
+\[\bb x_1 \cdot \bb x_2 = 1\left(\dfrac{1}{2}\right) - i\left(-\dfrac{i}{2}\right) + 0(-i) = \dfrac{1}{2} - \dfrac{1}{2} = 0.\] Thus, $\{\bb x_1,\ \bb x_2\}$ is an orthogonal basis for $W$.
+\end{Exam}\vs
+
+\begin{Thm}[The $QR$ Factorization] If $A$ is an $m\times n$ matrix with linearly independent columns, then $A$ can be factored as $A =  QR$, where $Q$ is an $m\times n$ matrix with orthonormal columns and $\col A = \col Q$ and $R$ is an $n\times n$ upper triangular matrix with positive diagonal entries. In particular, $R$ is necessarily invertible.
+\end{Thm}
+%\begin{proof}
+%Build $Q$ such that the columns of $Q$ are an orthonormal basis of $\col A$. Since the columns of $A$ are linearly independent, $Q$ is an $m\times n$ matrix. Let $\bb x_i$ and $\bb u_i$ be the $i$th column of $A$ and $Q$, respectively. Using the Gram-Schmidt method, we can choose the columns of $Q$ such that  \[\Span\{\bb x_1, \ldots, \bb x_k\} = \Span\{\bb u_1, \ldots, \bb u_k\}\] for all $k \le n$. In particular, there exists scalars $r_{ik}\in \R$ such that
+%\begin{equation}\label{eq:o}\bb x_k = r_{1k}\bb u_1 + r_{2k}\bb u_2 + \ldots + r_{kk}\bb u_k + 0\bb u_{k+1} + \ldots + 0\bb u_n.\end{equation} Let $R = \mtx{c}{r_{ik}}$. Then the columns vectors of $R$ are of the form $\bb r_k =\mtx{c}{r_{1k} \\ \vdots \\ r_{kk} \\ 0 \\\vdots \\ 0}$. Therefore, $R$ is upper triangular. By the independence of the columns of $A$ and the construction of the orthonormal basis via the Gram-Schmidt orthogonalization, the weight $r_{kk}\neq 0$. By switching $\bb u_k$ with $-\bb u_k$, if necessary, we may assume that $r_{kk} > 0$. By \eqref{eq:o}, $\bb x_k = Q\bb r_k$. Therefore, $A = QR$.
+%\end{proof}\vs
+
+The matrix $Q$ is constructed by using an orthonormal basis provided by the Gram-Schmidt process, although some columns might need to be scaled by $-1$ to guarantee that the diagonal entries of $R$ are positive. If $A = QR$, then it can be shown that $R = \mtx{c}{\langle \bb q_i,\ \bb a_j\rangle}$, where $\bb q_i$ and $\bb a_j$ denote the columns of $Q$ and $A$, respectfully. With respect to the dot product, this gives that $Q^\top A = R$. \\
+
+\begin{Exam} Let $A  = \mtx{ccc}{1&0&0\\1&1&0\\1&1&1\\1&1&1}$. By \examref{exam}, $\{\bb u_1, \bb u_2, \bb u_3\}$ is an orthonormal basis for $\col A$ where \[Q = \mtx{ccc}{\bb u_1 & \bb u_2 & \bb u_3} = \mtx{ccc}{1/2&-3/\sqrt{12}&0\\1/2&1/\sqrt{12}&-2/\sqrt{6}\\1/2&1/\sqrt{12}&1/\sqrt{6}\\1/2&1/\sqrt{12}&1/\sqrt{6}}.\] Let \[R = Q^\top A = \mtx{cccc}{1/2 & 1/2&1/2&1/2 \\ -3/\sqrt{12}&1/\sqrt{12}&1/\sqrt{12}&1/\sqrt{12} \\ 0&-2/\sqrt{6}&1/\sqrt{6}&1/\sqrt{6}}\mtx{ccc}{1&0&0\\1&1&0\\1&1&1\\1&1&1} = \mtx{ccc}{2 & 3/2 & 1 \\ 0 & 3/\sqrt{12} & 1/\sqrt{3} \\ 0 & 0 & 2/\sqrt{6}}.\] Therefore, $A = QR$.
+\end{Exam}\vs
+
+%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{gram}
+
+\noindent For Exercises \ref{exer:orthobasisstart}-\ref{exer:orthobasisstop}, apply the Gram-Schmidt algorithm to find an orthonormal basis for each subspace $W$ provided.
+\begin{enumerate}[!HW!, start=1, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{3}
+\item\label{exer:orthobasisstart} $\Span\left\{\vr{1\\1}, \vr{-1\\2}\right\}$ %Hefferon 2.11
+\itemspade $\Span\left\{\vr{1\\1}, \vr{2\\1}\right\}$ %Hefferon 2.11
+\itemspade $\Span\left\{\vr{3\\4}, \vr{1\\2}, \vr{2\\2}\right\}$ %Jordan Griffith
+\end{multicols}
+\begin{multicols}{3}
+\item $\Span\left\{\vr{3\\4}, \vr{1\\2}, \vr{2\\2}\right\}$ %Jordan Griffith
+\itemspade $\Span\left\{\vr{1\\0\\3\\1}, \vr{2\\1\\4\\2}\right\}$ %Malcolm Hanks
+\itemspade $\Span\left\{\vr{1\\2\\3}, \vr{2\\1\\-3}, \vr{3\\3\\3}\right\}$%Hefferon 
+\end{multicols}
+\begin{multicols}{2}
+\itemspade $\Span\left\{\mtx{c}{1\\-i\\2i}, \mtx{c}{0\\1\\1-i}\right\}$ %NEW
+\item\label{exer:orthobasisstop} $\Span\left\{\mtx{c}{1\\i\\-1\\-i}, \mtx{c}{1\\2\\3\\4}, \mtx{c}{1-i\\0\\3+2i\\i}\right\}$ %NEW
+\end{multicols}
+\end{enumerate} 
+
+\noindent For Exercises \ref{exer:QRstart}-\ref{exer:QRstop}, compute the $QR$-factorizations of the matrix. Note that many of the column spaces of these matrices coincide with subspaces considered in Exercises \ref{exer:orthobasisstart}-\ref{exer:orthobasisstop}.
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{4}
+\item\label{exer:QRstart} $\mtx{rr}{1&-1\\1&2}$ 
+%Hefferon
+\itemspade $\mtx{rr}{1&2\\1&1}$ %Hefferon
+\itemspade $\mtx{rr}{0&-1\\1&3}$ %Hefferon
+\itemspade $\mtx{cc}{1&2\\0&1\\3&4\\1&2}$ %Malcolm Hanks
+\end{multicols}
+\item\label{exer:QRstop} $\mtx{rrr}{1&2&3\\2&1&3\\3&-3&3}$ %Hefferon
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ \mbox{}\vfill
+ 
+\pagebreak

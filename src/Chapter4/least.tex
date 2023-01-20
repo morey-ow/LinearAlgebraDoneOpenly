@@ -1,0 +1,176 @@
+\begin{center} 
+\emph{``Hypotheses are what we lack the least.'' --  Henri Poincare}
+\end{center}
+
+\section{The Least Squares Problem}\label{sec:least}
+In the past, we have considered the matrix equation $A\bb x = \bb b$. We have learned how to determine if the equation has a solution and how to calculate the solution set when it is consistent. In fact, if $\bb x$ is a solution, then we can decompose \[\bb x = \bb x_{\row(A)} + \bb x_{\nul(A)}\] orthogonally. But what about when $A\bb x = \bb b$ is inconsistent? Well, the solution set is empty then, but what if we really needed it to have a solution? No manner of begging will change the fact that the matrix equation does not have a solution. For example, what if we want to find a line that is incident to all of the below points. As these points are not collinear, no such line exists. But is there a line that best fits the points, a so-called \emph{regression line}? 
+\begin{center}
+    \begin{tikzpicture}%Ty Bayn
+\draw[ultra thick, -stealth] (-1,0) -- (8,0) node[right] {$x$};
+\draw[ultra thick, -stealth] (0,-1) -- (0,8) node[above] {$y$};
+
+\draw (1.5,3) node[above left] {\large $(x_2,y_2)$}; 
+\draw[ultra thick, red,dashed] (1.5,3.2) -- (2.05,2.4);
+\fill (1.5,3.2) circle (0.08);
+
+\draw (2,1.2) node[below left] {\large $(x_1,y_1)$};
+\draw[ultra thick, red,dashed] (2,1.4) -- (1.55,2.05);
+\fill (2,1.4) circle (0.08);
+
+\draw[ultra thick, red,dashed] (2.5,5.2) -- (3.63,3.55);
+\fill(2.5,5.2) circle (0.08);
+
+\draw[ultra thick, red,dashed] (3,1.4) -- (2.23,2.505);
+\fill(3,1.4) circle (0.08);
+
+\draw[ultra thick, red] (3.5,3.2) -- (3.41,3.3);
+\fill(3.5,3.2) circle (0.08);
+
+\draw[ultra thick, red,dashed] (4,4.2) -- (4.2,3.9);
+\fill(4,4.2) circle (0.08);
+
+\draw[ultra thick, red,dashed] (4.5,3.2) -- (4.1,3.8);
+\fill(4.5,3.2) circle (0.08);
+
+\draw[ultra thick, red] (5,4.7) -- (5.1,4.55);
+\fill(5,4.7) circle (0.08);
+
+\draw[ultra thick, red,dashed] (5.5,3.7) -- (5,4.45);
+\fill(5.5,3.7) circle (0.08);
+
+\draw (6,5.5) node[above left] {\large $(x_n,y_n)$}; 
+\draw[ultra thick, red,dashed] (6,5.7) -- (6.25,5.3);
+\fill (6,5.7) circle (0.08);
+
+\draw [stealth-stealth,ultra thick,blue] (-1,0.3) -- (8,6.5);
+
+\node[blue] at (9.5,7) {\large Regression Line};
+\node at (9.5,6.5) {\large $y = mx + b$};
+
+\node at (9.5,3.5) {\large
+$\begin{linear}
+x_1&m\ & +\ & b\ & = \ &y_1 \\
+x_2&m\ & +\ & b\ & = \ &y_2 \\
+x_3&m\ & +\ & b\ & = \ &y_3 \\
+&&\vdots\ \\
+x_n&m\ & +\ & b\ & = \ &y_n \\
+\end{linear}$
+};
+\end{tikzpicture}
+\end{center}
+
+Instead of asking, ``Is there a vector $\bb x$ such that $A\bb x = \bb b$,'' we ask, ``Is there a vector $\bb x$ such that $A\bb x \approx \bb b$?" By approximation here, we mean to find a vector $\bb x$ such that $\Vert A\bb x - \bb b\Vert$ is sufficiently small. This leads to the \textbf{least-squares problem}. \\
+
+\begin{Def} If $A$ is an $m\times n$ matrix and $\bb b\in F^m$, a \textbf{least-squares solution} of $A\bb x = \bb b$ is a vector $\widehat{\bb x}\in F^n$ such that 
+\[\Vert \bb b - A\widehat{\bb x}\Vert \le \Vert \bb b - A\bb x\Vert\] for all $\bb x \in F^n$
+\end{Def}\vs
+
+Note that if $A\bb x = \bb b$ is consistent, then there exists a vector $\widehat{\bb x}$ such that $A\widehat{\bb x} = \bb b$ and $\Vert \bb b - A\widehat{\bb x}\Vert = \Vert \bb 0 \Vert = 0$. Thus, any solution is a least-square solution. On the other hand, if $A\bb x = \bb b$ is inconsistent, then the matrix equation has no solution but must certainly still have a least-square solution. To find this least-squares solution, let us change our focus. Why is the linear system inconsistent and who should be blamed for it? Well, the vector $\bb b$, sort of. We have also seen the $\bb b$ can be orthogonally decomposed as 
+\[\bb b = \bb b_{\col(A)} + \bb b_{\lnl(A)}.\] If $A\bb x=\bb b$ is inconsistent, then it is because the left null space component of $\bb b$, that is, $\bb b_{\lnl(A)}$, is nontrivial. As we mentioned before, while the null space measures the ease of solving a consistent system (because it increases the dimension of the solution set), the left null space measures the difficulty of the system being consistent (because more rows of zeros in the echelon form of $A$ place more limitation on the choice of consistent $\bb b$).\\
+
+Let $A$ be an $m\times n$ matrix and $\bb b\in F^m$. Let $\bb x\in F^n$ be a generic vector (treat $\bb x$ as a variable vector). Then $A\bb x$ is a generic vector of the subspace $\col A$.  Let $\widehat{\bb b} = \proj_{\col A}\bb b = \bb b_{\col(A)}$. Then 
+\[\Vert \bb b - \widehat{\bb b}\Vert \le \Vert \bb b - A\bb x\Vert\] by the \hyperref[thm:bestapprox]{Best Approximation Theorem}. Since $\widehat{\bb b}\in \col A$, there exists some vector $\widehat{\bb x}\in F^n$ such that $A\widehat{\bb x} = \widehat{\bb b}$. Therefore, every linear system has a least-squares solution $\widehat{\bb x}$, which is a solution to the linear system $A\bb x = \widehat{\bb b}$, since for all $\bb x$ we have \[\Vert \bb b - A\widehat{\bb x}\Vert \le \Vert \bb b - A\bb x\Vert.\] Of course, we also have that the linear system $A\bb x = \widehat{\bb b}$ is ALWAYS consistent.\\
+
+If $\widehat{\bb x}$ is a least-squares solution of $A\bb x = \bb b$, then $\bb b - A\widehat{\bb x} = \bb b - \widehat{\bb b} \in (\col A)^\perp = \lnl( A)$. Hence, $\bb b - A\widehat{x} = \bb b_{\lnl(A)}$. Thus, $A^\top(\bb b - A\widehat{\bb x}) = \bb 0$. Therefore, $A^\top A\widehat{\bb x} = A^\top\bb b$. In particular, every least-squares solution to $A\bb x = \bb b$ is a solution to the system of \textbf{normal equations}
+\begin{equation} A^\top A\widehat{\bb x} = A^\top\bb b.\end{equation} Essentially, multiplying by $A^\top$ kills off the left null space component of $\bb b$, leaving the column space component behind. For complex linear systems, replace $^\top$ with $^*$, per the usual.\\
+
+\begin{Thm} The set of least-squares solutions of $A\bb x = \bb b$ coincides with the solution set of the normal equations $A^\top A\widehat{\bb x} = A^\top\bb b$.\end{Thm}\vs
+
+
+\begin{Exam}\label{exam:least1} Find a least-squares solution of the inconsistent system $A\bb x = \bb b$ with \\
+$A = \mtx{rr}{4&0\\0&2\\1&1}$ and $\bb b = \vr{2\\0\\11}$.\\
+
+We begin by constructing the normal equations:
+\[A^\top A = \mtx{rrrr}{4&0&1\\0&2&1}\mtx{rr}{4&0\\0&2\\1&1} = \mtx{rr}{17&1\\1&5};\qquad A^\top\bb b = \mtx{rrrr}{4&0&1\\0&2&1}\vr{2\\0\\11} = \vr{19\\11}.\] Thus, $A^\top A\widehat{\bb x} = A^\top\bb b$ becomes
+\[\mtx{rr}{17&1\\1&5}\bb x = \vr{19\\11}.\] Since $A^\top A$ is invertible, we have
+\[\widehat{\bb x} = (A^\top A)^{-1}A^\top\bb b = \dfrac{1}{84}\mtx{rr}{5&-1\\-1&17}\vr{19\\11} = \dfrac{1}{84}\vr{84\\168} = \vr{1\\2}. \qedhere\]
+\end{Exam}\vs
+
+\begin{Exam} Find a least-squares solution for\\
+$A = \mtx{rrrr}{1&1&0&0\\1&1&0&0\\1&0&1&0\\1&0&1&0\\1&0&0&1\\1&0&0&1}$ and $\bb b = \vr{-3\\-1\\0\\2\\5\\1}$.\\
+
+\[A^\top A = \mtx{rrrr}{6&2&2&2\\2&2&0&0\\2&0&2&0\\2&0&0&2};\qquad A^\top\bb b = \vr{4\\-4\\2\\6};\qquad \mtx{rrrr|r}{6&2&2&2&4\\2&2&0&0&-4\\2&0&2&0&2\\2&0&0&2&6} \sim \mtx{rrrr|r}{1&0&0& 1&3\\0&1&0&-1&-5\\0&0&1&-1&-2\\0&0&0&0&0}.\] Therefore, 
+\[\widehat{\bb x} = \vr{3\\-5\\-2\\0} + x_4\vr{-1\\1\\1\\1}. \qedhere\]
+\end{Exam}
+
+As illustrated in the last example, a least-squares solution need not be unique.\\
+
+\begin{Thm}\label{thm:leastsquaresolution} Let $A$ be an $m\times n$ matrix. Then the following are equivalent:
+\begin{enumerate}[!THM!, start=1]
+\item The equation $A\bb x = \bb b$ has a unique least-squares solution for each $\bb b \in F^m$.
+\item The columns of $A$ are linearly independent.
+\item The matrix $A^\top A$ is invertible.
+\end{enumerate} In this situation, the unique least-squares solution has the form
+\[\widehat{\bb x } = (A^\top A)^{-1}A^\top\bb b.\]
+\end{Thm}
+
+\begin{Exam} The matrix $A$ given in \examref{exam:least1} has a unique least-squares solution for all $\bb b \in \R^m$. \end{Exam}\vs
+
+Least-squares solutions also allow us to compute orthogonal projections without an orthogonal basis. For example, if $W = \Span\{\bb v_1, \ldots, \bb v_r\} \le F^n$,  $A = \mtx{cccc}{\bb v_1 & \bb v_2 & \ldots & \bb v_r}$, and $\bb y \in F^n$, then $W = \col(A)$ and $\widehat{\bb y} = \proj_W(\bb y) = \proj_{\col(A)}(\bb y) = \bb y_{\col(A)} = A\widehat{\bb x}$ where $\bb x$ is a least-squares solutions to $A\bb x = \bb y$.\\
+
+\begin{Exam}\label{exam:proj} Let $W = \col(A)$, where $A$ is defined in \examref{exam:least1}. Then $\widehat{\bb b} = \proj_W(\bb b) = A\widehat{\bb x} = \mtx{rr}{4&0\\0&2\\1&1}\vr{1\\2} = \vr{4\\4\\3}$. Thus, we may find  orthogonal projections by solving least-squares problem.
+\end{Exam}
+
+In the vein of the previous example, the standard matrix of the orthogonal projection from $F^n$ onto the subspace $W$ is $A(A^\top A)^{-1}A^\top$, where the columns of $A$ correspond to a basis for $W$, since $\bb b  \mapsto A(A^\top A)^{-1}A^\top \bb b = A\widehat{\bb x} = \widehat{b} = \proj_W(\bb b)$. Of course, if $A=QR$ is a $QR$ factorization, then 
+\[A(A^\top A)^{-1}A^\top = QR((QR)^\top QR)^{-1}(QR)^\top = QR(R^\top Q^\top QR)^{-1}R^\top Q^\top = QR(R^\top R)^{-1}R^\top Q^\top = QR(R^{-1}(R^\top)^{-1})R^\top Q^\top = QQ^\top.\] This second form appears much simpler (and agrees with the formula we found in \secref{sec:orthoproj}), but this is because know $A=QR$ means we have an orthonormal basis for $W$, namely the columns of $Q$. The advantage of $A(A\top A)^{-1}A^\top$ is that no orthogonalization is necessarily to determine $\proj_W$.
+
+\begin{Exam} Let $A = \mtx{rr}{4&0\\0&2\\1&1}$ and $W=\col(A)$. Let $T : \R^3\to \R^3$ be the orthogonal projection onto $W$. Then 
+\[[T] =A(A^\top A)^{-1}A^\top  = \mtx{rr}{4&0\\0&2\\1&1}\mtx{rr}{17&1\\1&5}^{-1} \mtx{rrrr}{4&0&1\\0&2&1} = \dfrac{1}{84}\mtx{rr}{4&0\\0&2\\1&1} \mtx{rr}{5&-1\\-1&17} \mtx{rrrr}{4&0&1\\0&2&1} \]
+\[=\dfrac{1}{84}\mtx{rr}{20 &-4 \\ -2 & 34 \\ 4 & 16}\mtx{rrrr}{4&0&1\\0&2&1}= \dfrac{1}{84}\mtx{rrr}{80 & -8 & 16 \\ -8 & 68 & 32 \\ 16 & 32 & 20} = \dfrac{1}{21}\mtx{rrr}{20 & -2 & 4 \\ -2 & 17 & 8 \\ 4 & 8 & 5} \]
+
+Note that 
+\[\dfrac{1}{21}\mtx{rrr}{20 & -2 & 4 \\ -2 & 17 & 8 \\ 4 & 8 & 5}\vr{2\\0\\11} = \dfrac{1}{21}\vr{40+0+44 \\ -4 + 0 +88 \\ 8+0+55} = \dfrac{1}{21}\vr{84 \\ 84 \\ 63} = \vr{4\\4\\3}. \qedhere\]
+\end{Exam}\vs
+
+\begin{Thm} Let $A$ be an $m\times n$ matrix with linearly independent columns. Let $A = QR$ be a $QR$ factorization. Let $\bb b\in F^m$. Then the unique least-squares solution $\widehat{\bb x}\in F^n$ has the form
+\[\widehat{\bb x} = R^{-1}Q^\top \bb b.\]
+\end{Thm}
+\begin{proof}
+Let $\widehat{\bb x} = R^{-1}Q^\top \bb b$. Then 
+\[A\widehat{\bb x} = A(R^{-1}Q^\top \bb b) = QR(R^{-1}Q^\top \bb b) = QQ^\top  \bb b = \proj_{\col Q} \bb b,\] since $QQ^\top$ is the standard matrix representation for $\proj_{\col Q}$. Since $\col Q = \col A$, $\widehat{\bb x}$ is a least-squares solution of $A\bb x = \bb b$. By \thmref{thm:leastsquaresolution}, this is the unique least-squares solution.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{least}
+
+\noindent For Exercises \ref{exer:leaststart}-\ref{exer:leaststop}, compute the least square solutions for linear system.
+\begin{enumerate}[!HW!, start=1, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{3}
+\item\label{exer:leaststart} $\mtx{rr|r}{1 & -1 & 2\\ 2 & 3 & -1\\ 4 & 5 & 5}$ %Anton 6.4.3 p. 386
+\itemspade $\mtx{rr|r}{9&1&-27\\1&0&13\\2&-1&1\\1&0&0}$ %NEW
+\item\label{exer:leaststop} $\mtx{rrr|r}{2&0&-1&0\\1&-2&2&6\\2&-1&0&0\\0&1&-1&6}$ %Anton 6.4.6 p. 386
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:leastorthoprojstart}-\ref{exer:leastorthoprojstop}, compute the orthogonal projection $\proj_W(\bb b)$ using the method of least squares as in \examref{exam:proj} where $W = \col(A)$, where $A$ is the matrix provided first and $\bb b$ is the vector provided second.
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:leastorthoprojstart} $\mtx{rr}{1&-1\\3&2\\-2&4}$, $\vr{4\\1\\3}$ %Anton 6.4.15 p. 386
+\item\label{exer:leastorthoprojstop} $\mtx{rr}{5&1\\1&3\\4&-2}$, $\vr{-4\\2\\3}$ %Anton 6.4.16 p. 386
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:leastorthostart}-\ref{exer:leastorthostop},  compute the orthogonal projection $\proj_W(\bb b)$ using the method of least-squares. where a basis for $W$ is provided first and the vector $\bb b$ is the vector provided second.
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:leastorthostart} $\left\{(-1,2,1),\ (2,2,4)\right\},\ (1, -6, 1)$ %Anton 6.4.17 p. 386
+\item\label{exer:leastorthostop} $\left\{(2,1,1,1),\ (1,0,1,1),\ (-2,-1,0,-1)\right\},\ (6,3,9,6)$ %Anton 6.4.18 p. 386
+\end{multicols}
+\end{enumerate}\vs
+
+\noindent For Exercises \ref{exer:leastbasisprojstart}-\ref{exer:leastbasisprojstop}, find a basis for $W$ and the standard matrix for the orthogonal projection onto $W$. Answers may vary.
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\item\label{exer:leastbasisprojstart} $W$ is the plane given by the equation $5x-3y+z=0$ in $\R^3$. %Anton 6.4.25 p. 386
+\item\label{exer:leastbasisprojstop} $W$ is the line with parametric equations $x=2t$, $y=-t$, and $z=4t$ in $\R^3$.\\ %Anton 6.4.26 p. 387
+\end{enumerate}
+
+\begin{enumerate}[!HW!]
+\item If $A$ is a nonsingular matrix, show that the unique least squares solution $\widehat{\bb x}$ to the linear system $A\bb x = \bb b$ is likewise the unique linear solution to $A\bb x = \bb b$. %Jacob Jensen
+
+\item Suppose that $A = QR$ is a $QR$ factorization of $A$. If $A\bb x = \bb b$ has a unique least-squares solution, show that $\widehat{x} = R^{-1}Q^\top \bb b$ is this solution. 
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ \mbox{}\vfill
+ 
+\pagebreak

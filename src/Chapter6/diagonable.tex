@@ -1,0 +1,109 @@
+\begin{center} 
+\emph{``The line of life is a ragged diagonal between duty and desire.'' -- William R. Alger}
+\end{center}
+
+\section{Diagonalization}\label{sec:diagonable}
+\begin{Thm} If $\bb x_1, \ldots,  \bb x_r$ are eigenvectors of an $n\times n$ matrix $A$ which correspond to distinct eigenvalues $\lambda_1, \ldots, \lambda_r$, respectively, then $\{\bb x_1, \ldots, \bb x_r\}$ is linearly independent.
+\end{Thm}\vs
+%\begin{proof}
+%We proceed by induction. Clearly, if $\{\bb x_1\}$ is a set of eigenvectors, then $\{\bb x_1\}$ is linearly independent since $\bb x_1 \neq \bb 0$.\\
+%
+%For our induction hypothesis, we assume that if $\{\bb x_1, \ldots, \bb x_k\}$ is a set of eigenvectors of $A$ corresponding to distinct eigenvalues then $\{\bb x_1, \ldots, \bb x_k\}$ is linearly independent for all $k < r$.\\
+%
+%Let $\{\bb x_1, \ldots, \bb x_r\}$ be a set of eigenvectors $A$ corresponding to distinct eigenvalues and let 
+%\[c_1\bb x_1 + \ldots + c_r\bb x_r = \bb 0.\] Then
+%\begin{eqnarray*}
+% c_1\bb x_1 + \ldots + c_r\bb x_r &=& \bb 0\\
+%A(c_1\bb x_1 + \ldots + c_r\bb x_r) &=& A\bb 0\\
+%c_1(A\bb x_1) + \ldots + c_r(A\bb x_r) &=& \bb 0\\
+%c_1(\lambda_1\bb x_1) + \ldots + c_r(\lambda_r\bb x_r) &=& \bb 0
+%\end{eqnarray*} Likewise, 
+%\[c_1(\lambda_r\bb x_1) + \ldots + c_r\lambda_r\bb x_r = \bb 0.\] Subtracting these two equations gives:
+% \[c_1(\lambda_1-\lambda_r)\bb x_1 + \ldots + c_{r-1}(\lambda_{r-1} - \lambda_r)\bb x_{r-1} = \bb 0.\] By our induction hypothesis, $c_i(\lambda_i-\lambda_{r}) = 0$ for all $i < r$. But  $\lambda_i-\lambda_{r}\neq 0$, since all the eigenvalues are distinct. This implies that $c_i = 0$ for all $i< r$. Therefore, 
+%\[c_r\bb x_r = \bb 0.\] Since $\bb x_r\neq \bb 0$, $c_r = 0$. Therefore, $\{\bb x_1, \ldots, \bb x_r\}$ is linearly independent and the result follows by induction.
+%\end{proof}\vs
+
+\begin{Def} Let $A$ be an $n\times n$ matrix. We say that $A$ is \textbf{diagonalizable} if $A$ is similar to a diagonal matrix $D$, that is, $A = PDP^{-1}$ for some invertible matrix $P$.
+\end{Def}\vs
+
+\begin{Exam} Let $A = \mtx{rr}{7&2\\-4&1}$. Then $A$ is a diagonalizable matrix. Let $P = \mtx{rr}{1&1\\-1&-2}$ and $D= \mtx{rr}{5&0\\0&3}$. Then $P^{-1} = \mtx{rr}{2&1\\-1&-1}$ and  
+\[A = PDP^{-1} = \mtx{rr}{1&1\\-1&-2}\mtx{rr}{5&0\\0&3}\mtx{rr}{2&1\\-1&-1} = \mtx{rr}{1&1\\-1&-2}\mtx{rr}{10&5\\-3&-3}  = \mtx{rr}{7&2\\-4&1}. \]
+
+Next, observe that 
+\begin{eqnarray*}
+A^2 &=& (PDP^{-1})(PDP^{-1}) = PD(P^{-1}P)DP^{-1}\\
+& =& PD^2P^{-1} = \mtx{rr}{1&1\\-1&-2}\mtx{rr}{5^2&0\\0&3^2}\mtx{rr}{2&1\\-1&-1}\\
+&=&\mtx{rr}{1&1\\-1&-2}\mtx{rr}{2\cdot 5^2&5^2\\-3^2&-3^2} = \mtx{rr}{2\cdot 5^2-3^2 & 5^2-3^2\\ -2\cdot 5^2+2\cdot3^2) & -5^2+2\cdot 3^2}.
+\end{eqnarray*} In fact, it follows by induction that 
+\[A^k = PD^kP^{-1} = \mtx{rr}{1&1\\-1&-2}\mtx{rr}{5^k&0\\0&3^k}\mtx{rr}{2&1\\-1&-1} = \mtx{rr}{2\cdot 5^k-3^k & 5^k-3^k\\ -2\cdot 5^k+2\cdot3^k & -5^k+2\cdot 3^k}.\] Amongst other reasons, diagonalization provides an effective method to compute powers of matrices.
+\end{Exam}\vs
+
+From the previous example, note that \[A\vr{1\\-1} = \mtx{rr}{7&2\\-4&1}\vr{1\\-1} = \vr{5\\-5} =5\vr{1\\-1}\] and \[A\vr{1\\-2} = \mtx{rr}{7&2\\-4&1}\vr{1\\-2} = \vr{3\\-6} =3\vr{1\\-2}.\] Thus, the column vectors of $P$ are eigenvectors of $A$! Furthermore, the diagonal entries of $D$ are the eigenvalues of $A$!\\
+
+\begin{Thm}[The Diagonalization Theorem] An $n\times n$ matrix $A$ is diagonalizable if and only if $A$ has $n$ linearly independent eigenvectors. In this case, there is a basis of $F^n$ consisting of eigenvectors of $A$, called an \textbf{eigenvector basis} (or \textbf{eigenbasis}). If $A = PDP^{-1}$, then the diagonal entries of $D$ are the eigenvalues of $A$ with multiplicity, the columns of $P$ are eigenvectors, and the eigenvectors in $P$ correspond to the eigenvalues in the same column in $D$ .
+\end{Thm}
+%\begin{proof}
+%Suppose that $A = PDP^{-1}$, with $P = \mtx{cccc}{\bb v_1 & \bb v_2 & \ldots & \bb v_n}$.  Thus, $AP = DP$. But 
+%\[AP = A \mtx{cccc}{\bb v_1 & \bb v_2 & \ldots & \bb v_n} =  \mtx{cccc}{A\bb v_1 & A\bb v_2 & \ldots & A\bb v_n}\] and
+%\[PD = P\mtx{cccc}{\lambda_1 & 0& \ldots & 0\\0&\lambda_2 & \ldots & 0\\ \vdots & \vdots & & \vdots\\0&0&\ldots  & \lambda_n} =  \mtx{cccc}{\lambda_1\bb v_1 & \lambda_2\bb v_2 & \ldots & \lambda_n\bb v_n}.\] Comparing column vectors, we see that the columns of $P$ are eigenvectors and the diagonal entries of $D$ are eigenvalues.\\
+%
+%Conversely, if $\{\bb v_1, \ldots, \bb v_n\}$ is a basis of eigenvectors of $A$ with eigenvalues $\lambda_1, \ldots, \lambda_n$, then 
+%construct $P$ and $D$ as above. Since $A\bb v_i = \lambda_i\bb v_i$, we have that $AP = PD$. Because the column vectors of $P$ are a basis, $P$ is invertible and $A  =PDP^{-1}$.
+%\end{proof}\vs
+
+Let $\B$ be an eigenbasis of $A$ and let $\mathcal{E}$ be the standard basis of $F^n$. Then $P = \underset{\mathcal{E}\leftarrow \B}{P}$ and $P^{-1} = \underset{\B\leftarrow \mathcal{E}}{P}$.\\
+
+\begin{Thm} An $n\times n$ matrix with $n$ distinct eigenvalues is diagonalizable.
+\end{Thm}\vs
+
+\begin{Exam} If possible, diagonalize the matrix $A = \mtx{rrr}{1&3&3\\-3&-5&-3\\3&3&1}$.\\
+
+We begin by computing the eigenvalues of $A$, via the characteristic polynomial of $A$:
+\begin{eqnarray*}
+\det(A-\lambda I) &=&  \dtx{ccc}{1-\lambda&3&3\\-3&-5-\lambda&-3\\3&3&1-\lambda} = (1-\lambda)\dtx{cc}{-5-\lambda&-3\\3&1-\lambda} - 3\dtx{cc}{-3&-3\\3&1-\lambda} + 3\dtx{cc}{-3&-5-\lambda\\3&3}\\
+&=& (1-\lambda)[(-5-\lambda)(1-\lambda) + 9] -3[-3(1-\lambda)+9] + 3[-9+3(5+\lambda)]\\
+&=& -(5+\lambda)(1-\lambda)^2 + 9(1-\lambda) +9(1-\lambda) - 27 -27 + 9(5+\lambda)\\
+&=& -(5+\lambda)(1-\lambda)^2 + 18(1-\lambda) - 54 + 9(5+\lambda)\\
+&=& -(5+\lambda)(1-\lambda)^2 + 18(1-\lambda) -9(1-\lambda) = -(5+\lambda)(1-\lambda)^2 + 9(1-\lambda)\\
+&=&(1-\lambda)[(5+\lambda)(-1+\lambda)+9] = (1-\lambda)[4 + 4\lambda + \lambda^2]\\
+&=& -(\lambda-1)(\lambda+2)^2
+\end{eqnarray*} Therefore, the eigenvalues of $A$ are 1 and -2 (with multiplicity two). Let $D = \mtx{rrr}{1&0&0\\0&-2&0\\0&0&-2}$.\\
+
+Next, we compute the eigenvectors of $A$. We begin with $\lambda =1$.
+\[A-I =  \mtx{rrr}{0&3&3\\-3&-6&-3\\3&3&0} \sim  \mtx{rrr}{0&3&3\\-3&-6&-3\\0&0&0}\sim  \mtx{rrr}{0&1&1\\1&2&1\\0&0&0} \sim \mtx{rrr}{1&2&1\\0&1&1\\0&0&0}\sim \mtx{rrr}{1&0&-1\\0&1&1\\0&0&0}.\] Therefore, $\nul(A-I) = \Span\left\{\vr{1\\-1\\1}\right\}$. Next, we use $\lambda = -2$.
+\[A+2I = \mtx{rrr}{3&3&3\\-3&-3&-3\\3&3&3} \sim \mtx{rrr}{3&3&3\\0&0&0\\0&0&0} \sim \mtx{rrr}{1&1&1\\0&0&0\\0&0&0}.\] Therefore, 
+$\nul(A+2I) = \Span\left\{\vr{-1\\1\\0}, \vr{-1\\0\\1}\right\}$. Since $A$ has a basis of eigenvectors, $A$ is diagonalizable. Let $P = \mtx{rrr}{1&-1&-1\\-1&1&0\\1&0&1}$.\\
+
+To finish, we need to compute $P^{-1}$. 
+\begin{eqnarray*}
+\mtx{rrr|rrr}{1&-1&-1&1&0&0\\-1&1&0&0&1&0\\1&0&1&0&0&1} &\sim& \mtx{rrr|rrr}{1&-1&-1&1&0&0\\0&0&-1&1&1&0\\0&1&2&-1&0&1} \sim \mtx{rrr|rrr}{1&-1&-1&1&0&0\\0&1&2&-1&0&1\\0&0&-1&1&1&0}\\
+&\sim&  \mtx{rrr|rrr}{1&-1&-1&1&0&0\\0&1&2&-1&0&1\\0&0&1&-1&-1&0} \sim  \mtx{rrr|rrr}{1&-1&0&0&-1&0\\0&1&0&1&2&1\\0&0&1&-1&-1&0}\\
+&\sim&  \mtx{rrr|rrr}{1&0&0&1&1&1\\0&1&0&1&2&1\\0&0&1&-1&-1&0}.
+\end{eqnarray*} Therefore, $P^{-1} = \mtx{rrr}{1&1&1\\1&2&1\\-1&-1&0}$ and 
+\[A = PDP^{-1} = \mtx{rrr}{1&-1&-1\\-1&1&0\\1&0&1}\mtx{rrr}{1&0&0\\0&-2&0\\0&0&-2}\mtx{rrr}{1&1&1\\1&2&1\\-1&-1&0}. \qedhere\]
+\end{Exam}\vs
+
+Note that a matrix is diagonalizable if and only if each geometric multiplicity is equal to its algebraic multiplicity.\\
+
+%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{diagonable}
+
+\noindent For Exercises \ref{exer:diagonalizestart}-\ref{exer:diagonalizestop}, diagonalize the matrix $A$. Answers may vary.
+\begin{enumerate}[!HW!, start=1, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{3}
+\item\label{exer:diagonalizestart} $\mtx{rr}{3 & -2 \\ 1 & 0}$ 
+\item $\mtx{rr}{19&-8\\40&-17}$ 
+\item $\mtx{rrr}{8&-20&10\\5&-12&5\\5&-10&3}$ 
+\end{multicols}
+\end{enumerate}
+\begin{enumerate}[!HW!]
+\begin{multicols}{3}
+\itemspade $\mtx{rrrr}{6&10&0&-4\\3&5&0&-2\\12&24&-1&-8\\15&30&0&-11}$ 
+\item\label{exer:diagonalizestop} $\mtx{rrr}{8&20&10\\5&-12&5\\5&10&3}$ 
+\end{multicols}
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+ \mbox{}\vfill
+ 
+\pagebreak

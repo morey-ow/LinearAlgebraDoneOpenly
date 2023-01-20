@@ -1,0 +1,152 @@
+\begin{center} 
+\emph{``Some painters transform the sun into a yellow spot, others transform a yellow spot into the sun.''\\
+-- Pablo Picasso}
+\end{center}
+
+\section{Matrix Equations}\label{sec:column}
+\begin{Def} Let $A$ be  an $m\times n$ matrix and let $\bb x \in F^n$. Let the \textbf{column vectors} of $A$ be $\bb a_1, \bb a_2, \ldots, \bb a_n \in F^n$, that is, $A = \mtx{cccc}{\bb a_1 & \bb a_2 & \ldots & \bb a_n}$. Then the \textbf{product} $A\bb x$ is the linear combination of the column vectors of $A$ with coefficients corresponding to the entries of $\bb x$, that is, 
+\begin{equation}\label{eq:matrixeqn} A\bb x =  \mtx{cccc}{\bb a_1 & \bb a_2 & \ldots & \bb a_n}\mtx{c}{x_1 \\ x_2 \\ \vdots \\ x_n} = x_1\bb a_1  + x_2\bb a_2 + \ldots + x_n\bb a_n.\end{equation}
+\end{Def}\vs
+
+Note that $A\bb x$ is only defined if the number of columns of $A$ is equal to the number of entries of $\bb x$.\\
+
+\begin{Exam}\mbox{}
+\begin{enumerate}
+\item $\mtx{rrr}{1 & 2 & -3\\ 0 & -2 & 5}\vr{3 \\ 0 \\ 2} = 3\vr{1\\0} + 0\vr{2\\-2} + 2\vr{-3\\5} = \vr{3\\0} + \vr{0\\0} + \vr{-6\\10} = \vr{-3\\10}$.\\
+
+\item $\mtx{rr}{2 & 0\\ -6 & 1 \\ 3 & 2}\vr{3\\5} = 3\vr{2\\-6\\3} + 5\vr{0\\1\\2} = \vr{6\\-18\\9} + \vr{0\\5\\10} = \vr{6\\-13\\19}$.
+\end{enumerate}
+\end{Exam}\vs
+
+\begin{Thm} If $A$ is an $m\times n$ matrix, with column vectors $\bb a_1, \ldots, \bb a_n$, and if $\bb b\in F^m$, the matrix equation 
+\begin{equation} A\bb x = \bb b\end{equation} has the same solution set as the vector equation 
+\[x_1\bb a_1 + \ldots + x_n\bb a_n = \bb b\] which, in turn, has the same solution set as the system of linear equations whose augmented matrix is \[\mtx{rrr|r}{\bb a_1 & \ldots & \bb a_n & \bb b}.\]
+\end{Thm}\vs
+
+\begin{Exam} The solution set to the system of equation 
+\[\left\{\begin{alignedat}{10}
+& x_1\ &+\ &3x_2\ &-\ &7x_3\ &=\ &5&\\
+& &-\ & 2x_2\ &+\ & 11x_3\ &=\ &3&
+\end{alignedat}\right.\] is same as the solution set of the vector equation
+\[x_1\vr{1\\0} + x_2\vr{3\\-2} + x_3\vr{-7\\11} = \vr{5\\3},\] which in turn has the same solution set as the matrix equation
+\[\mtx{rrr}{1&3&-7\\0&-2&11}\vr{x_1\\x_2\\x_3} = \vr{5\\3}. \qedhere\]
+\end{Exam}\vs 
+
+\begin{Cor}\label{col} The equation $A\bb x = \bb b$ has a solution if and only if $\bb b$ is a linear combination of the column vectors of $A$.\end{Cor}\vs
+
+\begin{Def} Let $\col(A)$ denote the set of all linear combinations of column vectors of $A$, which is called the \textbf{column space} of $A$. In particular, if $A = \mtx{cccc}{\bb a_1 & \bb a_2 & \ldots & \bb a_n}$, then $\col(A)  = \Span\{\bb a_1, \bb a_2, \ldots, \bb a_n\}$.\end{Def}\vs
+
+According to \corref{col}, the equation $A\bb x = \bb b$ is consistent if and only if $\bb b\in \col(A)$.\\
+
+\begin{Exam} Let $A = \mtx{rrr}{1 & 3 & 1\\ 2 & 4 & 4\\ 3 & 5 & 7}$. Compute the column space of $A$.\\
+
+The quick response to this example would be to find a spanning set for the column space of $A$, but, by definition, a spanning set for a column space is never mysterious. Note that 
+\[\col(A) = \Span\left\{\vr{1\\2\\3}, \vr{3\\4\\5}, \vr{1\\4\\7}\right\}.\] While we have technically computed the column space, that is, we have found a description of the set of vectors, it does not leave the decision question of whether a generic vector $\bb b = (b_1, b_2, b_3)$ belongs to $\col(A)$ well answered, which is really what we want to be able to do. To answer this question, we row reduce the augmented matrix
+\begin{multline*}
+\mtx{rrr|r}{1 & 3 & 1 & b_1\\ 2 & 4 & 4 & b_2\\ 3 & 5 & 7 & b_3} \sim \mtx{rrr|c}{1 & 3 & 1 & b_1\\ 0 & -2 & 2 & b_2-2b_1\\ 0 & -4 & 4 & b_3-3b_1} \sim \mtx{rrr|c}{1 & 3 & 1 & b_1\\ 0 & 1 & 1 & b_1-\frac{1}{2}b_2\\ 0 & 1 & -1 & \frac{1}{4}(3b_1-b_3)}
+\sim \mtx{rrr|c}{1 & 3 & 1 & b_1\\ 0 & 1 & 1 & b_1-\frac{1}{2}b_2\\ 0 & 0 & 0 & -\frac{1}{4}b_1+\frac{1}{2}b_2-\frac{1}{4}b_3}
+\end{multline*}
+Therefore, the above equation is consistent if and only if $-\frac{1}{4}b_1+\frac{1}{2}b_2-\frac{1}{4}b_3 = 0$. Therefore, Now, there exists plenty of choices of $\bb b$ such that this equation does not hold. Hence, $A\bb x = \bb b$ is not consistent for all $\bb b$. \[\col(A) = \{\bb b \in \R^3\mid b_1-2b_2+b_3=0\}. \qedhere\] 
+\end{Exam}\vs
+
+Generalizing the principles seen in the previous example, for any $n\times n$ matrix $A$, the equation $A\bb x = \bb b$ has a solution for all $\bb b$ if and only if $A$ has a pivot in each row, in which case the solution must be unique.\\
+
+Let $A$ be an $(m\times n)$ matrix and let $\bb x\in F^n$. Then the rule $\bb x \mapsto A\bb x$ is a transformation called a \emph{matrix transformation}.\\
+
+
+\begin{Thm} Let $A$ be an $m\times n$ matrix and let $\bb u, \bb v \in F^n$. Let $c\in F$. Then $A(\bb u+\bb v) = A\bb u+A\bb v$ and $A(c\bb u) = c(A\bb u)$. In particular, multiplication by a matrix is a linear transformation.\end{Thm}\vs
+
+Let $A$ be an $m\times n$ matrix with column vectors $\bb a_1, \ldots, \bb a_n$. Let $A  = \mtx{r}{a_{ij}}$, that is, let $a_{ij}$ denote the entry of $A$ in the $(i,j)$ position. Let $\bb x\in F^n$. Then 
+\begin{eqnarray*}A\bb x &=& \mtx{rrrr}{\bb a_1 & \bb a_2 & \ldots & \bb a_n}\mtx{c}{x_1\\ x_2 \\ \vdots\\x_n} = x_1\bb a_1 + \ldots + x_n\bb a_n = x_1\mtx{c}{a_{11}\\ a_{21} \\ \vdots \\ a_{m1}} +  x_2\mtx{c}{a_{12}\\ a_{22} \\ \vdots \\ a_{m2}} + \ldots +  x_n\mtx{c}{a_{1n}\\ a_{2n} \\ \vdots \\ a_{mn}}\\ &=& \mtx{c}{x_1a_{11}\\ x_1a_{21} \\ \vdots \\ x_1a_{m1}} +  \mtx{c}{x_2a_{12}\\ x_2a_{22} \\ \vdots \\ x_2a_{m2}} + \ldots +  \mtx{c}{x_na_{1n}\\ x_na_{2n} \\ \vdots \\ x_na_{mn}} = \mtx{c}{x_1a_{11} + x_2a_{12} + \ldots + x_na_{1n}\\ x_1a_{21} + x_2a_{22} + \ldots + x_na_{2n}\\\vdots\\  x_1a_{m1} + x_2a_{m2} + \ldots + x_na_{mn}}.
+\end{eqnarray*} That is \begin{equation} A\bb x = \mtx{c}{x_1a_{11} + x_2a_{12} + \ldots + x_na_{1n}\\ x_1a_{21} + x_2a_{22} + \ldots + x_na_{2n}\\\vdots\\  x_1a_{m1} + x_2a_{m2} + \ldots + x_na_{mn}}.\end{equation} This formula often is easier to compute than the original definition of $A \bb x$.\\
+
+\begin{Exam} Let $A = \mtx{rr}{  0 & -2 \\ 1 & -3 \\ 2 & -3}$ and define a transformation $T : \R^2 \to \R^3$ by $T(\bb x) = A\bb x$. Then 
+\[T(\bb x) = A\bb x = \mtx{rr}{ 0 & -2 \\ 1 & -3 \\ 2 & -3}\vr{x_1\\x_2}.\]\vs
+
+\begin{enumerate}
+\item Let $\bb u = \vr{3\\-1}$. Compute $T(\bb u)$.\\
+
+\[T(\bb u) = A\bb u = \vr{0(3) - 2(-1) \\ 1(3) - 3(-1) \\ 2(3) - 3(-1)} = \vr{2\\6\\9}.\]
+
+\item Find an $\bb x\in \R^2$ whose image under $T$ is $\bb b = \vr{-8\\-7\\-2}$.\\
+
+We need an $x_1$ and $x_2$ such that \[\mtx{rr}{  0 & -2 \\ 1 & -3 \\ 2 & -3}\vr{x_1\\x_2} = \vr{-8\\-7\\-2}.\] By row reduction, we solve the corresponding linear system:
+\[\mtx{rr|r}{ 0 & -2 & -8 \\ 1 & -3 & -7 \\ 2 & -3 & -2} \sim \mtx{rr|r}{ 1 & -3 & -7 \\ 0 & -2 & -8 \\  2 & -3 & -2} \sim \mtx{rr|r}{ 1 & -3 & -7 \\ 0 & -2 & -8 \\  0 & 3 & 12} \sim 
+\mtx{rr|r}{ 1 & -3 & -7 \\ 0 & 1 & 4 \\  0 & 1 & 4}\sim \mtx{rr|r}{ 1 & -3 & -7 \\ 0 & 1 & 4 \\  0 & 0 & 0}
+\sim \mtx{rr|r}{ 1 & 0 & 5 \\ 0 & 1 & 4 \\  0 & 0 & 0}.\] Let $\bb x = \vr{5\\4}$. Then, $T(\bb x) = \bb b$. In fact, $\bb x$ is the only vector whose image under $T$ is $\bb b$. \hfill$\qedhere$
+\end{enumerate}
+\end{Exam}
+
+%%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{column}
+
+\noindent For Exercises \ref{true:columnstart}-\ref{true:columnstop}, determine with the statement is true or false. If false, correct the statement so that it is true.
+\begin{enumerate}[!HW!, start=1]
+\item\label{true:columnstart}\label{true:columnstop} A homogeneous linear system can be written as $A\bb x = 0$, where $A$ is the $m\times n$ coefficient matrix, $\bb x\in F^n$, and $0$ is a scalar. %Da Huo
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:matrixvectorproductrealstart}-\ref{exer:matrixvectorproductrealstop}, compute the matrix-vector product. 
+\begin{enumerate}[!HW!]
+\begin{multicols}{2}
+\item\label{exer:matrixvectorproductrealstart} $\mtx{rrr}{4&5&2\\0&-1&3\\2&1&1}\vr{1\\4\\3}$ %Alexis Borell
+\itemspade $\mtx{rrr}{3&-1&2\\4&3&7\\-2&1&5}\vr{2\\-3\\1}$
+\end{multicols}
+\end{enumerate}
+\begin{enumerate}[!HW!, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\itemspade $\mtx{cr}{1+2i&-1+3i\\0&3+4i}\vr{7+i\\-2-i}$
+\item\label{exer:matrixvectorproductrealstop} $\mtx{ccccc}{1&1&1&0&0\\0&1&0&1&0\\1&0&0&0&1}\vr{1\\1\\0\\0\\1}\pmod 2$
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:mtxeqnlinearsystemstart}-\ref{exer:mtxeqnlinearsystemstop}, express the given matrix equation as a system of equations.
+\begin{enumerate}[!HW!, resume, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:mtxeqnlinearsystemstart} \mbox{$\mtx{rrrr}{4&1&-3 &0\\ 0 &4&-12 &1 \\ 2&-3&-1&5}\vr{x_1\\x_2\\x_3\\x_4} \equiv \vr{1\\0\\2} \pmod 5$}
+\itemspade $\mtx{rr}{1 & 2 \\ 3 & 4\\ -1 & -2 \\ 4&5}\vr{x\\y} = \vr{2\\0\\2\\-9}$
+\end{multicols}
+\end{enumerate}
+\begin{enumerate}[!HW!]
+\item\label{exer:mtxeqnlinearsystemstop} $\mtx{rrrr}{21&27&17&-32\\4&42&6&19\\103&-72&17&-8\\2&11&-10&13}\vr{x\\y\\z\\w}=\vr{12\\-6\\15\\1}$ %anon
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:mtxeqnsolverealstart}-\ref{exer:mtxeqnsolverealstop}, solve the  matrix equation.
+\begin{enumerate}[!HW!]
+\begin{multicols}{2}
+\item \label{exer:mtxeqnsolverealstart} $\mtx{rrr}{1&2&3\\-1&-1&-3\\-1&-2&-2}\vr{x_1\\x_2\\x_3}=\vr{10\\-8\\-9}$ %Jianhe Yu
+\itemspade $\mtx{rrr}{4&4&2\\-4&-3&-2\\-4&-3&1}\vr{x_1\\x_2\\x_3} = \vr{12\\-3\\3}$
+\end{multicols}
+\begin{multicols}{2}
+\itemspade $\mtx{rr}{1&0\\2&5\\3&-2}\vr{x_1\\x_2} = \vr{1\\3\\0}$
+\item $\mtx{ccc}{1-i&1&1+i\\1&i&-i\\3+i&2&3i}\vr{x_1\\x_2\\x_3}=\mtx{c}{7\\3i\\11+7i}$ %Jianhe Yu
+\end{multicols}
+\begin{multicols}{2}
+\itemspade $\mtx{rrr}{1&4&3\\4&3&4\\3&4&3}\vr{x_1\\x_2\\x_3} \equiv \vr{4\\3\\2} \pmod 5$
+\item $\mtx{rrr}{0&1&2\\2&1&0\\1&0&2}\vr{x_1\\x_2\\x_3}\equiv \vr{1\\1\\0} \pmod 3$ %Seth Palmer
+\end{multicols}
+\begin{multicols}{2}
+\item $\mtx{rrrr}{1&0&1&2\\2&2&0&0\\0&0&1&2}\vr{x_1\\x_2\\x_3\\x_4}\equiv \vr{1\\1\\1} \pmod 3$ %Mitchel Zufelt
+\item\label{exer:mtxeqnsolverealstop} $\mtx{rrrr}{1&1&1&1\\1&1&0&1\\1&1&1&0\\0&1&0&1}\vr{x_1\\x_2\\x_3\\x_4}\equiv \vr{0\\1\\0\\0}\pmod 2$ %Jianhe Yu
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:mtxtransformstart}-\ref{exer:mtxtransformstop}, use the transformation $T : \R^4 \to \R^2$ given by the rule:
+\[T(x_1, x_2, x_3, x_4) = \mtx{rrrr}{2&-1&0&3 \\ 0&6&-2&1}\vr{x_1\\x_2\\x_3\\x_4}.\]
+\begin{enumerate}[!HW!, resume, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:mtxtransformstart} Compute $T(1, 0, 0, 1)$ and $T(1, 2, 3, 4)$.\\
+\item\label{exer:mtxtransformstop} Find $\bb x$ such that $T(\bb x) = (1,2)$.\\
+\end{multicols}
+\end{enumerate}
+
+\begin{enumerate}[!HW!]
+\item It can be shown that $(4,3,2,1)$ is the unique solution to the system of linear equations %Samuel Andersen
+\[\begin{linear}
+11x_1\ &+\ &9x_2\ &+\ &10x_3\ &+\ &14x_4\ &=\ &105\\
+9x_1\ &+\ &4x_2\ &+\ &5x_3\ &+\ &9x_4\ &=\ &67\\
+11x_1\ &+\ &12x_2\ &+\ &13x_3\ &+\ &17x_4\ &=\ &123\\
+7x_1\ &+\ &2x_2\ &+\ &5x_3\ &+\ &7x_4\ &=\ &51&.
+\end{linear}\] With this knowledge, QUICKLY solve the matrix equation \[\mtx{rrrr}{11&9&10&14\\9&4&5&9\\11&12&13&17\\7&2&5&7}\vr{x_1\\x_2\\x_3\\x_4} = \vr{105\\67\\123\\51}.\] Why were you able to solve it so quickly?
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+\pagebreak

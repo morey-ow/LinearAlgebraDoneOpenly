@@ -1,0 +1,47 @@
+\startSolutions{orthodiagonable}{Orthogonal Diagonalization}
+
+\begin{enumerate}[!HW!, start=1]
+\begin{multicols}{2}
+\itemspade \scalebox{0.8}[1]{$\mtx{rr}{5/\sqrt{26} & -1/\sqrt{26} \\ 1/\sqrt{26} & 5/\sqrt{26}}\mtx{rr}{18&0\\0&-8}\mtx{rr}{5/\sqrt{26} & 1/\sqrt{26} \\ -1/\sqrt{26} & 5/\sqrt{26}}$} %NEW
+\itemspade \scalebox{0.75}{$\mtx{rcr}{1/\sqrt{3} & 1/\sqrt{2} & 1/\sqrt{6} \\  1/\sqrt{3} & -1/\sqrt{2} & 1/\sqrt{6} \\  1/\sqrt{3} & 0 & -2/\sqrt{6}}\mtx{ccc}{30&0&0\\0&-12&0\\0&0&6}\mtx{rrc}{1/\sqrt{3} & 1/\sqrt{3} & 1/\sqrt{3} \\  1/\sqrt{2} & -1/\sqrt{2} & 0 \\  1/\sqrt{6} & 1/\sqrt{6} & -2/\sqrt{6}}$} %NEW
+\end{multicols}
+\itemspade $\mtx{rccr}{1/2 & 1/\sqrt{2} & -1/\sqrt{6} & 1/\sqrt{12} \\ -1/2 & 1/\sqrt{2} & 1/\sqrt{6} & -1/\sqrt{12} \\ 1/2 & 0 & 2/\sqrt{6} & 1/\sqrt{12} \\ -1/2 & 0 & 0 & 3/\sqrt{12}}\mtx{rrrr}{-4&0&0&0\\0&8&0&0\\0&0&8&0\\0&0&0&8}\mtx{cccc}{1/2 & -1/2 & 1/2 & -1/2 \\ 1/\sqrt{2} & 1/\sqrt{2} & 0 & 0 \\ -1/\sqrt{6} & 1/\sqrt{6} & 2/\sqrt{6} & 0 \\ 1/\sqrt{12} & -1/\sqrt{12} & 1/\sqrt{12} & 3/\sqrt{12} }$ 
+%\\ $\mtx{rccr}{1/2 & 1/\sqrt{2} & 0 & -1/2 \\ -1/2 & 1/\sqrt{2} & 0 & 1/2 \\ 1/2 & 0 & 1/\sqrt{2} & 1/2 \\ -1/2 & 0 & 1/\sqrt{2} & -1/2 }\mtx{rrrr}{-4&0&0&0\\0&8&0&0\\0&0&8&0\\0&0&0&8}\mtx{cccc}{1/2 & -1/2 & 1/2 & -1/2 \\ 1/\sqrt{2} & 1/\sqrt{2} & 0 & 0 \\ 0 & 0 & 1/\sqrt{2} & 1/\sqrt{2} \\ -1/2 & 1/2 & 1/2 & -1/2 }$ %NEW
+\begin{multicols}{2}
+\itemspade \scalebox{0.73}[1]{$\mtx{cc}{(-1+i)/\sqrt{3} & (1-i)/\sqrt{6} \\ 1/\sqrt{3} & 2/\sqrt{6}}\mtx{cc}{3&0\\0&6}\mtx{cc}{(-1-i)/\sqrt{3} & 1/\sqrt{3} \\ (1+i)/\sqrt{6} & 2/\sqrt{6}}$}  %Anton 7.5.13 p.443
+\itemspade \scalebox{0.75}{$\mtx{ccc}{1&0&0\\0&(1-i)/\sqrt{3} & (-1+i)/\sqrt{6} \\ 0 & 1/\sqrt{3} & 2/\sqrt{6}}\mtx{ccc}{5&0&0\\0&-2&0\\0&0&1}\mtx{ccc}{1&0&0\\0&(1+i)/\sqrt{3}&1/\sqrt{3} \\ 0 & (-1-i)/\sqrt{6} & 2/\sqrt{6}}$} %Anton 7.5.17 p.443
+\end{multicols}
+
+\begin{multicols}{2}
+\itemspade $18\mtx{rr}{25/26 & 5/26 \\ 5/26 & 1/26} - 8\mtx{rr}{1/26 & - 5/26 \\ -5/26 & 25/26}$ %NEW
+\itemspade \scalebox{0.75}{$30\mtx{rrr}{1/3 & 1/3 & 1/3\\ 1/3 & 1/3 & 1/3\\ 1/3 & 1/3 & 1/3} - 12\mtx{rrr}{1/2 & -1/2 & 0 \\ -1/2 & 1/2 & 0 \\ 0 & 0 & 0} + 6\mtx{rrr}{1/6 & 1/6 & -1/3 \\ 1/6 & 1/6 & -1/3 \\ -1/3 & -1/3 & 2/3 }$} %NEW
+\end{multicols}
+\itemspade \scalebox{0.85}{$-4\mtx{rrrr}{1/4 & -1/4 & 1/4 & -1/4 \\ -1/4 & 1/4 & -1/4 & 1/4 \\ 1/4 & -1/4 & 1/4 & -1/4 \\ -1/4 & 1/4 & -1/4 & 1/4 } + 8\mtx{cccc}{1/2 & 1/2 & 0 &0 \\ 1/2 & 1/2 & 0 &0 \\ 0 & 0 & 0 &0 \\ 0 & 0 & 0 &0} + 8\mtx{cccc}{1/6 & -1/6 & -1/3 & 0 \\-1/6 & 1/6 & 1/3 & 0 \\ -1/3 & 1/3 & 2/3 & 0 \\ 0 & 0 & 0 & 0 } +  8\mtx{cccc}{1/12 & -1/12 & 1/12 & 1/4 \\ -1/12 & 1/12 & -1/12 & -1/4  \\ 1/12 & -1/12 & 1/12 & 1/4 \\ 1/4 & -1/4 & 1/4 & 3/4}$}
+\scalebox{0.85}{$= -4\mtx{rrrr}{1/4 & -1/4 & 1/4 & -1/4 \\ -1/4 & 1/4 & -1/4 & 1/4 \\ 1/4 & -1/4 & 1/4 & -1/4 \\ -1/4 & 1/4 & -1/4 & 1/4 } + 8\mtx{rrrr}{3/4 & 1/4 & -1/4 &1/4 \\ 1/4 & 3/4 & 1/4 &-1/4 \\ -1/4 & 1/4 & 3/4 &1/4 \\ 1/4 & -1/4 & 1/4 &3/4}$} %NEW
+
+\item Hint: Recall that $(A^{-1})^\top  = (A^\top )^{-1}$. %NEW
+%\begin{proof}
+%Since $A$ is orthogonal, we have $A^\top  = A^{-1}$. Then
+%\[(A^{-1})^\top  = (A^\top )^{-1} = (A^{-1})^{-1}.\]
+%%\[(A^{-1})(A^{-1})^\top  = A^\top (A^{-1})^\top  = (A^{-1}A)^\top  = I^n^\top  = I_n.\] Therefore, $(A^{-1})^\top  = (A^{-1})^{-1}$, which shows that 
+%Therefore, $A^{-1}$ is orthogonal.
+% \end{proof} \vs
+
+\item Hint: Recall that $(AB)^\top  = B^\top A^\top $. This is the shoes-socks property. Doesn't another matrix operation also have the shoes-socks property? %NEW
+%\begin{proof}
+%Since $A$ and $B$ are orthogonal, we have $A^{-1}=A^\top $ and $B^{-1}=B^\top $. Then
+%\[(AB)^\top  = B^\top A^\top  = B^{-1}A^{-1} = (AB)^{-1}.\] Therefore, $AB$ is orthogonal.
+%\end{proof}\vs
+
+\item Hint: Recall that $\det(A^\top ) = \det(A)$. %NEW
+%\begin{proof}
+%Let $A$ be an orthogonal matrix, that is, $A^\top  = A^{-1}$. Since $\det(A) = \det(A^\top )$, we have
+%\[1 = \det(I_n) = \det(A^{-1}A) = \det(A^\top A) = \det(A^\top )\det(A) = \det(A)\det(A) = \det(A)^2.\] Since $\det(A)^2=1$, we have that $\det(A) = \pm\sqrt{1}= \pm 1$.
+%\end{proof}\vs
+
+\item Hint: You may use the fact that $(U\bb x)\cdot (U\bb y) = \bb x\cdot \bb y$ for all $\bb x,\bb y\in \R^n$ if and only if $U$ is orthogonal. %NEW
+%\begin{proof}
+%Since $U$ is orthogonal, we have that $(U\bb x) \cdot (U\bb y) = \bb x\cdot \bb y$ for all $\bb x, \bb y\in \R^n$. Then 
+%\[\Vert U\bb x\Vert = (U\bb x)\cdot (U\bb x) = \bb x \cdot \bb x = \Vert \bb x\Vert. \qedhere\]
+%\end{proof}
+\end{enumerate}

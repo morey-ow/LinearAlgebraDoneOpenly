@@ -1,0 +1,59 @@
+\startSolutions{eigen}{Eigenvalues and Eigenvectors}
+
+\begin{enumerate}[!HW!, start=1]
+\begin{multicols}{6}
+\item yes,\\ $\lambda=5$ 
+\item no
+\item no 
+
+\itemspade yes,\\ $\lambda = 2$
+\itemspade no
+\itemspade yes,\\ $\lambda=-1$
+\end{multicols}
+
+\begin{multicols}{6}
+\itemspade yes,\\ $\lambda = 1$
+\itemspade yes,\\ $\lambda = 0$
+\itemspade no
+
+\itemspade $c\vr{1\\0}$
+\itemspade $c\vr{3\\1}$
+\itemspade $c\vr{1\\1}$
+\end{multicols}
+
+\begin{multicols}{5}
+\itemspade yes
+\itemspade yes
+\itemspade no
+\end{multicols}
+
+\begin{multicols}{3}
+\itemspade $\lambda = 5$, $\text{mult} = 1$,\\
+$\left\{\vr{2\\-4\\1}\right\}$;\\
+$\lambda = -3$, $\text{mult} = 1$,\\ $\left\{\vr{1\\2\\0}\right\}$ \columnbreak
+
+\itemspade $\lambda = -3$, $\text{mult} = 1$,\\
+$\left\{\vr{-1\\2\\1}\right\}$;\\
+$\lambda = 2$, $\text{mult} = 2$,\\
+$\left\{\vr{1\\0\\2}, \vr{-1\\2\\0}\right\}$ \columnbreak
+
+\item $\lambda=1$, $\text{mult}=1$,\\ 
+$\left\{\vr{1\\0\\0}\right\}$;\\
+$\lambda=2$, $\text{mult}=1$,\\ $\left\{\vr{1\\2\\1}\right\}$ %Yucheng Long
+\end{multicols}
+
+\item Hint: If $A\bb x = \lambda \bb x$, then what can we say about $A^2\bb x = A(A\bb x)$? Can we generalize this observation?
+%\begin{proof}
+%Since $A\bb x=\lambda \bb x$, we know recursively that $A^m\bb x = A^{m-1}(A\bb x) = A^{m-1}(\lambda \bb x) = \lambda(A^{m-1}\bb x) = \lambda(A^{m-2})(A\bb x) = \lambda(A^{m-2})(\lambda \bb x) = \lambda^2(A^{m-2}\bb x) =\ldots = \lambda^m\bb x$. Therefore, $\lambda^m$ is an eigenvalue of $A$ with associated eigenvector $\bb x$.
+%\end{proof}
+
+\item Hint: If $A$ is idempotent, then $A^2=A$. Use Exercise \ref{exer:squareeigenvalue}.
+%\begin{proof}
+%Since $A$ is idempotent, we know that $A^2=A$. Then $\lambda\bb x = A\bb x = A^2\bb x = \lambda^2\bb x$. So, $(\lambda^2-\lambda)\bb x = \bb 0$. Since $\bb x\neq \bb 0$, we conclude that $\lambda^2-\lambda = \lambda(\lambda - 1)=0$, which implies that $\lambda =0, 1$.
+%\end{proof}
+
+\item Hint: If $A$ is nilpotent, then $A^n=0$ for some $n$. Use Exercise \ref{exer:squareeigenvalue}.
+%\begin{proof}
+%Since $A$ is nilpotent, we know that $A^n=0$. Then $0 = 0\bb x = A^n\bb x = \lambda^n\bb x$. Since $\bb x\neq \bb 0$, we conclude that $\lambda^n=0$, which implies that $\lambda =0$.
+%\end{proof}
+\end{enumerate}

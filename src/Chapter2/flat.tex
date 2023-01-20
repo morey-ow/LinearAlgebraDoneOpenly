@@ -1,0 +1,304 @@
+\begin{center} 
+\emph{``Space is an inspirational concept that allows you to dream big.'' -- Peter Diamandis}
+\end{center}
+
+\section{Affine Geometry}\label{sec:flat}
+For any field, there is a limited amount of geometry, called \textbf{affine geometry}, we can attach to the vector space $F^n$ by mimicking geometric structures from $\R^n$.\\
+
+\begin{Def} Let $F^n$ be a vector space. Then a \textbf{flat} (or \textbf{affine set}) is a subset of $F^n$ which is congruent to $F^m$ for some $0\le m\le n$. Equivalently, flats are solution sets of linear systems (vector equations, matrix equations, etc.).
+\end{Def}\vs
+
+To describe flats, e.g., points, lines, planes, we present two recursive constructions: \emph{Top-Down} or \emph{Bottom-Up}. The \emph{Top-Down} approach is to start with a single non-zero, linear equation $a_{1,1}x_1+\ldots + a_{1,n}x_n=b_i$. The solution set of this linear equation forms a special kind of flat, called  a \textbf{hyperplane}. For example, $ax+by+cz=d$ defines a \emph{plane} in $\R^3$. By plane, we mean something that ``looks'' like $\R^2$ inside of $\R^n$. In general, a \emph{plane} over $F^n$ should be a subset that ``looks'' like $F^2$. The solution set to this $1\times n$ system should have $n-1$ free variables. Generally speaking, we view a hyperplane in $F^n$ as an affine set that ``looks'' likes $F^{n-1}$ in $F^n$. \\
+
+Next, consider a linear system that contains the above linear equation and a second one $a_{2,1}x_1 + \ldots + a_{2,n}x_n=b_2$. The solution set to this $2\times n$ linear system is geometrically the intersection of the two hyperplanes, for example, two distinct planes intersecting in $\R^3$ form a \emph{line}. By line, we mean something that looks like $\R^1=\R$ inside of $\R^n$. In general, a \emph{line} over $F^n$ should be a subset that ``looks'' like $F^1=F$. If the equations are linearly independent, then this $2\times n$ system will have $n-2$ free variables. Hence, we view an intersection of two hyperplanes in $F^n$ as an affine set that ``looks'' likes $F^{n-2}$ in $F^n$. \\
+
+Continuing in this fashion of expanding the linear system by adding new linear equations while maintaining linear independence, the $m\times n$ linear system will have  $n-m$ free variables and the flat will resemble $F^{n-m}$. This continues until $m=n$ and the intersection of hyperplanes is just a point, which resembles $F^0=\{\bb 0\}$. In this case, there are no free variables to the linear system. This is, of course, only true if the set of linear equations is linearly independent; if linearly dependent, then at least one equation is a linear combination of the rest and its removal does not change the flat one bit. That is, the inclusion of a linear combination of equations already in the system offers no restriction on the solution set whatsoever, and this equation is frankly redundant to the linear system. This summarizes the \emph{Top-Down} approach to affine sets.\\
+
+The ``shape'' of the flat, that is, the parameter $p$ for which the affine set resembles $F^p$, appears to be determined by the number of free variables in the linear system. The \emph{Bottom-Up} approach to flats is to adjoin more and more free variables until the flat has the right ``shape.''\\
+
+A \textbf{point} in $F^n$ is the solution to the vector equation \[ \bb x = \bb x_0,\] where $\bb x$ is a variable vector and $\bb x_0$ is a fixed vector. So a point in $F^n$ is just a vector, that is, $P = \bb x_0$. It is also a translation of the empty span $\Span\{\} = \{\bb 0\} = F^0$.\\
+
+A \textbf{line} in $F^n$, call it $\ell$,  is the translation of the span of a single vector $\bb v$, which acts as the direction or slope of the line. If $\bb x_0$ is a point on $\ell$, then $\ell$ is the solution set to the vector equation
+\[ \bb x = \bb{x_0} + t\bb v.\] 
+
+Similarly, a \textbf{plane} in $F^n$, call it $\mathcal{P}$, is a translation of a span of two linearly independent vectors, that is, a translation of $\Span\{\bb u, \bb v\}$. Then $\mathcal{P}$ is the solution set to the vector equation
+\[ \bb x = \bb{x_0} + s\bb u + t\bb v,\]
+where vectors $\bb u,\ \bb v\in F^n$, $\{\bb u, \bb v\}$ is linear independent, and $\bb{x_0}$ is on $\mathcal{P}$.\\
+
+By allegory, we can construct higher flats by increasing the number of linearly independent vectors in the linear combination associated with the vector equation, that is, we increase the number of linearly independent vectors in the spanning set, the so-called \textbf{spanners} of the flat. For example, a hyperplane in $F^4$ is the set of solutions to the vector equation 
+\[\bb x = \bb x_0 + r\bb u + s\bb v + t\bb w,\] where $\{\bb u, \bb v, \bb w\}\subseteq F^4$ is linearly independent. More generally, an $m$-flat is the solution set to the vector equation
+\begin{equation}\label{eq:flatvectorform} \bb x = \bb x_0 + \sum_{i=1}^m t_i\bb v_i, \end{equation} where $\{\bb v_1, \bb v_2, \ldots, \bb v_m\} \subseteq F^n$ is a linearly independent set of vectors. Equation \eqref{eq:flatvectorform} is called the \textbf{vector form of the flat}. Each component in this vector equation is a linear equation in its own right. The system of linear equations associated to this vector equation is called the \textbf{parametric equations} of the flat. These parametric equations would be the general solution to the $(n-1)\times n$ \emph{Top-Down} linear system described above. This summarizes the \emph{Bottom-Up} approach to affine sets.\\
+
+\begin{Exam} Find a vector equation and parametric equations of the line in $\R^3$ that passes through the point $\bb{x_0} = \vr{1\\2\\3}$ and is parallel to the vector $\bb v = \vr{5\\-3\\1}$.\\
+
+\begin{multicols}{2}
+If the flat is said to be ``parallel''  to a vector, then that vector acts as a spanner for the flat. Hence, the vector equation is simple enough:
+\[\bb x = \bb{x_0} + t\bb v\]
+\[\vr{x_1\\x_2\\x_3} = \vr{1\\2\\3} + t\vr{5\\-3\\1}.\]\columnbreak 
+
+\mbox{}\vfill
+For the parametric equations, we look closer:
+\[\begin{linear}
+x_1\ &=\ & 1\ &+\ &5t\\
+x_2\ &=\ & 2\ &-\ &3t\\
+x_3\ &=\ & 3\ &+\ &t&.
+\end{linear} \]$\hfill\qedhere$
+\end{multicols}
+\end{Exam}\vs
+
+\begin{Exam} Find a vector equation and parametric equations of the line in $\R^4$ that passes through the origin and is parallel to the vector $\bb v = (4, -3, 2, -1)$.\\
+\begin{multicols}{2}
+As the line passes through the origin, we set $\bb x_0=\bb 0$. Hence, the vector equation for this line is :
+\[\bb x = t\bb v,\]
+\[\vr{x_1\\x_2\\x_3\\x_4} = t\vr{ 4\\-3\\2\\-1},\]
+\columnbreak 
+
+\mbox{}\vfill
+and the the parametric equations are given as:
+\[\begin{linear}
+x_1\ &=\ & 4t\\
+x_2\ &=\ & -3t\\
+x_3\ &=\ & 2t\\
+x_4\ &=\ & -t&.
+\end{linear} \]$\hfill\qedhere$
+\end{multicols}
+\end{Exam}\vs
+
+\begin{Exam}\label{exam:planeST} %Contributed by Jacob Kuhn, with my modification
+Find a vector equation and parametric equations of the plane in $\R^4$ that passes through $\bb x_0 = (26,3,-13,-18)$ and is parallel to both the vectors $\bb u = (1,-3,-2,-1)$ and $\bb v =(0,0,1,0) $.
+\begin{multicols}{2}
+The vector equation takes on the form: \[\bb x = \bb{x_0} + s\bb u + t\bb v,\]
+\[\vr{x_1\\x_2\\x_3\\x_4} = \vr{26\\3\\-13\\-18} + s\vr{1\\-3\\-2\\-1}+t\vr{0\\0\\1\\0},\]\columnbreak
+
+\mbox{}\vfill
+and the the parametric equations are given as:
+\[\begin{linear}
+x_1\ &=\ &26\ &+\ &s\ \\
+x_2\ &=\ &3\  &-\ &3s\ &\\
+x_3\ &=\ &-13\ &-\ &2s\ &+\ &t\\
+x_4\ &=\ &-18\ &-\ &s\ 
+\end{linear}.\]$\hfill\qedhere$
+\end{multicols}
+\end{Exam}\vs
+
+%%%%%%%%%%%%%%%% Convex Sets %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We can also extend the notion of a line segment to any vector space\footnotemark[2]. Let $\bb u, \bb v\in F^n$. Then the \textbf{segment} (or \textbf{interval}) from $\bb x_0$ to $\bb x_1$ is defined as $[\bb x_0, \bb x_1] = \{(1-t)\bb x_0 + t \bb x_1\mid 0\le t\le 1\}$. Note that $(1-t)\bb x_0 + t\bb x_1 = \bb x_0 + t(\bb x_1-\bb x_0)$. Hence, any element belonging to the segment $[\bb x_0, \bb x_1]$ is a member of the line associated to the vector equation $\bb x = \bb x_0 + t(\bb x_1-\bb x_0)$. Notice this line contains both $\bb x_0$ ($t=0$) and $\bb x_1$ ($t=1$).\\
+
+% This idea can be generalized to higher flats too.\\
+
+% \begin{Def} Given vectors $\bb x_0, \bb x_1, \ldots, \bb x_m \in F^n$, the vector $\bb x$ given as \[\bb x = c_0\bb x_0 + \bb c_1\bb x_1 +\ldots + c_m\bb x_m\] is called a  \textbf{convex combination} of $\bb x_0, \bb x_1, \ldots, \bb x_m$ if the scalars $c_i$ each satisfy the inequality $0\le c_i\le 1$ for all $i$ and $c_0+c_1+\ldots + c_m=1$.\footnotemark[8] The \textbf{convex hull} of $\{\bb x_0, \bb x_1, \ldots, \bb x_m\}$, denoted $[\bb x_0, \bb x_1, \ldots, \bb x_m]$, is the set of all convex combinations of $\bb x_0, \bb x_1, \ldots, \bb x_m$, that is, 
+% \[[\bb x_0, \bb x_1, \ldots, \bb x_m] = \left\{\sum_{i=0}^m c_i\bb x_i\ \middle|\ 0\le c_i\le 1, \sum_{i=0}^m c_i=1\right\}.\]
+% \end{Def}\vs
+
+% Note that, similar to line segments, any convex combination could be written as \[\bb x = (1-t_1-t_2-\ldots - t_m)\bb x_0 + t_1\bb x_1+t_2\bb x_2+\ldots + t_m\bb x_m.\] Hence, the flat containing the points  $\bb x_0, \bb x_1, \ldots, \bb x_m$ is determined by the equation
+% \begin{equation}\bb x = \bb x_0 + t_1(\bb x_1-\bb x_0) + t_2(\bb x_2-\bb x_0) +\ldots + t_m(\bb x_m-\bb x_0) .\end{equation}
+
+% Notice that spanners for a flat can be found by taking differences of specific vectors on the flat.\\
+%%%%%%%%%%%%%%%% Convex Sets %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Suppose we have a line which contains the vector $\bb x_0$ and with spanner $\bb v$. Let $\bb x_1$ be another vector on this line. Then there exists some $s\in F$ such that $\bb x_1 = \bb x_0 + s\bb v$. Note that $s\neq 0$, since $\bb x_1\neq \bb x_0$. Hence, $s\bb v = \bb x_1-\bb x_0$, which implies that the difference of any two vectors on the line is the a scalar multiple of the spanner. Also, $\bb v = \frac{1}{s}(\bb x_1 - \bb x_0)$. Thus, for any vector $\bb x$ on the line, we have 
+\[\bb x = \bb x_0 + t\bb v = \bb x_0 + \dfrac{t}{s}(\bb x_1 - \bb x_0) = \dfrac{s-t}{s}\bb x_0 + \dfrac{t}{s}\bb x_1.\] Note that the coefficients satisfy the condition that $\dfrac{s-t}{s} + \dfrac{t}{s} = 1$. In general, the line containing $\bb x_0$ and $\bb x_1$ is the set of vectors of the form $\{a_0\bb x_0 + a_1\bb x_1\mid a_0, a_1\in F, a_0+a_1=1\}$.\\ 
+
+These principles can be generalized to higher flats too.\\
+
+\begin{Def} Given vectors $\bb x_0, \bb x_1, \ldots, \bb x_m \in F^n$, the vector $\bb x$ given as \[\bb x = a_0\bb x_0 + \bb a_1\bb x_1 +\ldots + a_m\bb x_m\] is called an  \textbf{affine combination} of $\bb x_0, \bb x_1, \ldots, \bb x_m$ if the scalars $a_i$ satisfy the equality $a_0+a_1+\ldots + a_m=1$. The \textbf{affine span} of $\{\bb x_0, \bb x_1, \ldots, \bb x_m\}$, denoted $\aff(\bb x_0, \bb x_1, \ldots, \bb x_m)$, is the set of all affine combinations of $\bb x_0, \bb x_1, \ldots, \bb x_m$, that is, 
+\[\aff(\bb x_0, \bb x_1, \ldots, \bb x_m) = \left\{\sum_{i=0}^m a_i\bb x_i\ \middle|\ \sum_{i=0}^m a_i=1\right\}.\]
+\end{Def}\vs
+
+Note that the affine span of the vectors $\bb x_0,\ldots, \bb x_m$ is not the same object as the linear span of the vectors $\bb x_0,\ldots, \bb x_m$ (recall \defref{def:linearspan}), although in general
+\begin{equation} \aff\{\bb x_0,\ldots, \bb x_m\} \subseteq \Span\{\bb x_0,\ldots, \bb x_m \}.\end{equation} Since affine combinations are linear combinations with the extra condition that scalars sum to 1, all affine combinations are linear combinations, but the converse does not hold, hence the above inequality. The affine span of the vectors $\bb x_0,\ldots, \bb x_m$ is the smallest affine set containing these specific vectors. To see this, note that because of the assumption about the coefficients, any affine combination could be written as \[\bb x = (1-a_1-a_2-\ldots - a_m)\bb x_0 + a_1\bb x_1+a_2\bb x_2+\ldots + a_m\bb x_m.\] On the other hand, the affine combination $\bb x$ is on the flat determined by the equation
+\begin{equation}\label{eq:affineflat}\bb x = \bb x_0 + a_1(\bb x_1-\bb x_0) + a_2(\bb x_2-\bb x_0) +\ldots + a_m(\bb x_m-\bb x_0) .\end{equation} Notice this flat also contains each $\bb x_j$, which is obtained by setting $a_i=1$ when $i=j$ and $a_i=0$ when $i\neq j$. \\
+
+We see the very important observation from \eqref{eq:affineflat}: the spanners for a flat can be found by taking differences of specific vectors on the flat.\\
+
+\begin{Exam}  Find a vector equation and parametric equations of the line in $\R^3$ through $(1, 2, 3)$ and $(2, -2, 0)$.\\
+
+We can take $\bb x_0$ to be either of the two points. We will take $\bb x_0 = (1,2,3)$. To get the spanner $\bb v$, we need to take the difference of the two vectors provided, that is,
+$\bb v = (2,-2,0) - (1,2,3) = (1,-4,-3).$ 
+\begin{multicols}{2}
+Therefore, the vector equation is given as \[\bb x = \bb{x_0} + t\bb v,\] 
+\[\vr{x_1\\x_2\\x_3} = \vr{1\\2\\3} + t\vr{1\\-4\\-3},\]
+\columnbreak 
+
+\mbox{}\vfill and the parametric equations as: 
+\[\begin{linear}
+x_1\ &=\ & 1\ &+ &t\\
+x_2\ &=\ & 2\ &-&4t\\
+x_3\ &=\ & 3\ &- & 3t
+\end{linear}.\]$\hfill\qedhere$
+\end{multicols}
+\end{Exam}
+
+\begin{Exam}\label{exam:planeAB} %Jacob Kuhn
+Find a vector equation and parametric equations of the plane in $\R^4$ that passes through $(-17,6,29,0)$, $(-13,3,25,-2)$, and $(-15,6,25,-1)$.\\
+
+We can take $\bb x_0$ to be any of the three points. We will take $\bb x_0 = (-17,6,29,0)$. To get the spanners $\bb u$ and $\bb v$, we need to take the differences of the three vectors provided, that is, 
+\[\bb u = (-13,3,25,-2) - (-17,6,29,0) = (4,-3,-4,-2),\quad\text{and}\quad \bb v = (-15,6,25,-1) - (-17,6,29,0) = (2,0,-4,-1).\]
+
+\begin{multicols}{2}
+Therefore, the vector equation is given as: \[\bb x = \bb{x_0} + a\bb u + b\bb v,\]
+\[\vr{x_1\\x_2\\x_3\\x_4} = \vr{-17\\6\\29\\0} + a\vr{4\\-3\\-4\\-2} + b\vr{2\\0\\-4\\-1},\]\columnbreak 
+
+\mbox{}\vfill
+and the parametric equations as 
+\[\begin{linear}
+x_1\ &=\ &-17\ &+\ &4a\ &+\ &2b\\
+x_2\ &=\ &6\ &-\ &3a\ \\
+x_3\ &=\ &29\ & -\ &4a\ &-\ &4b\\
+x_4\ &=\ &&-\ &2a\ &-\ &b
+\end{linear}.\]$\hfill\qedhere$
+\end{multicols}
+\end{Exam}\vs
+
+Note that each flat corresponds to the solution set of a linear system: the parametric equations for the \emph{Bottom-Up} approach or the $m\times n$ linear system for the \emph{Top-Down} approach. In the \emph{Top-Down} approach, to compute the intersection of two flats in $F^n$, one need only take the union of all the linear equations from their associated linear systems and solve the combined linear system. This really is the drive between \emph{Top-Down}: intersections! For computing the intersection with the \emph{Bottom-Up} approach, it is important to remember that we use different symbols for the free variables in the different parametric equations. The intersection of flats is the set of all points that are in both subsets. The parameters that give these coincident points do not have to be the same. If the same symbols for the parameters are used, it makes the false impression that the parameters must be equal, which is not true in general.\\
+
+\begin{Exam} Find the intersection for the two planes in $\R^4$ from Examples \ref{exam:planeST} and \ref{exam:planeAB}.\\ %Jacob Kuhn
+
+To begin, we can equate the values for the dependent variables $x_1, x_2, x_3, x_4$, as follows:
+\[\begin{linear}
+26\ &+\ &s\ && &=\ &-17\ &+\ &4a\ &+\ &2b\\
+3\  &-\ &3s\ & & &=\ &6\ &-\ &3a\ \\
+-13\ &-\ &2s\ &+\ &t\ &=\ &29\ & -\ &4a\ &-\ &4b\\
+-18\ &-\ &s\ && &=\ &&-\ &2a\ &-\ &b
+\end{linear}\quad\sim\quad \begin{linear}
+4a\ &+\ &2b\ &-\ &s\ &&& =\ &43\\
+-3a\ && &+ \ &3s\ & &\ &=\ &-3\\
+-4a\ &-\ &4b\ &+\ &2s\ &-\ &t\ &=\ &-42\\
+-2a\ &-\ &b\ &+\ &s\ &&\ &=\ &-18
+\end{linear}\quad\sim\quad \begin{linear}
+a\ &&&&=\ && 8\\
+&b\ &&&=\ && 9\\
+&&s\ &&=\ && 7\\
+&&&t\ &=\ && -12
+\end{linear} \] Solving this linear system gives the values $a = 8$ and $b=9$ ($s = 7$ and $t=-12$), which implies that there is a unique point of intersection between the two planes, \fbox{$(33, -18, -39, -25)$}. As bizarre as it may be to visualize, although two distinct planes cannot intersect at a unique point in 3-space, they can in 4-space.
+\end{Exam}
+
+%anon
+\begin{Exam} In the following example, we will compute the intersection between two affine sets, but we will do it twice! The first time we will compute the intersection when the flats are represented \emph{Top-Down}, and the second attempt will be when the flats are represented \emph{Bottom-Up}. We present them side-by-side for the reader to compare the differences in the representation.\\
+
+Find the intersection of the two affine sets in $\R^3$ given as:
+\setlength{\columnseprule}{0.4pt}
+\begin{multicols}{2}
+\centerline{\textbf{\emph{Top-Down}}}\vspace{-5 pt}
+\[\begin{linear}
+x_1\ &+\ &3x_2\ &-\ &x_3\ &=\ &16\\
+x_1\ &+\ &4x_2\ &+\ &x_3\ &=\ &24
+\end{linear}\] and 
+\[\begin{linear}
+3x_1\ &+\ &7x_2\ &-\ &6x_3\ &=\ &34\\
+-3x_1\ &-\ &8x_2\ &+\ &4x_3\ &=\ &-42&.
+\end{linear}\]\vs
+
+To begin, we combine the two linear systems into one. Note that any vector on the first flat is a solution to the first two equations, and any vector on the second flat is a solution to the second two equations. Hence, a vector on their intersection will be a solution to all four linear equations. 
+\[\begin{linear}
+x_1\ &+\ &3x_2\ &-\ &x_3\ &=\ &16\\
+x_1\ &+\ &4x_2\ &+\ &x_3\ &=\ &24\\
+3x_1\ &+\ &7x_2\ &-\ &6x_3\ &=\ &34\\
+-3x_1\ &-\ &8x_2\ &+\ &4x_3\ &=\ &-42&.
+\end{linear}\]
+We proceed to solve the linear system:
+\[\mtx{rrr|r}{1&3&-1&16\\1&4&1&24\\3&7&-6&34\\-3&-8&4&-32}\sim \mtx{rrr|r}{1&0&0&6\\0&1&0&4\\0&0&1&2\\0&0&0&0}\]
+Therefore, the intersection of the two affine sets is the point $\bb x = \fbox{$(6,4,2)$}$.
+\columnbreak
+
+\centerline{\textbf{\emph{Bottom-Up}}}
+$\begin{linear}
+x_1\ &=\ &-1\ &+\ &7s\\
+x_2\ &=\ &6\ &+\ &-2s\\
+x_3\ &=\ &1\ &+\ &s
+\end{linear}$
+and
+$\begin{linear}
+x_1\ &=\ &-14\ &+\ &20t\\
+x_2\ &=\ &10\ &-\ &6t\\
+x_3\ &=\ &-1\ &+\ &3t
+\end{linear}$\\
+
+To begin, we equate the variables for each of the parametric equations. Then remove the coordinate vector and solve the parameters as a linear system.
+\[\begin{linear}
+7s\ &-\ &1\ &=\ &x_1\ &=\ &20t\ &-\ &14\\
+-2s\ &+\ &6\ &=\ &x_2\ &=\ &-6t\ &+\ &10\\
+s\ &+\ &1\ &=\ &x_3\ &=\ &3t\ &-\ &1\\
+\end{linear}
+\sim \begin{linear}
+7s\ &-\ &20t\ &=\ &-13\\
+-2s\ &+\ &6t\ &=\ &4\\
+s\ &-\ &3t\ &=\ &-2
+\end{linear}\]
+We proceed to solve the linear system:
+\[\mtx{rr|r}{7&-20&-13\\-2&6&4\\1&-3&-2}\sim \mtx{rr|r}{1&0&1\\0&1&1\\0&0&0}\]
+
+Hence, the intersection occurs when the parameters are $s=1$ and $t=1$. Therefore, the intersection of the two affine sets is the point $\bb x = (-1+7(1), 6-2(1), 1+(1)) = (-14+20(1), 10-6(1), -1+3(1)) = \fbox{$(6,4,2)$}$. $\hfill \qedhere$
+\end{multicols}
+\setlength{\columnseprule}{0pt}
+\end{Exam}
+
+%%%%%%%%%%%%%%%%%%% Exercises %%%%%%%%%%%%%%%%%%%
+\startExercises{flat}
+
+\noindent For Exercises \ref{exer:flatdimensionstart}-\ref{exer:flatdimensionstop}, describe what vector space the given affine set resembles. Assume all vectors and equations are linearly independent.  
+\begin{enumerate}[!HW!, start=1, label=$\spadesuit$ \arabic*., ref=\arabic*]
+\begin{multicols}{2}
+\item\label{exer:flatdimensionstart}  A linear system with 4 equations and 6 variables.
+\item  A linear system with 7 equations and 8 variables.
+\end{multicols}
+\begin{multicols}{2}
+\item  A linear system with 4 equations and 12 variables.
+\item The span of three vectors.
+\end{multicols}
+\begin{multicols}{2}
+\item The translations of the span of five vectors.
+\item\label{exer:flatdimensionstop} The span of no vectors, that is, $\Span\{\}$.
+\end{multicols}
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:flateqnrealtart}-\ref{exer:flateqnrealstop}, find the vector form and parametric equations for the given affine set. Answers may vary.
+\begin{enumerate}[!HW!]
+\item\label{exer:flateqnrealtart}\label{exer:chanceline} The line passing through $(5,4,6)$ and $(1,-2,-3)$ in $\R^3$. %Chance Witt
+\item  The plane containing $(-3,6,1)$ and parallel to $(4,-2,3)$ and $(1,6,5)$ in $\R^3$. %Chance Witt
+\itemspade \label{exer:chanceplane}The plane containing $(1,2,3,4)$, $(0,1,0,1)$, and $(-1,-2,1,4)$ in $\R^4$.
+\itemspade The hyperplane containing $(0,1,4,-1)$, $(11,0,0,2)$, $(-2,-3,0,1)$, and $(9,9,0,-1)$ in $\R^4$.
+\end{enumerate}
+\begin{enumerate}[!HW!,label=$\spadesuit$ \arabic*., ref=\arabic*]
+\itemspade The line containing $(i,1+2i)$ and parallel to the vector $(2-i, 5)$ in $\C^2$.
+\itemspade
+The line passing through $(1,2,3)$ and $(0,1,3)$ in $\Z_5^3$.
+\item%spade
+\label{exer:flateqnrealstop} The plane containing $(2,3,1)$ and parallel to $(1,2,3)$ and $(0,0,5)$ in $\Z_7^3$.
+\end{enumerate}
+
+\noindent For Exercises \ref{exer:flatintersectstart}-\ref{exer:flatintersectstop}, find the intersection between the two flats provided. Answers may vary.
+\begin{enumerate}[!HW!]
+\item\label{exer:flatintersectstart} $\begin{linear} %Daven Triplett
+x_1\ &+\ &x_2\ &+\ &x_3\ &-\ &5x_4\ &=\ &3\\
+2x_1\ &+\ &3x_2\ &&&+\ &2x_4\ &=\ &-4
+\end{linear}$\quad and\quad $\begin{linear}
+5x_1\ &+\ &2x_2\ &-\ &x_3\ &-\ &x_4\ &=\ &-3\\
+-3x_1\ & &&+\ &2x_3\ &-\ &4x_4\ &=\ &5
+\end{linear}$ 
+\itemspade $\begin{linear}
+-x_1\ &&&-\ &6x_3\ &-\ &x_4\ &=\ &-17\\
+-3x_1\ &+\ &2x_2\ &-\ &10x_3\ &-\ &3x_4\ &=\ &-33
+\end{linear}$\quad and\quad $\begin{linear}
+x_1\ &-\ &2x_2\ &-\ &2x_3\ &+\ &x_4\ &=\ &-1\\
+& &x_2\ &+\ &3x_3\ &-\ &3x_4\ &=\ &5
+\end{linear}$ 
+\item $\bb x = \vr{-2\\2\\-4}+a\vr{1\\-1\\2}$ and $\bb x=\vr{3\\-1\\2}+b\vr{4\\-2\\0}+c\vr{-3\\1\\4}$ %Ashley Taylor
+\itemspade $\bb x = \vr{4\\2\\6\\-2} + a\vr{-1\\0\\-1\\2}$\quad and \quad $\bb x  = \vr{4\\-2\\4\\15} + b\vr{1\\0\\3\\-5} + c\vr{2\\-2\\2\\3}$.
+\item\label{exer:flatintersectstop} The affine sets from Exercises \ref{exer:chanceline} and \ref{exer:chanceplane}. %Chance Witt 
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% Footnotes %%%%%%%%%%%%%%%%%%%
+% \mbox{}\vfill
+
+% \footnotetext[2]{Note that is really only possible for fields which have a notion of \textbf{order}, that is, a relation $\le$ that satisfies the conditions:\\
+% %\begin{enumerate}%[!THM!, start=1]
+% %\item 
+% $(i)$ if $a \le b$ then $a+c\le b+c$ for all $a,b,c\in F$;\\
+% %\item 
+% $(ii)$ if $a\le b$ and $c\ge 0$ then $ac\le bc$ for all $a, b, c\in F$.\\
+% %\end{enumerate} 
+% A field with such an ordering is called an \textbf{ordered field}. Be aware that not all fields are ordered. While $\Q$ and $\R$ are ordered fields, $\C$ and $\Z_p$ (for any prime) are not ordered. Hence, segments do not really make sense on those vector spaces although lines still do. This shows that notions of \emph{incidence geometry} hold in general vector spaces, notions of \emph{betweenness geometry} only hold in vector spaces over ordered fields.}
+
+% \footnotetext[8]{In other words, a linear combination is convex whenever the coefficients form a discrete probability distribution.  }
+\pagebreak
